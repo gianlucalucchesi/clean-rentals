@@ -1,0 +1,9 @@
+server:
+  port: 8080 #default
+
+# Environment variables are stored in "Run -> Edit Configurations -> Environment variables" for security reasons
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PWD}
