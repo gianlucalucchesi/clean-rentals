@@ -2,7 +2,6 @@ package com.cleanrentals.api.controllers;
 
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
-import com.cleanrentals.api.models.Brand;
 import com.cleanrentals.api.models.Car;
 import com.cleanrentals.api.repositories.CarRepository;
 import io.swagger.annotations.Api;
@@ -22,15 +21,11 @@ public class CarController {
     @Autowired
     private CarRepository carRepository;
 
-    @GetMapping("all")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Car>> getAll() throws NotFoundException {
-        List<Car> carList = carRepository.findAll();
-
-        if (carList.size() == 0)
-            throw new NotFoundException("No cars");
-
-        return new ResponseEntity<List<Car>>(carList, HttpStatus.OK);
+    public ResponseEntity<List<Car>> get() throws NotFoundException {
+        List<Car> cars = carRepository.findAll();
+        return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
@@ -54,5 +49,16 @@ public class CarController {
 
         car.setId(UUID.randomUUID());
         return carRepository.saveAndFlush(car);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable UUID id) throws NotFoundException {
+        Optional<Car> optionalCar = carRepository.findById(id);
+
+        if (optionalCar.isEmpty())
+            throw new NotFoundException(String.format("Car with id %s does not exist", id));
+
+        carRepository.delete(optionalCar.get());
     }
 }

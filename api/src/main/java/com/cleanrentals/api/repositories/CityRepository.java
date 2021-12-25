@@ -1,6 +1,6 @@
 package com.cleanrentals.api.repositories;
 
-import com.cleanrentals.api.models.Car;
+import com.cleanrentals.api.models.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, UUID> {
-    @Query("SELECT c FROM car AS c WHERE (LOWER(model) = LOWER(:name)) AND brand_id = :brand_id")
-    Optional<Car> findByModelAndBrand(String name, UUID brand_id);
+public interface CityRepository extends JpaRepository<City, UUID> {
+    @Query("SELECT c FROM city AS c WHERE (LOWER(name) = LOWER(:name)) AND country_id = :countryId")
+    Optional<City> findByName(String name, UUID countryId);
 }
