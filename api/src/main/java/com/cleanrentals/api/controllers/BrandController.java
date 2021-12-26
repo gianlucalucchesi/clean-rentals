@@ -8,11 +8,9 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,7 +40,7 @@ public class BrandController {
 //        return new ResponseEntity<Brand>(optionalBrand.get(), HttpStatus.OK);
 //    }
 
-    @GetMapping("{id}")
+    @GetMapping(value = "{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Brand> get(@PathVariable UUID id) throws NotFoundException {
         Optional<Brand> optionalBrand = this.brandRepository.findById(id);
@@ -90,4 +88,5 @@ public class BrandController {
 
         brandRepository.deleteById(id);
     }
+
 }

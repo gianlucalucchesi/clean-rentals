@@ -1,9 +1,23 @@
-server:
-  port: 8080 #default
+# Environment variables ${xxx} are stored in
+# "Run -> Edit Configurations -> Environment variables" (IntelliJ IDEA) for security reasons
 
-# Environment variables are stored in "Run -> Edit Configurations -> Environment variables" for security reasons
+debug: false
+
+server:
+  port: 8080 # 8080 = default port
+
+auth0:
+  audience: ${AUTH0_AUDIENCE}
+
 spring:
   datasource:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PWD}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Replace with the domain of your Auth0 tenant.
+          # Note the trailing slash is important!
+          issuer-uri: ${AUTH0_DOMAIN}
