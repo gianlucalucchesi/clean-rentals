@@ -16,9 +16,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/api/v1/car", produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(tags="car") // Swagger doc
-@CrossOrigin(origins = "*")
+@Api(tags="Car") // Swagger doc
 public class CarController {
     @Autowired
     private CarRepository carRepository;
@@ -30,7 +30,7 @@ public class CarController {
         return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "private/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Car> get(@PathVariable UUID id) throws NotFoundException {
         Optional<Car> optionalCar = carRepository.findById(id);

@@ -27,13 +27,17 @@ public class Auth0Token {
 
         TokenDTO token = new Gson().fromJson(response.getBody(), TokenDTO.class);
 
-        return token.access_token;
+        return token.claim();
     }
 }
 
 /**
- * Token model for Json deserialization
+ * Token model for JSON deserialization
  */
 class TokenDTO {
-    public String access_token;
+    private String access_token;
+
+    public String claim() {
+        return access_token;
+    }
 }

@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/city")
-@Api(tags="city") // Swagger doc
+@Api(tags="City") // Swagger doc
 public class CityController {
     @Autowired
     private CityRepository cityRepository;

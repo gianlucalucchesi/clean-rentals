@@ -1,7 +1,9 @@
 package com.cleanrentals.api.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,8 +11,12 @@ import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 
+import javax.sql.DataSource;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private DataSource dataSource;
 
     @Value( "${auth0.audience}" )
     private String audience;
@@ -18,15 +24,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuer;
 
-    // TODO: add new scopes
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .mvcMatchers("/api/public").permitAll()
                 .mvcMatchers("/api/private").authenticated()
+                .mvcMatchers("/api/v1/*/private/*").authenticated()
+                // TODO: add new scopes here
                 .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:cars")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
+    }
+
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Bean
@@ -42,5 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         return jwtDecoder;
     }
+
 }
 

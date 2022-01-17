@@ -16,8 +16,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/brand")
-@Api(tags = "brand") // Swagger doc
+@Api(tags = "Brand") // Swagger doc
 public class BrandController {
     @Autowired
     private BrandRepository brandRepository;

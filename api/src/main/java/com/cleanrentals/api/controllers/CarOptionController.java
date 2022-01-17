@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/car-option")
-@Api(tags="car option") // Swagger doc
+@Api(tags="Car Option") // Swagger doc
 public class CarOptionController {
     @Autowired
     private CarOptionRepository carOptionRepository;
