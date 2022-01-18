@@ -1,9 +1,16 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { faCalendarAlt, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import {
+  faCarAlt,
+  faDollarSign,
+  faEuroSign,
+  faPowerOff,
+  faShoppingCart,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { CurrencyService } from 'src/app/services/currency.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,16 +18,32 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  isCollapsed = true;
+  // Navbar layout logic
+  isCollapsed: boolean = true;
+
+  // Font Awesome icons
   faUser = faUser;
   faPowerOff = faPowerOff;
-  faCalendarAlt = faCalendarAlt;
-  tokenSubs: Subscription;
+  faCarAlt = faCarAlt;
+  faDollarSign = faDollarSign;
+  faEuroSign = faEuroSign;
+  faShoppingCart = faShoppingCart;
+
+  currencySubscription: Subscription;
+  currency: string;
+  rateSubscription: Subscription;
+  rateUSD: number;
+  rateEUR: number;
+  // tokenSubs: Subscription;
 
   constructor(
+    public currencyService: CurrencyService,
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document
-  ) {}
+  ) {
+    this.getCurrency();
+    currencyService.getRate();
+  }
 
   ngOnInit(): void {
     // this.tokenSubs = this.auth.isAuthenticated$.subscribe(x => {
@@ -28,6 +51,17 @@ export class NavBarComponent implements OnInit {
     //     console.log(token);
     //   })
     // })
+    this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
+      (currency) => {
+        this.currency = currency;
+      }
+    );
+    this.rateSubscription = this.currencyService.rateChanged$.subscribe(
+      (rate) => {
+        this.rateUSD = 1 / rate;
+        this.rateEUR = rate;
+      }
+    );
   }
 
   loginWithRedirect() {
@@ -36,5 +70,18 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     this.auth.logout({ returnTo: this.doc.location.origin });
+  }
+
+  private getCurrency() {
+    if (localStorage.getItem('currency')) {
+      this.currency = localStorage.getItem('currency');
+    } else {
+      this.currency = this.currencyService.getCurrency();
+      localStorage.setItem('currency', this.currency);
+    }
+  }
+
+  changeCurrency(currency: string) {
+    this.currencyService.setCurrency(currency);
   }
 }

@@ -34,9 +34,67 @@
             <a routerLink="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
-            <a routerLink="external-api" class="nav-link">External API</a>
+            <a routerLink="external-api" class="nav-link">Cars</a>
+          </li>
+          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+            <a routerLink="locations" class="nav-link">Locations</a>
           </li>
         </ul>
+
+        <!-- Currency dropdown -->
+        <ul class="navbar-nav mr-left mr-3">
+          <li class="nav-item dropdown" ngbDropdown>
+            <a
+              ngbDropdownToggle
+              class="nav-link dropdown-toggle"
+              id="currencyDropDown"
+              data-toggle="dropdown"
+            >
+              <fa-icon
+                [icon]="faEuroSign"
+                class="mr-1"
+                *ngIf="currency === 'EUR'"
+              ></fa-icon>
+              <fa-icon
+                [icon]="faDollarSign"
+                class="mr-1"
+                *ngIf="currency === 'USD'"
+              ></fa-icon>
+            </a>
+            <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
+              <div class="dropdown-header">Select currency</div>
+              <button
+                (click)="changeCurrency('EUR')"
+                class="btn btn-link dropdown-item"
+                id="changeCurrencyBtn"
+                *ngIf="currency === 'USD'"
+              >
+                <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon> |
+                {{ rateEUR | number: "1.1-5" }}
+              </button>
+              <button
+                (click)="changeCurrency('USD')"
+                class="btn btn-link dropdown-item"
+                id="changeCurrencyBtn"
+                *ngIf="currency === 'EUR'"
+              >
+                <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon> |
+                {{ rateUSD | number: "1.1-5" }}
+              </button>
+            </div>
+          </li>
+        </ul>
+        <!-- /Currency dropdown -->
+
+        <!-- Shopping Cart -->
+        <ul class="navbar-nav mr-left mr-3">
+          <li class="nav-item">
+            <a routerLink="/shopping-cart" class="nav-link"
+              ><fa-icon [icon]="faShoppingCart"></fa-icon
+            ></a>
+          </li>
+        </ul>
+        <!-- /Shopping Cart -->
 
         <ul class="navbar-nav d-none d-md-block">
           <!-- Login button: show if NOT authenticated -->
@@ -71,7 +129,7 @@
                 [src]="user.picture"
                 alt="Profile picture"
                 class="nav-user-profile rounded-circle"
-                style="width: 30px"
+                style="width: 40px"
               />
             </a>
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
@@ -82,9 +140,9 @@
               <a routerLink="/profile" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
               </a>
-              <a routerLink="/" class="dropdown-item dropdown-profile">
-                <fa-icon [icon]="faCalendarAlt" class="mr-3"></fa-icon> My
-                reservations
+              <a routerLink="/manage-bookings" class="dropdown-item dropdown-profile">
+                <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon> Manage
+                bookings
               </a>
               <button
                 (click)="logout()"

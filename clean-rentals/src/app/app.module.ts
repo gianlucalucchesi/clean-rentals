@@ -16,6 +16,13 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
+import { LocationsContentComponent } from './components/locations-content/locations-content.component';
+import { CarsContentComponent } from './components/cars-content/cars-content.component';
+import { CarsComponent } from './pages/cars/cars.component';
+import { LocationsComponent } from './pages/locations/locations.component';
+import { AgmCoreModule } from '@agm/core';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { MannageBookingsComponent } from './pages/mannage-bookings/mannage-bookings.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +34,12 @@ import { ExternalApiComponent } from './pages/external-api/external-api.componen
     HomeContentComponent,
     LoadingComponent,
     ExternalApiComponent,
+    LocationsContentComponent,
+    CarsContentComponent,
+    CarsComponent,
+    LocationsComponent,
+    ShoppingCartComponent,
+    MannageBookingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +54,9 @@ import { ExternalApiComponent } from './pages/external-api/external-api.componen
     }),
     HighlightModule,
     FontAwesomeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
+    }),
   ],
   providers: [
     {

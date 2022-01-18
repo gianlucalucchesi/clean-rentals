@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LocationsComponent } from './pages/locations/locations.component';
+import { MannageBookingsComponent } from './pages/mannage-bookings/mannage-bookings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +16,21 @@ const routes: Routes = [
     component: ExternalApiComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'locations',
+    component: LocationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'shopping-cart',
+    component: ShoppingCartComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'manage-bookings',
+    component: MannageBookingsComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
