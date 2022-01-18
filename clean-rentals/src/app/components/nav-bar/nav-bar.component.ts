@@ -23,11 +23,11 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tokenSubs = this.auth.isAuthenticated$.subscribe(x => {
-      this.auth.getAccessTokenSilently().subscribe((token) => {
-        console.log(token);
-      })
-    })
+    // this.tokenSubs = this.auth.isAuthenticated$.subscribe(x => {
+    //   this.auth.getAccessTokenSilently().subscribe((token) => {
+    //     console.log(token);
+    //   })
+    // })
   }
 
   loginWithRedirect() {

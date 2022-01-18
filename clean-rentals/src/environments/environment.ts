@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  ApiUrl: 'http://localhost:8080',
+  ApiUrl: 'http://localhost:8080/api/', // used as reusable var in service
   auth: {
     domain: 'dev-qkw53hzi.eu.auth0.com',
     clientId: 'zs22JkuRKqL7isbB4AkqWv75C0KvHmXB',
