@@ -22,8 +22,9 @@ import { CarsComponent } from './pages/cars/cars.component';
 import { LocationsComponent } from './pages/locations/locations.component';
 import { AgmCoreModule } from '@agm/core';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
-import { MannageBookingsComponent } from './pages/mannage-bookings/mannage-bookings.component';
-import { ManageBookingsComponent } from './pages/manage-bookings/manage-bookings.component';
+import { ManageReservationsComponent } from './pages/manage-reservations/manage-reservations.component';
+import { CarElementComponent } from './components/cars-content/car-element/car-element.component';
+import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,9 @@ import { ManageBookingsComponent } from './pages/manage-bookings/manage-bookings
     CarsComponent,
     LocationsComponent,
     ShoppingCartComponent,
-    MannageBookingsComponent,
-    ManageBookingsComponent,
+    ManageReservationsComponent,
+    CarElementComponent,
+    ReplacePipe,
   ],
   imports: [
     BrowserModule,

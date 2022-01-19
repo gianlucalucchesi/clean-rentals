@@ -27,12 +27,13 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
+    "@types/googlemaps": "^3.39.12",
     "bootstrap": "^4.6.0",
     "ngx-highlightjs": "^6.1.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4",
-    "@types/googlemaps": "^3.39.12"
+    "uuid": "^8.3.2",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.1.3",

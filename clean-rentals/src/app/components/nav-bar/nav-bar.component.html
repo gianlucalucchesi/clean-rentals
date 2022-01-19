@@ -33,10 +33,13 @@
           <li class="nav-item">
             <a routerLink="/" class="nav-link">Home</a>
           </li>
-          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
-            <a routerLink="external-api" class="nav-link">Cars</a>
+          <li class="nav-item">
+            <a routerLink="cars" class="nav-link">Cars</a>
           </li>
           <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+            <a routerLink="external-api" class="nav-link">External API</a>
+          </li>
+          <li class="nav-item">
             <a routerLink="locations" class="nav-link">Locations</a>
           </li>
         </ul>
@@ -140,9 +143,9 @@
               <a routerLink="/profile" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
               </a>
-              <a routerLink="/manage-bookings" class="dropdown-item dropdown-profile">
+              <a routerLink="/manage-reservations" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon> Manage
-                bookings
+                reservations
               </a>
               <button
                 (click)="logout()"

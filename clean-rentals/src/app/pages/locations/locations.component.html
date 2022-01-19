@@ -1,1 +1,13 @@
-<app-locations-content></app-locations-content>
+<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #loaded>
+  <div class="container mt-5">
+    <h1>Locations</h1>
+
+    <p class="lead">See all our locations below.</p>
+
+    <app-locations-content></app-locations-content>
+  </div>
+</ng-template>

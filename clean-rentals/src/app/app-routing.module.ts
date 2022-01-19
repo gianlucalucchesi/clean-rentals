@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { CarsComponent } from './pages/cars/cars.component';
 import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LocationsComponent } from './pages/locations/locations.component';
-import { ManageBookingsComponent } from './pages/manage-bookings/manage-bookings.component';
+import { ManageReservationsComponent } from './pages/manage-reservations/manage-reservations.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
@@ -27,8 +28,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'manage-bookings',
-    component: ManageBookingsComponent,
+    path: 'manage-reservations',
+    component: ManageReservationsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'cars',
+    component: CarsComponent,
     canActivate: [AuthGuard]
   }
 ];
