@@ -23,6 +23,7 @@ import { LocationsComponent } from './pages/locations/locations.component';
 import { AgmCoreModule } from '@agm/core';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { MannageBookingsComponent } from './pages/mannage-bookings/mannage-bookings.component';
+import { ManageBookingsComponent } from './pages/manage-bookings/manage-bookings.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MannageBookingsComponent } from './pages/mannage-bookings/mannage-booki
     LocationsComponent,
     ShoppingCartComponent,
     MannageBookingsComponent,
+    ManageBookingsComponent,
   ],
   imports: [
     BrowserModule,
