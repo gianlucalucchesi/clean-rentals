@@ -28,7 +28,7 @@ public class Client {
     @Column(name = "email_address", nullable = true)
     private String emailAddress;
 
-    @Column(name = "auth0Id", nullable = false)
+    @Column(name = "auth0_Id", nullable = false)
     private String auth0Id;
 
     public UUID getId() {

@@ -22,6 +22,9 @@ public class Car {
     @Column(name = "model", nullable = false)
     private String model;
 
+    @Column(name = "image_url", nullable = true)
+    private String image_url;
+
     public UUID getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Car {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }
