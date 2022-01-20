@@ -7,6 +7,7 @@ import {
   faDollarSign,
   faEuroSign,
   faPowerOff,
+  faServer,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
@@ -28,6 +29,7 @@ export class NavBarComponent implements OnInit {
   faDollarSign = faDollarSign;
   faEuroSign = faEuroSign;
   faShoppingCart = faShoppingCart;
+  faServer = faServer;
 
   currencySubscription: Subscription;
   currency: string;

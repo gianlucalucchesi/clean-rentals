@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ReservationService {
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   getReservation$(id: string): Observable<any> {
     return this.http.get(environment.ApiUrl + 'v1/reservation/private/client/' + id + '/reservations')

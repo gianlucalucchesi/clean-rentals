@@ -143,9 +143,20 @@
               <a routerLink="/profile" class="dropdown-item dropdown-profile">
                 <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
               </a>
-              <a routerLink="/manage-reservations" class="dropdown-item dropdown-profile">
+              <a
+                routerLink="/manage-reservations"
+                class="dropdown-item dropdown-profile"
+              >
                 <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon> Manage
                 reservations
+              </a>
+              <a
+                href="http://localhost:8080/swagger-ui/"
+                target="_blank"
+                class="dropdown-item dropdown-profile"
+              >
+                <fa-icon [icon]="faServer" class="mr-3"></fa-icon> API
+                documentation
               </a>
               <button
                 (click)="logout()"
@@ -196,6 +207,18 @@
           <li>
             <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
             <a routerLink="/profile">Profile</a>
+          </li>
+
+          <li>
+            <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon>
+            <a routerLink="/manage-reservations">Manage reservaitions</a>
+          </li>
+
+          <li>
+            <fa-icon [icon]="faServer" class="mr-3"></fa-icon>
+            <a href="http://localhost:8080/swagger-ui/" target="_blank"
+              >API doc</a
+            >
           </li>
 
           <li>

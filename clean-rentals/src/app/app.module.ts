@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -25,6 +25,8 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 import { ManageReservationsComponent } from './pages/manage-reservations/manage-reservations.component';
 import { CarElementComponent } from './components/cars-content/car-element/car-element.component';
 import { ReplacePipe } from './pipes/replace.pipe';
+import { PofileContentComponent } from './components/pofile-content/pofile-content.component';
+import { ChartComponent } from './components/pofile-content/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { ReplacePipe } from './pipes/replace.pipe';
     ManageReservationsComponent,
     CarElementComponent,
     ReplacePipe,
+    PofileContentComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,12 +60,13 @@ import { ReplacePipe } from './pipes/replace.pipe';
         ...env.httpInterceptor,
       },
     }),
-    HighlightModule,
     FontAwesomeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
     }),
+    GoogleChartsModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ], // https://stackoverflow.com/a/68361628/10470183
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -71,15 +76,6 @@ import { ReplacePipe } from './pipes/replace.pipe';
     {
       provide: Window,
       useValue: window,
-    },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: {
-          json: () => import('highlight.js/lib/languages/json'),
-        },
-      },
     },
   ],
   bootstrap: [AppComponent],
