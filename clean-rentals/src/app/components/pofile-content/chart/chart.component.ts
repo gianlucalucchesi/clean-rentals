@@ -50,25 +50,27 @@ export class ChartComponent implements OnChanges {
     this.reservations = JSON.parse(json);
     let brands: string[] = [];
 
-    for (let reservation of this.reservations) {
-      if (!brands.includes(reservation.car.brand.name)) {
-        brands.push(reservation.car.brand.name);
-      }
-    }
-
-    for (let brand of brands) {
-      let brandData: (string | number)[] = [];
-
-      let count = 0;
+    if (this.reservations) {
       for (let reservation of this.reservations) {
-        if (reservation.car.brand.name === brand) {
-          count++;
+        if (!brands.includes(reservation.car.brand.name)) {
+          brands.push(reservation.car.brand.name);
         }
       }
 
-      // Concatenation as workaround for showing value next to label in chart
-      brandData.push(brand + ' (' + count + ')', count);
-      this.data.push(brandData);
+      for (let brand of brands) {
+        let brandData: (string | number)[] = [];
+
+        let count = 0;
+        for (let reservation of this.reservations) {
+          if (reservation.car.brand.name === brand) {
+            count++;
+          }
+        }
+
+        // Concatenation as workaround for showing value next to label in chart
+        brandData.push(brand + ' (' + count + ')', count);
+        this.data.push(brandData);
+      }
     }
   }
 }
