@@ -27,6 +27,8 @@ import { CarElementComponent } from './components/cars-content/car-element/car-e
 import { ReplacePipe } from './pipes/replace.pipe';
 import { PofileContentComponent } from './components/pofile-content/pofile-content.component';
 import { ChartComponent } from './components/pofile-content/chart/chart.component';
+import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
+import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { ChartComponent } from './components/pofile-content/chart/chart.componen
     ReplacePipe,
     PofileContentComponent,
     ChartComponent,
+    ReservationListComponent,
+    ReservationItemComponent,
   ],
   imports: [
     BrowserModule,
