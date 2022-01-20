@@ -66,6 +66,7 @@ export class ChartComponent implements OnChanges {
         }
       }
 
+      // Concatenation as work around for showing value next to label in chart
       brandData.push(brand + ' (' + count + ')', count);
       this.data.push(brandData);
     }
