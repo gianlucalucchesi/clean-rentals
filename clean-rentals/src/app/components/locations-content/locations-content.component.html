@@ -1,29 +1,13 @@
-<div class="locations">
-  <!-- <h1 class="my-4 text-center">Locations</h1>
-  <hr /> -->
+<div class="locations" *ngIf="locations">
   <agm-map
     [zoom]="6"
-    [latitude]="locations[0].lat"
-    [longitude]="locations[0].lng"
+    [latitude]="startLocation.lat"
+    [longitude]="startLocation.lng"
   >
-    <agm-marker [latitude]="locations[0].lat" [longitude]="locations[0].lng">
-      <agm-info-window [isOpen]="true">EPHEC Woluwé</agm-info-window>
+  <div *ngFor="let location of locations">
+    <agm-marker [latitude]="location.lat" [longitude]="location.lng">
+      <agm-info-window [isOpen]="true">{{ location.name }}</agm-info-window>
     </agm-marker>
-
-    <agm-marker [latitude]="locations[1].lat" [longitude]="locations[1].lng">
-      <agm-info-window>Brussels Airport</agm-info-window>
-    </agm-marker>
-
-    <agm-marker [latitude]="locations[2].lat" [longitude]="locations[2].lng">
-      <agm-info-window>Brussels South Airport</agm-info-window>
-    </agm-marker>
-
-    <agm-marker [latitude]="locations[3].lat" [longitude]="locations[3].lng">
-      <agm-info-window>Paris Charls De Gaulle Airport</agm-info-window>
-    </agm-marker>
-
-    <agm-marker [latitude]="locations[4].lat" [longitude]="locations[4].lng">
-      <agm-info-window>Amsterdam Airport Schiphol</agm-info-window>
-    </agm-marker>
+  </div>
   </agm-map>
 </div>
