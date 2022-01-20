@@ -1,27 +1,31 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-reservation-item',
   templateUrl: './reservation-item.component.html',
-  styleUrls: ['./reservation-item.component.css']
+  styleUrls: ['./reservation-item.component.css'],
 })
 export class ReservationItemComponent implements OnInit, OnDestroy {
   reservationId: string;
-  currentReservationObservable: Subscription;
+  currentReservationId$: Subscription;
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(
+    private reservationService: ReservationService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.currentReservationObservable = this.reservationService.currentReservationId$.subscribe((id) => {
-      this.reservationId = id;
+    this.currentReservationId$ = this.route.params.subscribe(params => {
+      this.reservationId = params['id'];
+      console.log('Opened reservation ' + this.reservationId)
     })
   }
 
   ngOnDestroy(): void {
-      this.currentReservationObservable.unsubscribe();
-      this.reservationService.setCurrentReservationId(null);
+    this.currentReservationId$.unsubscribe();
+    this.reservationService.setCurrentReservationId(null);
   }
-
 }
