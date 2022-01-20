@@ -37,7 +37,7 @@ export class ChartComponent implements OnChanges {
   ngOnChanges(): void {
     if (this.client) {
       this.reservationService
-        .getReservation$(this.client.id)
+        .getClientReservations$(this.client.id)
         .pipe(take(1))
         .subscribe((reservations) => {
           this.handleReservations(reservations);

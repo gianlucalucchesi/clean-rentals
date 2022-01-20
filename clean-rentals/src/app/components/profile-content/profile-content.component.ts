@@ -3,11 +3,11 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Client } from 'src/app/models/client.model';
 
 @Component({
-  selector: 'app-pofile-content',
-  templateUrl: './pofile-content.component.html',
-  styleUrls: ['./pofile-content.component.css'],
+  selector: 'app-profile-content',
+  templateUrl: './profile-content.component.html',
+  styleUrls: ['./profile-content.component.css'],
 })
-export class PofileContentComponent implements OnInit {
+export class ProfileContentComponent implements OnInit {
   @Input() client: Client;
 
   constructor(

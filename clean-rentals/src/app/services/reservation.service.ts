@@ -12,8 +12,12 @@ export class ReservationService {
 
   constructor(private http: HttpClient) {}
 
-  getReservation$(id: string): Observable<any> {
+  getClientReservations$(id: string): Observable<any> {
     return this.http.get(environment.ApiUrl + 'v1/reservation/private/client/' + id + '/reservations')
+  }
+
+  getReservationItem$(id: string): Observable<any> {
+    return this.http.get(environment.ApiUrl + 'v1/reservation/private/' + id);
   }
 
   setCurrentReservationId(id: string) {

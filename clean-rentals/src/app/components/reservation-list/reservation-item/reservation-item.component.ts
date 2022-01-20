@@ -18,6 +18,7 @@ export class ReservationItemComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // https://angular-training-guide.rangle.io/routing/child_routes
     this.currentReservationId$ = this.route.params.subscribe(params => {
       this.reservationId = params['id'];
       console.log('Opened reservation ' + this.reservationId)

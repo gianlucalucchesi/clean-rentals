@@ -25,8 +25,8 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 import { ManageReservationsComponent } from './pages/manage-reservations/manage-reservations.component';
 import { CarElementComponent } from './components/cars-content/car-element/car-element.component';
 import { ReplacePipe } from './pipes/replace.pipe';
-import { PofileContentComponent } from './components/pofile-content/pofile-content.component';
-import { ChartComponent } from './components/pofile-content/chart/chart.component';
+import { ProfileContentComponent } from './components/profile-content/profile-content.component';
+import { ChartComponent } from './components/profile-content/chart/chart.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
 
@@ -48,7 +48,7 @@ import { ReservationItemComponent } from './components/reservation-list/reservat
     ManageReservationsComponent,
     CarElementComponent,
     ReplacePipe,
-    PofileContentComponent,
+    ProfileContentComponent,
     ChartComponent,
     ReservationListComponent,
     ReservationItemComponent,

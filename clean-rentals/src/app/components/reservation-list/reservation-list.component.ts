@@ -44,7 +44,7 @@ export class ReservationListComponent implements OnInit {
   }
 
   getReservations() {
-    this.reservationService.getReservation$(this.clientId).subscribe({
+    this.reservationService.getClientReservations$(this.clientId).subscribe({
       next: (res) => {
         this.error = null;
         let responseJson = JSON.stringify(res, null, 2).trim();
@@ -60,4 +60,5 @@ export class ReservationListComponent implements OnInit {
     this.reservationService.setCurrentReservationId(this.reservations[index].id);
     this.router.navigate([this.reservations[index].id], { relativeTo: this.route });
   }
+
 }
