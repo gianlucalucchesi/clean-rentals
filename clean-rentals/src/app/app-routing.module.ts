@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
 import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
 import { CarsComponent } from './pages/cars/cars.component';
-import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LocationsComponent } from './pages/locations/locations.component';
 import { ManageReservationsComponent } from './pages/manage-reservations/manage-reservations.component';
@@ -13,11 +12,6 @@ import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.compo
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  {
-    path: 'external-api',
-    component: ExternalApiComponent,
-    canActivate: [AuthGuard],
-  },
   {
     path: 'locations',
     component: LocationsComponent,

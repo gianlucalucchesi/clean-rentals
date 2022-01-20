@@ -15,7 +15,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { HomeContentComponent } from './components/home-content/home-content.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { ExternalApiComponent } from './pages/external-api/external-api.component';
 import { LocationsContentComponent } from './components/locations-content/locations-content.component';
 import { CarsContentComponent } from './components/cars-content/cars-content.component';
 import { CarsComponent } from './pages/cars/cars.component';
@@ -39,7 +38,6 @@ import { ReservationItemComponent } from './components/reservation-list/reservat
     ProfileComponent,
     HomeContentComponent,
     LoadingComponent,
-    ExternalApiComponent,
     LocationsContentComponent,
     CarsContentComponent,
     CarsComponent,
