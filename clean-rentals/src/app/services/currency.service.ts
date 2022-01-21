@@ -10,16 +10,30 @@ export class CurrencyService {
   currencyChanged$ = new Subject<string>();
   private rate: number;
   rateChanged$ = new Subject<number>();
+  private currencyIcon: string;
+  currencyIconChanged$ = new Subject<string>();
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('currency')) {
-      this.currency = localStorage.getItem('currency');
+      this.setCurrency(localStorage.getItem('currency'));
       this.getUsdRate();
     } else {
-      this.currency = 'EUR';
+      this.setCurrency(localStorage.getItem('EUR'));
       this.getUsdRate();
     }
-    this.currencyChanged$.next(this.currency);
+  }
+
+  setCurrency(currency: string) {
+    switch (currency) {
+      case 'EUR':
+        this.handleCurrency(currency);
+        break;
+      case 'USD':
+        this.handleCurrency(currency);
+        break;
+      default:
+        this.handleCurrency('EUR');
+    }
   }
 
   getCurrency() {
@@ -30,33 +44,27 @@ export class CurrencyService {
     return this.rate;
   }
 
-  setCurrency(currency: string) {
-    switch (currency) {
-      case 'EUR':
-        localStorage.setItem('currency', currency);
-        this.currency = currency;
-        this.currencyChanged$.next(this.currency);
-        break;
-      case 'USD':
-        localStorage.setItem('currency', currency);
-        this.currency = currency;
-        this.currencyChanged$.next(this.currency);
-        break;
-      default:
-        localStorage.setItem('currency', 'EUR');
-        this.currency = 'EUR';
-        this.currencyChanged$.next(this.currency);
-    }
+  getCurrencyIcon() {
+    return this.currencyIcon;
+  }
+
+  handleCurrency(currency: string) {
+    localStorage.setItem('currency', currency);
+
+    this.currency = currency;
+    this.currencyChanged$.next(this.currency);
+
+    currency === 'EUR' ? (this.currencyIcon = '€') : (this.currencyIcon = '$');
+    this.currencyIconChanged$.next(this.currencyIcon);
   }
 
   getUsdRate() {
-    // Either a uri or uriMatcher is required when configuring the HTTP interceptor.
+    // Warning: Either a uri or uriMatcher is required when configuring the HTTP interceptor.
     this.http.get('https://api.frankfurter.app/latest').subscribe((json) => {
       let obj = JSON.parse(JSON.stringify(json));
       let fx = obj.rates.USD;
       this.rate = fx;
       this.rateChanged$.next(this.rate);
     });
-
   }
 }

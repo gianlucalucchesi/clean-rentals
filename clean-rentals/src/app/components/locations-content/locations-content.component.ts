@@ -27,7 +27,6 @@ export class LocationsContentComponent implements OnInit {
       .pipe(take(1))
       .subscribe((locations) => {
         let json: string = JSON.stringify(locations);
-        console.log(json);
         this.handleLocations(json);
       });
   }

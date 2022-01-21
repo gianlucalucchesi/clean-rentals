@@ -1,3 +1,9 @@
-<div class="cars">
-  <app-car-element></app-car-element>
+<div class="cars" *ngIf="cars">
+  <div *ngFor="let car of cars; let i = index">
+    <app-car-element
+      [car]="cars[i]"
+      [currencyIcon]="currencyIcon"
+      [fxRate]="fxRate"
+    ></app-car-element>
+  </div>
 </div>

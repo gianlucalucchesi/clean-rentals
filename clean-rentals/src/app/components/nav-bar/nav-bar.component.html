@@ -64,7 +64,7 @@
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <div class="dropdown-header">Select currency</div>
               <button
-                (click)="changeCurrency('EUR')"
+                (click)="onChangeCurrency('EUR')"
                 class="btn btn-link dropdown-item"
                 id="changeCurrencyBtn"
                 *ngIf="currency === 'USD'"
@@ -73,7 +73,7 @@
                 {{ rateEUR | number: "1.1-5" }}
               </button>
               <button
-                (click)="changeCurrency('USD')"
+                (click)="onChangeCurrency('USD')"
                 class="btn btn-link dropdown-item"
                 id="changeCurrencyBtn"
                 *ngIf="currency === 'EUR'"

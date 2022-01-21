@@ -83,7 +83,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
-  changeCurrency(currency: string) {
+  onChangeCurrency(currency: string) {
     this.currencyService.setCurrency(currency);
   }
 }

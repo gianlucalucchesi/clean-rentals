@@ -28,6 +28,8 @@ import { ProfileContentComponent } from './components/profile-content/profile-co
 import { ChartComponent } from './components/profile-content/chart/chart.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
 import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { ReservationDetailComponent } from './components/reservation-list/reservation-detail/reservation-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { ReservationItemComponent } from './components/reservation-list/reservat
     ChartComponent,
     ReservationListComponent,
     ReservationItemComponent,
+    FilterPipe,
+    ReservationDetailComponent,
   ],
   imports: [
     BrowserModule,
