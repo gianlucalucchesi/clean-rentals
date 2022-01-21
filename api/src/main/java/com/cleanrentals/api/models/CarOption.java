@@ -2,10 +2,9 @@ package com.cleanrentals.api.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "car_option")
@@ -18,6 +17,9 @@ public class CarOption {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "carOptions")
+    private Set<Car> car = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -34,4 +36,6 @@ public class CarOption {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
