@@ -1,5 +1,4 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthClientConfig, AuthService } from '@auth0/auth0-angular';
 import { take } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation.model';
@@ -13,7 +12,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 })
 export class ReservationListComponent implements OnInit {
   audience = this.configFactory.get()?.audience;
-  reservations: Reservation[];
+  @Output() reservations: Reservation[];
   auth0Id: string;
   clientId: string;
   error: string;
@@ -23,9 +22,7 @@ export class ReservationListComponent implements OnInit {
     public auth: AuthService,
     private reservationService: ReservationService,
     private clientService: ClientService,
-    private configFactory: AuthClientConfig,
-    private router: Router,
-    private route: ActivatedRoute
+    private configFactory: AuthClientConfig
   ) {}
 
   ngOnInit(): void {
@@ -54,11 +51,6 @@ export class ReservationListComponent implements OnInit {
         this.error = err.error.error;
       },
     });
-  }
-
-  onSelectReservation(index: number) {
-    this.reservationService.setCurrentReservationId(this.reservations[index].id);
-    this.router.navigate([this.reservations[index].id], { relativeTo: this.route });
   }
 
 }

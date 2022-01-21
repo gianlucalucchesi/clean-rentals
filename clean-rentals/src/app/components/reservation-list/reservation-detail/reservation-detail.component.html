@@ -1,1 +1,56 @@
-<p>reservation-detail works!</p>
+<div class="container mt-5" style="padding-bottom: 100px;" *ngIf="reservation">
+  <ng-container>
+    <div class="col" style="text-align: center">
+      <img
+        src="{{ '../../../../' + reservation.car.image_url }}"
+        width="450"
+        height="230"
+      />
+    </div>
+    <hr>
+    <form>
+      <h3>Reservation information</h3>
+      <div class="form-group">
+        <label><b>Reservation ID:</b></label>
+        {{ reservation.id }}
+      </div>
+      <div class="form-group">
+        <label><b>Pickup time and date:</b></label>
+        {{ reservation.dateTimeStart | date: "dd MMMM y" }} at
+        {{ reservation.dateTimeStart | date: "HH:mm" | replace: ":":"h" }}
+      </div>
+      <div class="form-group" *ngIf="reservation.dateTimeStop">
+        <label><b>Return time and date:</b></label>
+        {{ reservation.dateTimeStop | date: "dd MMMM y" }} at
+        {{ reservation.dateTimeStop | date: "HH:mm" | replace: ":":"h" }}
+      </div>
+      <div class="form-group" style="background-color: yellow;">
+        <label><b>Total paid:</b></label>
+        {{ 0 | currency }}
+      </div>
+
+      <h3>Client information</h3>
+      <div class="form-group">
+        <label><b>Name:</b></label>
+        {{ reservation.client.firstName }} {{ reservation.client.lastName }}
+      </div>
+
+      <h3>Car information</h3>
+      <div class="form-group">
+        <label><b>Brand:</b></label>
+        {{ reservation.car.brand.name }}
+      </div>
+      <div class="form-group">
+        <label><b>Model:</b></label>
+        {{ reservation.car.model }}
+      </div>
+
+      <h3>Location information</h3>
+      <div class="form-group">
+        <label><b>Car location:</b></label>
+        {{ reservation.location.name }}, {{ reservation.location.city.name }},
+        {{ reservation.location.city.country.name }}
+      </div>
+    </form>
+  </ng-container>
+</div>

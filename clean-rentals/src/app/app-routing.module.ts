@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
+import { ReservationDetailComponent } from './components/reservation-list/reservation-detail/reservation-detail.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LocationsComponent } from './pages/locations/locations.component';
@@ -20,21 +20,19 @@ const routes: Routes = [
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'manage-reservations',
     component: ManageReservationsComponent,
     canActivate: [AuthGuard],
-    children: [
-      { path: ':id', component:ReservationItemComponent }
-    ]
+    children: [{ path: ':id', component: ReservationDetailComponent }],
   },
   {
     path: 'cars',
     component: CarsComponent,
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

@@ -27,7 +27,7 @@ import { ReplacePipe } from './pipes/replace.pipe';
 import { ProfileContentComponent } from './components/profile-content/profile-content.component';
 import { ChartComponent } from './components/profile-content/chart/chart.component';
 import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
-import { ReservationItemComponent } from './components/reservation-list/reservation-item/reservation-item.component';
+import { ReservationElementComponent } from './components/reservation-list/reservation-element/reservation-element.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ReservationDetailComponent } from './components/reservation-list/reservation-detail/reservation-detail.component';
 
@@ -51,7 +51,7 @@ import { ReservationDetailComponent } from './components/reservation-list/reserv
     ProfileContentComponent,
     ChartComponent,
     ReservationListComponent,
-    ReservationItemComponent,
+    ReservationElementComponent,
     FilterPipe,
     ReservationDetailComponent,
   ],
