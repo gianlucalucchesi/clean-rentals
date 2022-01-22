@@ -1,6 +1,5 @@
 package com.cleanrentals.api.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -10,8 +9,7 @@ import java.util.UUID;
 
 @Entity(name = "car")
 @Table(name = "car")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-// This prevents an issue with lazy loading (serialization issue)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // This prevents an issue with lazy loading (serialization issue)
 public class Car {
     @Id
     @Column(name = "id", nullable = false)

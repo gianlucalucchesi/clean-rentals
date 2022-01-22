@@ -1,5 +1,6 @@
 package com.cleanrentals.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class CarOption {
     private String name;
 
     @ManyToMany(mappedBy = "carOptions")
+    @JsonIgnore // This fixes infinite recursion in JSON
     private Set<Car> car = new HashSet<>();
 
     public UUID getId() {
@@ -36,6 +38,5 @@ public class CarOption {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

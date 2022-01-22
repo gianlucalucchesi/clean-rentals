@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "reservation")
@@ -31,6 +33,14 @@ public class Reservation {
 
     @Column(name = "date_time_stop", nullable = true)
     private Date dateTimeStop;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "reservation_reservation_option",
+            joinColumns = { @JoinColumn(name = "reservation_id") },
+            inverseJoinColumns = { @JoinColumn(name = "reservation_option_id") }
+    )
+    Set<ReservationOption> reservationOptions = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -78,5 +88,13 @@ public class Reservation {
 
     public void setDateTimeStop(Date dateTimeStop) {
         this.dateTimeStop = dateTimeStop;
+    }
+
+    public Set<ReservationOption> getReservationOptions() {
+        return reservationOptions;
+    }
+
+    public void setReservationOptions(Set<ReservationOption> reservationOptions) {
+        this.reservationOptions = reservationOptions;
     }
 }

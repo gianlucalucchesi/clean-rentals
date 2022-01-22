@@ -6,6 +6,7 @@ import com.cleanrentals.api.repositories.ReservationRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1/reservation")
+@RequestMapping(path = "/api/v1/reservation", produces = MediaType.APPLICATION_JSON_VALUE)
 @Api(tags="Reservation") // Swagger doc
 public class ReservationController {
     @Autowired

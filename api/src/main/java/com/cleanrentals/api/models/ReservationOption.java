@@ -1,11 +1,11 @@
 package com.cleanrentals.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "reservation_option")
@@ -18,6 +18,10 @@ public class ReservationOption {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "reservationOptions")
+    @JsonIgnore // This fixes infinite recursion in JSON
+    private Set<Reservation> reservation = new HashSet<>();
 
     public UUID getId() {
         return id;
@@ -35,4 +39,11 @@ public class ReservationOption {
         this.name = name;
     }
 
+    public Set<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Set<Reservation> reservation) {
+        this.reservation = reservation;
+    }
 }
