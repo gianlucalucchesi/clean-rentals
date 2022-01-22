@@ -16,7 +16,7 @@
       <form>
         <h3>Reservation information</h3>
         <div class="form-group">
-          <label><b>Reservation ID:</b></label>
+          <label><b>Reference:</b></label>
           {{ reservation.id }}
         </div>
         <div class="form-group">
@@ -29,6 +29,12 @@
           {{ reservation.dateTimeStop | date: "dd MMMM y" }} at
           {{ reservation.dateTimeStop | date: "HH:mm" | replace: ":":"h" }}
         </div>
+        <h5>Options</h5>
+        <ul>
+          <li *ngFor="let option of reservation.reservationOptions">
+            {{ option.name }}
+          </li>
+        </ul>
         <div
           *ngIf="currency === 'EUR'"
           class="form-group"
@@ -61,6 +67,12 @@
           <label><b>Model:</b></label>
           {{ reservation.car.model }}
         </div>
+        <h5>Options</h5>
+        <ul>
+          <li *ngFor="let option of reservation.car.carOptions">
+            {{ option.name }}
+          </li>
+        </ul>
 
         <h3>Location information</h3>
         <div class="form-group">
