@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { take } from 'rxjs';
 import { Location } from 'src/app/models/location.model';
 import { LocationService } from 'src/app/services/location.service';
@@ -16,7 +16,7 @@ interface Ilocation {
   styleUrls: ['./locations-content.component.css'],
 })
 export class LocationsContentComponent implements OnInit {
-  locations: Ilocation[] = [];
+  @Output() locations: Ilocation[] = [];
   startLocation = { lat: 50.849823, lng: 4.449186 }; // EPHEC Wolumé
 
   constructor(private locationService: LocationService) {}

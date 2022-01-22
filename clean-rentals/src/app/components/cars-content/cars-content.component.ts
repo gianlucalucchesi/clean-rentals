@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
@@ -18,7 +19,9 @@ export class CarsContentComponent implements OnInit, OnDestroy {
 
   constructor(
     private carService: CarService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.currency = this.currencyService.getCurrency();
     this.fxRate = this.currencyService.getRate();
@@ -47,5 +50,9 @@ export class CarsContentComponent implements OnInit, OnDestroy {
 
   handleCars(rawJson: any) {
     this.cars = JSON.parse(JSON.stringify(rawJson));
+  }
+
+  OnSelectCar(selectedCar: Car){
+    this.router.navigate([selectedCar.id], { relativeTo: this.route });
   }
 }

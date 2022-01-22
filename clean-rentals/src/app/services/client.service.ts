@@ -3,17 +3,23 @@ import { Injectable, OnInit } from '@angular/core';
 import { Client } from '../models/client.model';
 import { environment } from '../../environments/environment';
 import { AuthService } from '@auth0/auth0-angular';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ClientService {
+export class ClientService implements OnInit {
   currentClient: Client;
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) {}
+
+  ngOnInit(): void {
+
+  }
 
   getClientByAuth0Id$(auth0id: string): Observable<Client> {
-    return this.http.get<Client>(environment.ApiUrl + 'v1/client/private/auth0/' + auth0id);
+    return this.http.get<Client>(
+      environment.ApiUrl + 'v1/client/private/auth0/' + auth0id
+    );
   }
 }

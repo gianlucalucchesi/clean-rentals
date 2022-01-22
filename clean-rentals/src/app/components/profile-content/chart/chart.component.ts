@@ -15,6 +15,9 @@ import { ReservationService } from 'src/app/services/reservation.service';
   styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent implements OnChanges {
+  @Input() client: Client;
+  reservations: Reservation[];
+
   title = 'Your brand preferences';
   type = ChartType.PieChart;
   data: (string | number)[][] = [];
@@ -26,10 +29,9 @@ export class ChartComponent implements OnChanges {
     pieSliceText: 'label',
     titlePosition: 'none', // Added as div in HTML
   };
+
   width = 400;
   height = 400;
-  @Input() client: Client;
-  reservations: Reservation[];
 
   constructor(private reservationService: ReservationService) {}
 

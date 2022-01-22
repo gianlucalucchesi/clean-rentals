@@ -34,7 +34,7 @@
             <a routerLink="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a routerLink="cars" class="nav-link">Cars</a>
+            <a routerLink="cars-overview" class="nav-link">Cars</a>
           </li>
           <li class="nav-item">
             <a routerLink="locations" class="nav-link">Locations</a>
@@ -70,7 +70,7 @@
                 *ngIf="currency === 'USD'"
               >
                 <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon> |
-                {{ rateEUR | number: "1.1-5" }}
+                <span style="font-size: small;">1 USD = {{ rateEUR | number: "1.1-5" }} EUR</span>
               </button>
               <button
                 (click)="onChangeCurrency('USD')"
@@ -79,7 +79,7 @@
                 *ngIf="currency === 'EUR'"
               >
                 <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon> |
-                {{ rateUSD | number: "1.1-5" }}
+                <span style="font-size: small;">1 EUR = {{ rateUSD | number: "1.1-5" }} USD</span>
               </button>
             </div>
           </li>

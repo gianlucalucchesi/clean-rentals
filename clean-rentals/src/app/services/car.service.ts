@@ -12,4 +12,8 @@ export class CarService {
   getCars$() {
     return this.http.get(environment.ApiUrl + 'v1/car')
   }
+
+  getCarById$(id: string) {
+    return this.http.get(environment.ApiUrl + 'v1/car/private/' + id)
+  }
 }

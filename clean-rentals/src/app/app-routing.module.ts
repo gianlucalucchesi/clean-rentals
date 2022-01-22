@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
+import { CarReservationComponent } from './components/cars-content/car-reservation/car-reservation.component';
+import { CarsContentComponent } from './components/cars-content/cars-content.component';
 import { ReservationDetailComponent } from './components/reservation-content/reservation-detail/reservation-detail.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,9 +32,14 @@ const routes: Routes = [
     children: [{ path: ':id', component: ReservationDetailComponent }],
   },
   {
-    path: 'cars',
+    path: 'cars-overview',
     component: CarsComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: '', component: CarsContentComponent },
+      { path: ':id', component: CarDetailsComponent },
+      { path: ':id/reserve', component: CarReservationComponent }
+    ],
   },
 ];
 

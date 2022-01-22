@@ -17,7 +17,6 @@ import { HomeContentComponent } from './components/home-content/home-content.com
 import { LoadingComponent } from './components/loading/loading.component';
 import { LocationsContentComponent } from './components/locations-content/locations-content.component';
 import { CarsContentComponent } from './components/cars-content/cars-content.component';
-import { CarsComponent } from './pages/cars/cars.component';
 import { LocationsComponent } from './pages/locations/locations.component';
 import { AgmCoreModule } from '@agm/core';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
@@ -30,6 +29,9 @@ import { ReservationContentComponent } from './components/reservation-content/re
 import { ReservationElementComponent } from './components/reservation-content/reservation-element/reservation-element.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ReservationDetailComponent } from './components/reservation-content/reservation-detail/reservation-detail.component';
+import { CarReservationComponent } from './components/cars-content/car-reservation/car-reservation.component';
+import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
+import { CarsComponent } from './pages/cars/cars.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,6 @@ import { ReservationDetailComponent } from './components/reservation-content/res
     LoadingComponent,
     LocationsContentComponent,
     CarsContentComponent,
-    CarsComponent,
     LocationsComponent,
     ShoppingCartComponent,
     ManageReservationsComponent,
@@ -54,6 +55,9 @@ import { ReservationDetailComponent } from './components/reservation-content/res
     ReservationElementComponent,
     FilterPipe,
     ReservationDetailComponent,
+    CarReservationComponent,
+    CarDetailsComponent,
+    CarsComponent,
   ],
   imports: [
     BrowserModule,

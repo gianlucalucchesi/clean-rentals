@@ -1,9 +1,8 @@
+<h1>Cars</h1>
+<p class="lead">See all our available cars below.</p>
+
 <div class="cars" *ngIf="cars">
   <div *ngFor="let car of cars; let i = index">
-    <app-car-element
-      [car]="cars[i]"
-      [currency]="currency"
-      [fxRate]="fxRate"
-    ></app-car-element>
+    <app-car-element [car]="cars[i]" [currency]="currency" [fxRate]="fxRate" (click)="OnSelectCar(car)"></app-car-element>
   </div>
 </div>
