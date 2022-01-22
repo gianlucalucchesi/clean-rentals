@@ -12,15 +12,15 @@ import { CurrencyService } from 'src/app/services/currency.service';
 export class CarsContentComponent implements OnInit, OnDestroy {
   @Output() cars: Car[];
   @Output() fxRate: number;
-  @Output() currencyIcon: string;
+  @Output() currency: string;
   currencySubscription: Subscription;
-  rateSubscription: Subscription;
+  fxRateSubscription: Subscription;
 
   constructor(
     private carService: CarService,
     private currencyService: CurrencyService
   ) {
-    this.currencyIcon = this.currencyService.getCurrencyIcon();
+    this.currency = this.currencyService.getCurrency();
     this.fxRate = this.currencyService.getRate();
   }
 
@@ -30,17 +30,18 @@ export class CarsContentComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((cars) => this.handleCars(cars));
 
-    this.currencySubscription = this.currencyService.currencyIconChanged$.subscribe((icon) => {
-      this.currencyIcon = icon;
-    });
+    this.currencySubscription =
+      this.currencyService.currencyChanged$.subscribe((currency) => {
+        this.currency = currency;
+      });
 
-    this.rateSubscription = this.currencyService.rateChanged$.subscribe(
+    this.fxRateSubscription = this.currencyService.rateChanged$.subscribe(
       (rate) => (this.fxRate = rate)
     );
   }
 
   ngOnDestroy(): void {
-    this.rateSubscription.unsubscribe();
+    this.fxRateSubscription.unsubscribe();
     this.currencySubscription.unsubscribe();
   }
 

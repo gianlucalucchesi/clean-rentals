@@ -8,7 +8,7 @@ import { Car } from 'src/app/models/car.model';
 })
 export class CarElementComponent implements OnInit {
   @Input() car: Car;
-  @Input() currencyIcon: string;
+  @Input() currency: string;
   @Input() fxRate: number;
 
   constructor() { }

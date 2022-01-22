@@ -24,7 +24,11 @@
         {{ reservation.dateTimeStop | date: "dd MMMM y" }} at
         {{ reservation.dateTimeStop | date: "HH:mm" | replace: ":":"h" }}
       </div>
-      <div class="form-group" style="background-color: yellow;">
+      <div *ngIf="currency === 'EUR'" class="form-group" style="background-color: yellow;">
+        <label><b>Total paid:</b></label>
+        {{ 0 | currency: 'EUR':'symbol' }}
+      </div>
+      <div *ngIf="currency === 'USD'" class="form-group" style="background-color: yellow;">
         <label><b>Total paid:</b></label>
         {{ 0 | currency }}
       </div>

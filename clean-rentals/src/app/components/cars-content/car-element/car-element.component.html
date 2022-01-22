@@ -16,13 +16,13 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3" style="text-align: right" *ngIf="currencyIcon === '€'">
+        <div class="col-md-3" style="text-align: right" *ngIf="currency === 'EUR'">
           <img src="{{ '../../../' + car.image_url }}" width="225" height="112"/><br>
-          As from <b>{{ car.start_day_price_euro_excl_vat | number : '1.0-0'  }}{{ currencyIcon }} Excl. VAT</b>/day
+          As from <b>{{ car.start_day_price_euro_excl_vat | currency : 'EUR' : 'symbol' : '1.0-0'  }} Excl. VAT</b>/day
         </div>
-        <div class="col-md-3" style="text-align: right" *ngIf="currencyIcon === '$'">
+        <div class="col-md-3" style="text-align: right" *ngIf="currency === 'USD'">
           <img src="{{ '../../../' + car.image_url }}" width="225" height="112"/><br>
-          As from <b>{{ calculateUsdPrice(car.start_day_price_euro_excl_vat) | number : '1.0-0' }}{{ currencyIcon }} Excl. VAT</b>/day
+          As from <b>{{ calculateUsdPrice(car.start_day_price_euro_excl_vat) | currency : 'USD' : 'symbol' : '1.0-0' }} Excl. VAT</b>/day
         </div>
       </div>
     </div>

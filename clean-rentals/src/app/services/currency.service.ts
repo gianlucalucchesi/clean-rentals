@@ -10,8 +10,6 @@ export class CurrencyService {
   currencyChanged$ = new Subject<string>();
   private rate: number;
   rateChanged$ = new Subject<number>();
-  private currencyIcon: string;
-  currencyIconChanged$ = new Subject<string>();
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('currency')) {
@@ -44,18 +42,11 @@ export class CurrencyService {
     return this.rate;
   }
 
-  getCurrencyIcon() {
-    return this.currencyIcon;
-  }
-
   handleCurrency(currency: string) {
     localStorage.setItem('currency', currency);
 
     this.currency = currency;
     this.currencyChanged$.next(this.currency);
-
-    currency === 'EUR' ? (this.currencyIcon = '€') : (this.currencyIcon = '$');
-    this.currencyIconChanged$.next(this.currencyIcon);
   }
 
   getUsdRate() {
