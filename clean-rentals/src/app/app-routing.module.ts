@@ -4,6 +4,7 @@ import { AuthGuard } from '@auth0/auth0-angular';
 import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
 import { CarReservationComponent } from './components/cars-content/car-reservation/car-reservation.component';
 import { CarsContentComponent } from './components/cars-content/cars-content.component';
+import { ReservationContentComponent } from './components/reservation-content/reservation-content.component';
 import { ReservationDetailComponent } from './components/reservation-content/reservation-detail/reservation-detail.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,7 +30,10 @@ const routes: Routes = [
     path: 'manage-reservations',
     component: ManageReservationsComponent,
     canActivate: [AuthGuard],
-    children: [{ path: ':id', component: ReservationDetailComponent }],
+    children: [
+      { path: '', component: ReservationContentComponent},
+      { path: ':id', component: ReservationDetailComponent }
+    ],
   },
   {
     path: 'cars-overview',

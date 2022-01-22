@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation.model';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -27,9 +27,10 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // https://angular-training-guide.rangle.io/routing/child_routes
-    this.currentReservationId$ = this.route.params.subscribe((params) => {
-      this.reservationId = params['id'];
-      this.getReservation();
+    this.route.params.pipe(take(1)).subscribe((params) => {
+      this.reservationService
+        .getReservationItem$(params['id'])
+        .subscribe((reservation) => (this.reservation = reservation));
     });
 
     this.currencySubscription$ =
@@ -39,13 +40,7 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.currentReservationId$.unsubscribe();
-    this.reservationService.setCurrentReservationId(null);
+    this.currencySubscription$.unsubscribe();
   }
 
-  getReservation() {
-    this.reservationService
-      .getReservationItem$(this.reservationId)
-      .subscribe((reservation) => (this.reservation = reservation));
-  }
 }
