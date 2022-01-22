@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@auth0/auth0-angular';
-import { ReservationDetailComponent } from './components/reservation-list/reservation-detail/reservation-detail.component';
+import { ReservationDetailComponent } from './components/reservation-content/reservation-detail/reservation-detail.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LocationsComponent } from './pages/locations/locations.component';

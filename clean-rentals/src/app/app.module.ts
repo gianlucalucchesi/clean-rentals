@@ -26,10 +26,10 @@ import { CarElementComponent } from './components/cars-content/car-element/car-e
 import { ReplacePipe } from './pipes/replace.pipe';
 import { ProfileContentComponent } from './components/profile-content/profile-content.component';
 import { ChartComponent } from './components/profile-content/chart/chart.component';
-import { ReservationListComponent } from './components/reservation-list/reservation-list.component';
-import { ReservationElementComponent } from './components/reservation-list/reservation-element/reservation-element.component';
+import { ReservationContentComponent } from './components/reservation-content/reservation-content.component';
+import { ReservationElementComponent } from './components/reservation-content/reservation-element/reservation-element.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { ReservationDetailComponent } from './components/reservation-list/reservation-detail/reservation-detail.component';
+import { ReservationDetailComponent } from './components/reservation-content/reservation-detail/reservation-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { ReservationDetailComponent } from './components/reservation-list/reserv
     ReplacePipe,
     ProfileContentComponent,
     ChartComponent,
-    ReservationListComponent,
+    ReservationContentComponent,
     ReservationElementComponent,
     FilterPipe,
     ReservationDetailComponent,

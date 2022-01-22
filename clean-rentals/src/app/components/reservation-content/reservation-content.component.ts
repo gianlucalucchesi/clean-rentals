@@ -6,11 +6,11 @@ import { ClientService } from 'src/app/services/client.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
-  selector: 'app-reservation-list',
-  templateUrl: './reservation-list.component.html',
-  styleUrls: ['./reservation-list.component.css']
+  selector: 'app-reservation-content',
+  templateUrl: './reservation-content.component.html',
+  styleUrls: ['./reservation-content.component.css']
 })
-export class ReservationListComponent implements OnInit {
+export class ReservationContentComponent implements OnInit {
   audience = this.configFactory.get()?.audience;
   @Output() reservations: Reservation[];
   auth0Id: string;
