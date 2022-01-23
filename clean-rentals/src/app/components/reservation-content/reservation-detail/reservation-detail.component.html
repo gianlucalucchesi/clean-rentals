@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!reservation; else loaded">
+<div *ngIf="!reservation; else loaded" class="container">
   <app-loading></app-loading>
 </div>
 
@@ -7,12 +7,12 @@
     <ng-container>
       <div class="col" style="text-align: center">
         <img
+          height="230"
           src="{{ '../../../../' + reservation.car.image_url }}"
           width="450"
-          height="230"
         />
       </div>
-      <hr />
+      <hr/>
       <form>
         <h3>Reservation information</h3>
         <div class="form-group">
@@ -24,7 +24,7 @@
           {{ reservation.dateTimeStart | date: "dd MMMM y" }} at
           {{ reservation.dateTimeStart | date: "HH:mm" | replace: ":":"h" }}
         </div>
-        <div class="form-group" *ngIf="reservation.dateTimeStop">
+        <div *ngIf="reservation.dateTimeStop" class="form-group">
           <label><b>Return time and date:</b></label>
           {{ reservation.dateTimeStop | date: "dd MMMM y" }} at
           {{ reservation.dateTimeStop | date: "HH:mm" | replace: ":":"h" }}
@@ -38,10 +38,10 @@
         <div class="form-group">
           <label><b>Total paid:</b></label>
           {{
-            currency === 'EUR'
-              ? (reservation.total_price_euro_excl_vat
-                | currency: "EUR":"symbol")
-              : (getUsdPrice() | currency)
+          currency === 'EUR'
+            ? (reservation.total_price_euro_excl_vat
+              | currency: "EUR":"symbol")
+            : (getUsdPrice() | currency)
           }}
         </div>
 

@@ -1,3 +1,29 @@
 .cars {
-  padding-bottom: 100px;
+  padding-bottom: 150px;
+}
+
+.row {
+  margin-left: 4px;
+}
+
+.form-select {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+button {
+  color: black;
+  background-color: #D1EDCC;
+  border-color: #C1DBBD;
+}
+
+button:hover {
+  color: black;
+  background-color: #C1DBBD;
+  border-color: #c1dbbd;
+}
+
+button:focus {
+  background-color: #C1DBBD;
+  border-color: #c1dbbd;
 }

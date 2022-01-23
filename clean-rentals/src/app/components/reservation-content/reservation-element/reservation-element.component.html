@@ -1,17 +1,19 @@
 <div *ngIf="reservation">
   <div class="container py-1">
-    <div class="h-100 p-2 border" id="card" (click)="onSelectReservation()">
+    <div (click)="onSelectReservation()" class="h-100 p-2 border" id="card">
       <div class="row">
         <div class="col-md-9">
           <p><b>{{ reservation.car.brand.name }} {{ reservation.car.model }}</b></p>
           <p><b>Pick-up location:</b> {{ reservation.location.name }}</p>
-          <p><b>Departure:</b> {{ reservation.dateTimeStart | date : 'dd MMMM y'}} at {{ reservation.dateTimeStart | date : 'HH:mm' | replace: ':' : 'h'  }}</p>
+          <p><b>Departure:</b> {{ reservation.dateTimeStart | date : 'dd MMMM y'}}
+            at {{ reservation.dateTimeStart | date : 'HH:mm' | replace: ':' : 'h'  }}</p>
           <p *ngIf="reservation.dateTimeStop">
-            <b>Return:</b> {{ reservation.dateTimeStop | date : 'dd MMMM y'}} at {{ reservation.dateTimeStop | date : 'HH:mm' | replace: ':' : 'h'  }}
+            <b>Return:</b> {{ reservation.dateTimeStop | date : 'dd MMMM y'}}
+            at {{ reservation.dateTimeStop | date : 'HH:mm' | replace: ':' : 'h'  }}
           </p>
         </div>
         <div class="col-md-3" style="display: flex; align-items: center;">
-          <img src="{{ '../../../' + reservation.car.image_url }}" width="225" height="112"/>
+          <img height="112" src="{{ '../../../' + reservation.car.image_url }}" width="225"/>
         </div>
       </div>
     </div>

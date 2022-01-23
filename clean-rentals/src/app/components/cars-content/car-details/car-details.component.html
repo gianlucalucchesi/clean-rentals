@@ -1,13 +1,13 @@
-<div class="container" *ngIf="!car; else loaded">
+<div *ngIf="!car; else loaded" class="container">
   <app-loading></app-loading>
 </div>
 
 <ng-template #loaded>
   <div class="col" style="text-align: center">
     <h1>{{ car.brand.name }} {{ car.model }}</h1>
-    <img src="{{ '../../../../' + car.image_url }}" width="450" height="230" />
+    <img height="230" src="{{ '../../../../' + car.image_url }}" width="450"/>
   </div>
-  <hr />
+  <hr/>
 
   <h2>Options</h2>
   <ul *ngIf="car.carOptions.length > 0">
@@ -37,18 +37,18 @@
   <h2>Price</h2>
   As from
   {{
-    currency === "EUR"
-      ? (car.start_day_price_euro_excl_vat | currency: "EUR":"symbol":"1.0-0")
-      : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
+  currency === "EUR"
+    ? (car.start_day_price_euro_excl_vat | currency: "EUR":"symbol":"1.0-0")
+    : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
   }}
   Excl. VAT | day
 
   <div style="text-align: center">
-    <hr />
-    <button type="button" class="btn btn-success" (click)="onReserve()">
+    <hr/>
+    <button (click)="onReserve()" class="btn btn-success" type="button">
       Reserve
     </button>
-    <hr />
+    <hr/>
   </div>
 </ng-template>
 

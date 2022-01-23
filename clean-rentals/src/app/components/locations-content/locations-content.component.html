@@ -1,13 +1,13 @@
-<div class="locations" *ngIf="locations" style="padding-bottom: 100px;">
+<div *ngIf="locations" class="locations" style="padding-bottom: 100px;">
   <agm-map
-    [zoom]="6"
     [latitude]="startLocation.lat"
     [longitude]="startLocation.lng"
+    [zoom]="6"
   >
-  <div *ngFor="let location of locations">
-    <agm-marker [latitude]="location.lat" [longitude]="location.lng">
-      <agm-info-window [isOpen]="true">{{ location.name }}</agm-info-window>
-    </agm-marker>
-  </div>
+    <div *ngFor="let location of locations">
+      <agm-marker [latitude]="location.lat" [longitude]="location.lng">
+        <agm-info-window [isOpen]="true">{{ location.name }}</agm-info-window>
+      </agm-marker>
+    </div>
   </agm-map>
 </div>

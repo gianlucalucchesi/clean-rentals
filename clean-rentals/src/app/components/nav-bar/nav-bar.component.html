@@ -3,41 +3,41 @@
     <div class="container">
       <a class="navbar-brand">
         <img
-          src="../assets/images/logo.png"
           alt=""
-          width="30"
-          height="24"
           class="d-inline-block align-text-top"
+          height="24"
+          src="../assets/images/logo.png"
+          width="30"
         />
         &nbsp;Clean Rentals
       </a>
       <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        [attr.aria-expanded]="!isCollapsed"
-        aria-label="Toggle navigation"
         (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="navbarNav"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-target="#navbarNav"
+        data-toggle="collapse"
+        type="button"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div
+        [ngbCollapse]="isCollapsed"
         class="collapse navbar-collapse"
         id="navbarNav"
-        [ngbCollapse]="isCollapsed"
       >
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a routerLink="/" class="nav-link">Home</a>
+            <a class="nav-link" routerLink="/">Home</a>
           </li>
           <li class="nav-item">
-            <a routerLink="cars-overview" class="nav-link">Cars</a>
+            <a class="nav-link" routerLink="cars-overview">Cars</a>
           </li>
           <li class="nav-item">
-            <a routerLink="locations" class="nav-link">Locations</a>
+            <a class="nav-link" routerLink="locations">Locations</a>
           </li>
         </ul>
 
@@ -45,40 +45,42 @@
         <ul class="navbar-nav mr-left mr-3">
           <li class="nav-item dropdown" ngbDropdown>
             <a
-              ngbDropdownToggle
               class="nav-link dropdown-toggle"
-              id="currencyDropDown"
               data-toggle="dropdown"
+              id="currencyDropDown"
+              ngbDropdownToggle
             >
               <fa-icon
+                *ngIf="currency === 'EUR'"
                 [icon]="faEuroSign"
                 class="mr-1"
-                *ngIf="currency === 'EUR'"
               ></fa-icon>
               <fa-icon
+                *ngIf="currency === 'USD'"
                 [icon]="faDollarSign"
                 class="mr-1"
-                *ngIf="currency === 'USD'"
               ></fa-icon>
             </a>
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <div class="dropdown-header">Select currency</div>
               <button
                 (click)="onChangeCurrency('EUR')"
+                *ngIf="currency === 'USD'"
                 class="btn btn-link dropdown-item"
                 id="changeCurrencyBtn"
-                *ngIf="currency === 'USD'"
               >
-                <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon> |
+                <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon>
+                |
                 <span style="font-size: small;">1 EUR = {{ rateEUR | number: "1.1-5" }} USD</span>
               </button>
               <button
                 (click)="onChangeCurrency('USD')"
+                *ngIf="currency === 'EUR'"
                 class="btn btn-link dropdown-item"
                 id="changeCurrencyBtn"
-                *ngIf="currency === 'EUR'"
               >
-                <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon> |
+                <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon>
+                |
                 <span style="font-size: small;">1 USD = {{ rateUSD | number: "1.1-5" }} EUR</span>
               </button>
             </div>
@@ -89,9 +91,11 @@
         <!-- Shopping Cart -->
         <ul class="navbar-nav mr-left mr-3">
           <li class="nav-item">
-            <a routerLink="/shopping-cart" class="nav-link"
-              ><fa-icon [icon]="faShoppingCart"></fa-icon
-            ></a>
+            <a class="nav-link" routerLink="/shopping-cart"
+            >
+              <fa-icon [icon]="faShoppingCart"></fa-icon
+              >
+            </a>
           </li>
         </ul>
         <!-- /Shopping Cart -->
@@ -99,13 +103,13 @@
         <ul class="navbar-nav d-none d-md-block">
           <!-- Login button: show if NOT authenticated -->
           <li
-            class="nav-item"
             *ngIf="(auth.isAuthenticated$ | async) === false"
+            class="nav-item"
           >
             <button
-              id="qsLoginBtn"
-              class="btn btn-primary btn-margin"
               (click)="loginWithRedirect()"
+              class="btn btn-primary btn-margin"
+              id="qsLoginBtn"
             >
               Log in
             </button>
@@ -114,15 +118,15 @@
 
           <!-- Fullsize dropdown: show if authenticated -->
           <li
-            class="nav-item dropdown"
             *ngIf="auth.user$ | async as user"
+            class="nav-item dropdown"
             ngbDropdown
           >
             <a
-              ngbDropdownToggle
               class="nav-link dropdown-toggle"
-              id="profileDropDown"
               data-toggle="dropdown"
+              id="profileDropDown"
+              ngbDropdownToggle
             >
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
@@ -137,22 +141,25 @@
               <div class="dropdown-header">
                 {{ user.name }}
               </div>
-              <a routerLink="/profile" class="dropdown-item dropdown-profile">
-                <fa-icon [icon]="faUser" class="mr-3"></fa-icon> Profile
+              <a class="dropdown-item dropdown-profile" routerLink="/profile">
+                <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
+                Profile
               </a>
               <a
-                routerLink="/manage-reservations"
                 class="dropdown-item dropdown-profile"
+                routerLink="/manage-reservations"
               >
-                <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon> Manage
+                <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon>
+                Manage
                 reservations
               </a>
               <a
+                class="dropdown-item dropdown-profile"
                 href="http://localhost:8080/swagger-ui/"
                 target="_blank"
-                class="dropdown-item dropdown-profile"
               >
-                <fa-icon [icon]="faServer" class="mr-3"></fa-icon> API
+                <fa-icon [icon]="faServer" class="mr-3"></fa-icon>
+                API
                 documentation
               </a>
               <button
@@ -160,7 +167,8 @@
                 class="btn btn-link dropdown-item"
                 id="qsLogoutBtn"
               >
-                <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon> Log out
+                <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
+                Log out
               </button>
             </div>
           </li>
@@ -169,13 +177,13 @@
 
         <!-- Responsive login button: show if NOT authenticated -->
         <ul
-          class="navbar-nav d-md-none"
           *ngIf="(auth.isAuthenticated$ | async) === false"
+          class="navbar-nav d-md-none"
         >
           <button
+            (click)="loginWithRedirect()"
             class="btn btn-primary btn-block"
             id="qsLoginBtn"
-            (click)="loginWithRedirect()"
           >
             Log in
           </button>
@@ -184,18 +192,18 @@
 
         <!-- Responsive profile dropdown: show if authenticated -->
         <ul
-          class="navbar-nav d-md-none justify-content-between"
           *ngIf="auth.user$ | async as user"
+          class="navbar-nav d-md-none justify-content-between"
           style="min-height: 170px"
         >
           <li class="nav-item">
             <span class="user-info">
               <!-- Profile image should be set to the profile picture from the id token -->
               <img
+                [src]="user.picture"
                 alt="Profile picture"
                 class="nav-user-profile d-inline-block rounded-circle mr-3"
                 style="width: 75px"
-                [src]="user.picture"
               />
               <!-- Show the user's full name from the id token here -->
               <h6 class="d-inline-block">{{ user.name }}</h6>
@@ -214,16 +222,16 @@
           <li>
             <fa-icon [icon]="faServer" class="mr-3"></fa-icon>
             <a href="http://localhost:8080/swagger-ui/" target="_blank"
-              >API doc</a
+            >API doc</a
             >
           </li>
 
           <li>
             <fa-icon [icon]="faPowerOff" class="mr-3"></fa-icon>
             <button
+              (click)="logout()"
               class="btn btn-link p-0"
               id="qsLogoutBtn"
-              (click)="logout()"
             >
               Log out
             </button>

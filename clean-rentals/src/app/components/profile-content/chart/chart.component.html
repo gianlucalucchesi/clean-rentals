@@ -1,12 +1,12 @@
-<div *ngIf="reservations" >
+<div *ngIf="reservations">
   <h4 style="text-align: center;">Your brand preferences</h4>
   <google-chart
-  style="display: block; margin: 0 auto; padding: 0;"
-    [type]="type"
     [data]="data"
-    [options]="options"
-    [width]="width"
     [height]="height"
+    [options]="options"
+    [type]="type"
+    [width]="width"
+    style="display: block; margin: 0 auto; padding: 0;"
   >
   </google-chart>
 </div>

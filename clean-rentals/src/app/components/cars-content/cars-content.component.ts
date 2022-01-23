@@ -70,6 +70,8 @@ export class CarsContentComponent implements OnInit, OnDestroy {
   }
 
   changePageSize(event: any) {
+    // Page number reset because user could ask for 20 cars on page 5 (which doesn't exist) -> empty
+    this.pageNumber = 1;
     this.pageSize = event.target.value;
     this.getCarsPage();
   }

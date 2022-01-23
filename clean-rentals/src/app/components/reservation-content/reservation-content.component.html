@@ -6,7 +6,7 @@
     You do not have any reservations yet.
   </div>
 
-  <div class="reservations-list" *ngIf="reservations">
+  <div *ngIf="reservations" class="reservations-list">
     <div *ngFor="let reservation of reservations; let i = index">
       <app-reservation-element [reservation]="reservation"></app-reservation-element>
     </div>
