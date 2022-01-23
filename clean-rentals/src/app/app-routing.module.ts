@@ -18,8 +18,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {
     path: 'locations',
-    component: LocationsComponent,
-    canActivate: [AuthGuard],
+    component: LocationsComponent
   },
   {
     path: 'shopping-cart',
@@ -38,13 +37,18 @@ const routes: Routes = [
   {
     path: 'cars-overview',
     component: CarsComponent,
-    canActivate: [AuthGuard],
     children: [
       { path: '', component: CarsContentComponent },
       {
         path: ':id',
         component: CarDetailsComponent,
-        children: [{ path: 'reserve', component: CarReservationComponent }],
+        children: [
+          {
+            path: 'reserve',
+            component: CarReservationComponent,
+            canActivate: [AuthGuard],
+          },
+        ],
       },
     ],
   },

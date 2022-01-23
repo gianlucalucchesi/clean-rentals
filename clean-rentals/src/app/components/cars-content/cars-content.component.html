@@ -1,49 +1,55 @@
-<h1>Cars</h1>
-<p class="lead">See all our available cars below.</p>
-
-<div *ngIf="cars" class="cars">
-  <div class="row">
-    <div class="col-xl-12">
-      Show
-      <select (change)="changePageSize($event)" class="form-select">
-        <option selected value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
-    </div>
-  </div>
-
-  <div *ngFor="let car of cars.content; let i = index">
-    <app-car-element
-      (click)="OnSelectCar(car)"
-      [car]="cars.content[i]"
-      [currency]="currency"
-    ></app-car-element>
-  </div>
-
-  <div class="row">
-    <div class="col-xl-6">
-      <button
-        (click)="getPreviousPage()"
-        *ngIf="!cars.first"
-        class="btn btn-light"
-        style="position: absolute; margin-top: 10px; left: 12px"
-        type="button"
-      >
-        PREVIOUS PAGE
-      </button>
-    </div>
-    <div class="col-xl-6">
-      <button
-        (click)="getNextPage()"
-        *ngIf="!cars.last"
-        class="btn btn-light"
-        style="position: absolute; margin-top: 10px; right: 28px"
-        type="button"
-      >
-        NEXT PAGE
-      </button>
-    </div>
-  </div>
+<div class="container" *ngIf="!cars; else loaded">
+  <app-loading></app-loading>
 </div>
+
+<ng-template #loaded>
+  <h1>Cars</h1>
+  <p class="lead">See all our available cars below.</p>
+
+  <div *ngIf="cars" class="cars">
+    <div class="row">
+      <div class="col-xl-12">
+        Show
+        <select (change)="changePageSize($event)" class="form-select">
+          <option selected value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+
+    <div *ngFor="let car of cars.content; let i = index">
+      <app-car-element
+        (click)="OnSelectCar(car)"
+        [car]="cars.content[i]"
+        [currency]="currency"
+      ></app-car-element>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-6">
+        <button
+          (click)="getPreviousPage()"
+          *ngIf="!cars.first"
+          class="btn btn-light"
+          style="position: absolute; margin-top: 10px; left: 12px"
+          type="button"
+        >
+          PREVIOUS PAGE
+        </button>
+      </div>
+      <div class="col-xl-6">
+        <button
+          (click)="getNextPage()"
+          *ngIf="!cars.last"
+          class="btn btn-light"
+          style="position: absolute; margin-top: 10px; right: 28px"
+          type="button"
+        >
+          NEXT PAGE
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

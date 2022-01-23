@@ -5,7 +5,7 @@
 <ng-template #loaded>
   <div class="col" style="text-align: center">
     <h1>{{ car.brand.name }} {{ car.model }}</h1>
-    <img height="230" src="{{ '../../../../' + car.image_url }}" width="450"/>
+    <img  src="{{ '../../../../' + car.image_url }}" height="50%" width="50%"/>
   </div>
   <hr/>
 
@@ -26,9 +26,9 @@
 
   <h2>Specifications</h2>
   <ul>
+    <li><b>Year: </b>{{ car.year }}</li>
     <li><b>Seats: </b>{{ car.seats }}</li>
     <li><b>Doors: </b>{{ car.doors }}</li>
-    <li><b>Year: </b>{{ car.year }}</li>
     <li><b>Horsepower: </b>{{ car.horsepower }} PS</li>
     <li><b>WLTP range: </b>{{ car.wltp_range_km }} km</li>
     <li><b>Battery capacity: </b>{{ car.battery_capacity_kwh }} kWh</li>
@@ -52,4 +52,4 @@
   </div>
 </ng-template>
 
-<router-outlet></router-outlet>
+<router-outlet [car]="car"></router-outlet>

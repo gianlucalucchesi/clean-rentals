@@ -63,6 +63,8 @@ export class CarsContentComponent implements OnInit, OnDestroy {
   }
 
   getCarsPage() {
+    this.cars = null;
+
     this.carService
     .getPaginatedCars$(this.pageNumber, this.pageSize)
     .pipe(take(1))

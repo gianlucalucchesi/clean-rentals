@@ -1,12 +1,16 @@
-<div *ngIf="reservations">
-  <h4 style="text-align: center;">Your brand preferences</h4>
+<div class="container" *ngIf="!reservations; else loaded">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #loaded>
+  <h4 style="text-align: center">Your brand preferences</h4>
   <google-chart
     [data]="data"
     [height]="height"
     [options]="options"
     [type]="type"
     [width]="width"
-    style="display: block; margin: 0 auto; padding: 0;"
+    style="display: block; margin: 0 auto; padding: 0"
   >
   </google-chart>
-</div>
+</ng-template>

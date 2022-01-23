@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Car } from '../models/car.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarService {
+  car: Car;
+  currentSelectedCar$ = new Subject<Car>();
+
   constructor(private http: HttpClient) {}
 
   getCars$(): Observable<any> {
@@ -22,6 +26,15 @@ export class CarService {
     return this.http.get(
       environment.ApiUrl + 'v1/car/pagination/' + (pageNumber - 1) + '/' + pageSize
     );
+  }
+
+  setCurrentSelectedCar(car: Car) {
+    this.car = car;
+    this.currentSelectedCar$.next(this.car);
+  }
+
+  getCurrentSelectedCar() {
+    return this.car;
   }
 
 }

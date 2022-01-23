@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { AuthClientConfig, AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 import { take } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation.model';
 import { ClientService } from 'src/app/services/client.service';
@@ -11,18 +11,15 @@ import { ReservationService } from 'src/app/services/reservation.service';
   styleUrls: ['./reservation-content.component.css']
 })
 export class ReservationContentComponent implements OnInit {
-  audience = this.configFactory.get()?.audience;
   @Output() reservations: Reservation[];
   auth0Id: string;
   clientId: string;
   error: string;
-  @Output() selectedReservationId: string;
 
   constructor(
     public auth: AuthService,
     private reservationService: ReservationService,
-    private clientService: ClientService,
-    private configFactory: AuthClientConfig
+    private clientService: ClientService
   ) {}
 
   ngOnInit(): void {

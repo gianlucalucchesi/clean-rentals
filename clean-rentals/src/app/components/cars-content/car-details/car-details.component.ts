@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
@@ -42,6 +42,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   onReserve() {
+    this.carService.setCurrentSelectedCar(this.car);
     this.router.navigate(['reserve'], { relativeTo: this.route });
   }
 
