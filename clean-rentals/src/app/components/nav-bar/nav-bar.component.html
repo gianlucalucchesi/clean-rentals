@@ -70,7 +70,7 @@
                 *ngIf="currency === 'USD'"
               >
                 <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon> |
-                <span style="font-size: small;">1 USD = {{ rateEUR | number: "1.1-5" }} EUR</span>
+                <span style="font-size: small;">1 EUR = {{ rateEUR | number: "1.1-5" }} USD</span>
               </button>
               <button
                 (click)="onChangeCurrency('USD')"
@@ -79,7 +79,7 @@
                 *ngIf="currency === 'EUR'"
               >
                 <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon> |
-                <span style="font-size: small;">1 EUR = {{ rateUSD | number: "1.1-5" }} USD</span>
+                <span style="font-size: small;">1 USD = {{ rateUSD | number: "1.1-5" }} EUR</span>
               </button>
             </div>
           </li>
