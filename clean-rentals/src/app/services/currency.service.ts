@@ -58,4 +58,8 @@ export class CurrencyService {
       this.rateChanged$.next(this.rate);
     });
   }
+
+  convertEuroToUsd(amount: number): number {
+    return amount * this.rate;
+  }
 }

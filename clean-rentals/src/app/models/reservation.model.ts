@@ -11,4 +11,5 @@ export class Reservation {
   reservationOptions?: ReservationOption[];
   dateTimeStart: Date;
   dateTimeStop?: Date;
+  total_price_euro_excl_vat: number;
 }

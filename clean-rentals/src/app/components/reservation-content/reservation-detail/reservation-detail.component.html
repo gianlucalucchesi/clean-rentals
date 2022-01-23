@@ -35,21 +35,14 @@
             {{ option.name }}
           </li>
         </ul>
-        <div
-          *ngIf="currency === 'EUR'"
-          class="form-group"
-          style="background-color: yellow"
-        >
+        <div class="form-group">
           <label><b>Total paid:</b></label>
-          {{ 0 | currency: "EUR":"symbol" }}
-        </div>
-        <div
-          *ngIf="currency === 'USD'"
-          class="form-group"
-          style="background-color: yellow"
-        >
-          <label><b>Total paid:</b></label>
-          {{ 0 | currency }}
+          {{
+            currency === 'EUR'
+              ? (reservation.total_price_euro_excl_vat
+                | currency: "EUR":"symbol")
+              : (getUsdPrice() | currency)
+          }}
         </div>
 
         <h3>Client information</h3>

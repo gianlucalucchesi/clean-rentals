@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Car } from 'src/app/models/car.model';
+import { CurrencyService } from 'src/app/services/currency.service';
 
 @Component({
   selector: 'app-car-element',
@@ -9,11 +10,12 @@ import { Car } from 'src/app/models/car.model';
 export class CarElementComponent {
   @Input() car: Car;
   @Input() currency: string;
-  @Input() fxRate: number;
 
-  constructor() {}
+  constructor(private currencyService: CurrencyService) {}
 
-  calculateUsdPrice(price: number): number {
-    return Number(price) * Number(this.fxRate);
+  getUsdPrice(): number {
+    return this.currencyService.convertEuroToUsd(
+      this.car.start_day_price_euro_excl_vat
+    );
   }
 }

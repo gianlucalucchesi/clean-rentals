@@ -12,10 +12,8 @@ import { CurrencyService } from 'src/app/services/currency.service';
 })
 export class CarsContentComponent implements OnInit, OnDestroy {
   @Output() cars: Car[];
-  @Output() fxRate: number;
   @Output() currency: string;
   currencySubscription: Subscription;
-  fxRateSubscription: Subscription;
 
   constructor(
     private carService: CarService,
@@ -24,7 +22,6 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) {
     this.currency = this.currencyService.getCurrency();
-    this.fxRate = this.currencyService.getRate();
   }
 
   ngOnInit(): void {
@@ -33,18 +30,14 @@ export class CarsContentComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((cars) => this.handleCars(cars));
 
-    this.currencySubscription =
-      this.currencyService.currencyChanged$.subscribe((currency) => {
+    this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
+      (currency) => {
         this.currency = currency;
-      });
-
-    this.fxRateSubscription = this.currencyService.rateChanged$.subscribe(
-      (rate) => (this.fxRate = rate)
+      }
     );
   }
 
   ngOnDestroy(): void {
-    this.fxRateSubscription.unsubscribe();
     this.currencySubscription.unsubscribe();
   }
 
@@ -52,7 +45,7 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     this.cars = JSON.parse(JSON.stringify(rawJson));
   }
 
-  OnSelectCar(selectedCar: Car){
+  OnSelectCar(selectedCar: Car) {
     this.router.navigate([selectedCar.id], { relativeTo: this.route });
   }
 }

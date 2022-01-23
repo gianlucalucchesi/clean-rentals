@@ -30,7 +30,10 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
     this.route.params.pipe(take(1)).subscribe((params) => {
       this.reservationService
         .getReservationItem$(params['id'])
-        .subscribe((reservation) => (this.reservation = reservation));
+        .subscribe((reservation) => {
+          (this.reservation = reservation)
+          console.log(this.reservation)
+        });
     });
 
     this.currencySubscription$ =
@@ -41,6 +44,10 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.currencySubscription$.unsubscribe();
+  }
+
+  getUsdPrice(): number {
+    return this.currencyService.convertEuroToUsd(this.reservation.total_price_euro_excl_vat);
   }
 
 }
