@@ -32,6 +32,7 @@ import { ReservationDetailComponent } from './components/reservation-content/res
 import { CarReservationComponent } from './components/cars-content/car-reservation/car-reservation.component';
 import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
 import { CarsComponent } from './pages/cars/cars.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { CarsComponent } from './pages/cars/cars.component';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
     }),
-    GoogleChartsModule
+    GoogleChartsModule,
+    NgxPaginationModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ], // https://stackoverflow.com/a/68361628/10470183
   providers: [

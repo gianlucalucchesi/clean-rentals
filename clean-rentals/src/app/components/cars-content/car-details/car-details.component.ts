@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
+import { CurrencyService } from 'src/app/services/currency.service';
 
 @Component({
   selector: 'app-car-details',
@@ -11,8 +12,17 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CarDetailsComponent implements OnInit {
   car: Car;
+  currency: string;
+  currencySubscription: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute, private carService: CarService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private carService: CarService,
+    private currencyService: CurrencyService
+  ) {
+    this.currency = this.currencyService.getCurrency();
+  }
 
   ngOnInit(): void {
     // https://angular-training-guide.rangle.io/routing/child_routes
@@ -25,10 +35,19 @@ export class CarDetailsComponent implements OnInit {
           this.car = JSON.parse(json);
         });
     });
+
+    this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
+      (currency) => (this.currency = currency)
+    );
   }
 
   onReserve() {
     this.router.navigate(['reserve'], { relativeTo: this.route });
   }
 
+  getUsdPrice(): number {
+    return this.currencyService.convertEuroToUsd(
+      this.car.start_day_price_euro_excl_vat
+    );
+  }
 }

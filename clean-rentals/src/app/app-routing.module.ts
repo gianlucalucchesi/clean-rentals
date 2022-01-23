@@ -31,8 +31,8 @@ const routes: Routes = [
     component: ManageReservationsComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: ReservationContentComponent},
-      { path: ':id', component: ReservationDetailComponent }
+      { path: '', component: ReservationContentComponent },
+      { path: ':id', component: ReservationDetailComponent },
     ],
   },
   {
@@ -41,8 +41,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: CarsContentComponent },
-      { path: ':id', component: CarDetailsComponent },
-      { path: ':id/reserve', component: CarReservationComponent }
+      {
+        path: ':id',
+        component: CarDetailsComponent,
+        children: [{ path: 'reserve', component: CarReservationComponent }],
+      },
     ],
   },
 ];

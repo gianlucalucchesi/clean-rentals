@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
+import { CarPage } from 'src/app/models/car-page.model';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
 import { CurrencyService } from 'src/app/services/currency.service';
@@ -11,9 +12,11 @@ import { CurrencyService } from 'src/app/services/currency.service';
   styleUrls: ['./cars-content.component.css'],
 })
 export class CarsContentComponent implements OnInit, OnDestroy {
-  @Output() cars: Car[];
+  @Output() cars: CarPage;
   @Output() currency: string;
   currencySubscription: Subscription;
+  pageNumber: number = 1;
+  pageSize: number = 5;
 
   constructor(
     private carService: CarService,
@@ -26,9 +29,9 @@ export class CarsContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.carService
-      .getCars$()
-      .pipe(take(1))
-      .subscribe((cars) => this.handleCars(cars));
+    .getPaginatedCars$(this.pageNumber, this.pageSize)
+    .pipe(take(1))
+    .subscribe((cars) => this.handleCars(cars))
 
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
       (currency) => {
@@ -48,4 +51,27 @@ export class CarsContentComponent implements OnInit, OnDestroy {
   OnSelectCar(selectedCar: Car) {
     this.router.navigate([selectedCar.id], { relativeTo: this.route });
   }
+
+  getNextPage() {
+    this.pageNumber++;
+    this.getCarsPage();
+  }
+
+  getPreviousPage() {
+    this.pageNumber--;
+    this.getCarsPage();
+  }
+
+  getCarsPage() {
+    this.carService
+    .getPaginatedCars$(this.pageNumber, this.pageSize)
+    .pipe(take(1))
+    .subscribe((cars) => this.handleCars(cars))
+  }
+
+  changePageSize(event: any) {
+    this.pageSize = event.target.value;
+    this.getCarsPage();
+  }
+
 }

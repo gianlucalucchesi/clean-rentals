@@ -1,8 +1,48 @@
 <h1>Cars</h1>
 <p class="lead">See all our available cars below.</p>
 
-<div class="cars" *ngIf="cars">
-  <div *ngFor="let car of cars; let i = index">
-    <app-car-element [car]="cars[i]" [currency]="currency" (click)="OnSelectCar(car)"></app-car-element>
+<div class="cars" *ngIf="cars" style="padding-bottom: 150px">
+  <div class="row">
+    <div class="column">
+      <select class="form-select" (change)="changePageSize($event)">
+        <option selected value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngFor="let car of cars.content; let i = index">
+    <app-car-element
+      [car]="cars.content[i]"
+      [currency]="currency"
+      (click)="OnSelectCar(car)"
+    ></app-car-element>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6">
+      <button
+        style="position: absolute; margin-top: 10px; left: 20px"
+        *ngIf="!cars.first"
+        type="button"
+        class="btn btn-primary"
+        (click)="getPreviousPage()"
+      >
+        PREVIOUS PAGE
+      </button>
+    </div>
+    <div class="col-xl-6">
+      <button
+        style="position: absolute; margin-top: 10px; right: 20px"
+        *ngIf="!cars.last"
+        type="button"
+        class="btn btn-primary"
+        (click)="getNextPage()"
+      >
+        NEXT PAGE
+      </button>
+    </div>
   </div>
 </div>

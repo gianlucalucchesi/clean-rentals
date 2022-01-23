@@ -5,9 +5,13 @@ export class Car {
   id: string;
   brand: Brand;
   model: string;
-  image_url: string;
-  carOptions?: CarOption[];
-  start_day_price_euro_excl_vat: number;
   seats: number;
   doors: number;
+  year: number;
+  horsepower: number;
+  wltp_range_km: number;
+  battery_capacity_kwh: number;
+  start_day_price_euro_excl_vat: number;
+  carOptions?: CarOption[];
+  image_url: string;
 }

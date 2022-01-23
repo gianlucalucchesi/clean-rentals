@@ -10,21 +10,21 @@
             <div class="div2" style="position: absolute; bottom: 0">
               <span>
                 <img
+                  height="20"
                   src="../../../../assets/images/door.png"
                   width="20"
-                  height="20"
                 />
                 {{ car.doors }}
                 <img
+                  height="20"
                   src="../../../../assets/images/seat.png"
                   width="20"
-                  height="20"
                 />
                 {{ car.seats }}
                 <img
+                  height="20"
                   src="../../../../assets/images/gear-stick.png"
                   width="20"
-                  height="20"
                 />
                 Automatic
               </span>
@@ -33,17 +33,17 @@
         </div>
         <div class="col-md-3" style="text-align: right">
           <img
+            height="112"
             src="{{ '../../../' + car.image_url }}"
             width="225"
-            height="112"
-          /><br />
+          /><br/>
           As from
           <b
-            >{{
-              currency === 'EUR'
-                ? (car.start_day_price_euro_excl_vat
-                  | currency: "EUR":"symbol":"1.0-0")
-                : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
+          >{{
+            currency === 'EUR'
+              ? (car.start_day_price_euro_excl_vat
+                | currency: "EUR":"symbol":"1.0-0")
+              : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
             }}
             Excl. VAT</b
           > | day
