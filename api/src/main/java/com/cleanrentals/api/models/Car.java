@@ -23,7 +23,7 @@ public class Car {
     @Column(name = "model", nullable = false)
     private String model;
 
-    @Column(name = "image_url", nullable = true)
+    @Column(name = "image_url", nullable = false)
     private String image_url;
 
     public UUID getId() {
@@ -48,6 +48,18 @@ public class Car {
 
     @Column(name = "doors", nullable = false)
     private int doors;
+
+    @Column(name = "year", nullable = false)
+    private int year;
+
+    @Column(name = "horsepower", nullable = false)
+    private int horsepower;
+
+    @Column(name = "wltp_range_km", nullable = false)
+    private int wltp_range_km;
+
+    @Column(name = "battery_capacity_kwh", nullable = false)
+    private int battery_capacity_kwh;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -99,6 +111,38 @@ public class Car {
 
     public void setDoors(int doors) {
         this.doors = doors;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public void setHorsepower(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
+    public int getWltp_range_km() {
+        return wltp_range_km;
+    }
+
+    public void setWltp_range_km(int wltp_range_km) {
+        this.wltp_range_km = wltp_range_km;
+    }
+
+    public int getBattery_capacity_kwh() {
+        return battery_capacity_kwh;
+    }
+
+    public void setBattery_capacity_kwh(int battery_capacity_kwh) {
+        this.battery_capacity_kwh = battery_capacity_kwh;
     }
 
     public Set<CarOption> getCarOptions() {

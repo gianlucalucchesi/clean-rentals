@@ -6,11 +6,15 @@ import com.cleanrentals.api.models.Car;
 import com.cleanrentals.api.repositories.CarRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,6 +32,13 @@ public class CarController {
     public ResponseEntity<List<Car>> get() throws NotFoundException {
         List<Car> cars = carRepository.findAll();
         return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
+    }
+
+    @GetMapping("/pagination/{pageNumber}/{pageSize}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Page<Car>> get(@PathVariable int pageNumber, @PathVariable int pageSize) throws NotFoundException {
+        Page<Car> cars = carRepository.findAll(PageRequest.of(pageNumber, pageSize));
+        return new ResponseEntity<Page<Car>>(cars, HttpStatus.OK);
     }
 
     @GetMapping(value = "private/{id}")
