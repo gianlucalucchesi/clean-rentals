@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
@@ -12,7 +12,7 @@ import { CarService } from 'src/app/services/car.service';
 export class CarDetailsComponent implements OnInit {
   car: Car;
 
-  constructor(private route: ActivatedRoute, private carService: CarService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private carService: CarService) {}
 
   ngOnInit(): void {
     // https://angular-training-guide.rangle.io/routing/child_routes
@@ -25,6 +25,10 @@ export class CarDetailsComponent implements OnInit {
           this.car = JSON.parse(json);
         });
     });
+  }
+
+  onReserve() {
+    this.router.navigate(['reserve'], { relativeTo: this.route });
   }
 
 }
