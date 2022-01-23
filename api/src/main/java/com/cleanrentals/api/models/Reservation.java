@@ -31,8 +31,11 @@ public class Reservation {
     @Column(name = "date_time_start", nullable = false)
     private Date dateTimeStart;
 
-    @Column(name = "date_time_stop", nullable = true)
+    @Column(name = "date_time_stop", nullable = false)
     private Date dateTimeStop;
+
+    @Column(name = "total_price_euro_excl_vat", nullable = false)
+    private float total_price_euro_excl_vat;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -88,6 +91,14 @@ public class Reservation {
 
     public void setDateTimeStop(Date dateTimeStop) {
         this.dateTimeStop = dateTimeStop;
+    }
+
+    public float getTotal_price_euro_excl_vat() {
+        return total_price_euro_excl_vat;
+    }
+
+    public void setTotal_price_euro_excl_vat(float total_price_euro_excl_vat) {
+        this.total_price_euro_excl_vat = total_price_euro_excl_vat;
     }
 
     public Set<ReservationOption> getReservationOptions() {

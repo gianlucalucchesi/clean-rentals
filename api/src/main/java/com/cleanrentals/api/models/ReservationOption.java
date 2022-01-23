@@ -19,6 +19,12 @@ public class ReservationOption {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = true)
+    private String description;
+
+    @Column(name = "day_price_euro_excl_vat", nullable = false)
+    private float day_price_euro_excl_vat;
+
     @ManyToMany(mappedBy = "reservationOptions")
     @JsonIgnore // This fixes infinite recursion in JSON
     private Set<Reservation> reservation = new HashSet<>();
@@ -37,6 +43,22 @@ public class ReservationOption {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getDay_price_euro_excl_vat() {
+        return day_price_euro_excl_vat;
+    }
+
+    public void setDay_price_euro_excl_vat(float day_price_euro_excl_vat) {
+        this.day_price_euro_excl_vat = day_price_euro_excl_vat;
     }
 
     public Set<Reservation> getReservation() {
