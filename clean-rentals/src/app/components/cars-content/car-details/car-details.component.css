@@ -3,3 +3,7 @@ ul {
   -webkit-columns: 2;
   -moz-columns: 2;
 }
+
+#details {
+  padding-bottom: 60px;
+}

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
@@ -26,6 +26,16 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
     private reserveService: ReservationService
   ) {
     this.currency = this.currencyService.getCurrency();
+
+    // Detect is back navigator button is pressed
+    // If reserveMode not reset after back button pressed -> button stays hidden
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          this.reserveMode = false;
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -44,18 +54,18 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
       (currency) => (this.currency = currency)
     );
 
-    this.reserveModeSubscription = this.reserveService.reserveModeChanged$.subscribe({
-      next: (mode) => this.reserveMode = mode
-    })
+    this.reserveModeSubscription =
+      this.reserveService.reserveModeChanged$.subscribe({
+        next: (mode) => (this.reserveMode = mode),
+      });
   }
 
   ngOnDestroy(): void {
-      this.reserveModeSubscription.unsubscribe();
-      this.currencySubscription.unsubscribe();
+    this.reserveModeSubscription.unsubscribe();
+    this.currencySubscription.unsubscribe();
   }
 
   onReserve() {
-    this.reserveMode = true;
     this.carService.setCurrentSelectedCar(this.car);
     this.reserveService.setReserveMode(true);
     this.router.navigate(['reserve'], { relativeTo: this.route });

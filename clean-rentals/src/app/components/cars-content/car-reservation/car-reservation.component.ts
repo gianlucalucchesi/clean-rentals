@@ -32,7 +32,7 @@ export class CarReservationComponent implements OnInit {
   onCancel() {
     this.carService.setCurrentSelectedCar(null);
     this.reserveService.setReserveMode(false);
-    this.router.navigate(['./'], { relativeTo: this.route });
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onSubmit() {
