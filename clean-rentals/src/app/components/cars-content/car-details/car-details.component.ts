@@ -30,10 +30,11 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
     // Detect is back navigator button is pressed
     // If reserveMode not reset after back button pressed -> button stays hidden
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        if (event.navigationTrigger === 'popstate') {
-          this.reserveMode = false;
-        }
+      if (
+        event instanceof NavigationStart &&
+        event.navigationTrigger === 'popstate'
+      ) {
+        this.reserveMode = false;
       }
     });
   }

@@ -1,14 +1,56 @@
 <div *ngIf="car" id="reservation">
   <h2>Reservation</h2>
-  {{ car.brand.name }} {{ car.model }}
 
-  <div style="text-align: center">
-    <hr/>
-    <button (click)="onSubmit()" class="btn btn-success" type="button">
-      Add to basket
-    </button> |
-    <button (click)="onCancel()" class="btn btn-danger" type="button">
-      Cancel
-    </button>
+  <div class="row">
+    <div class="col-xl-6">
+      <p *ngIf="fromDate">From: {{ fromDate.day }}/{{ fromDate.month}}/{{ fromDate.year }}</p>
+      <p *ngIf="toDate">To: {{ toDate.day }}/{{ toDate.month}}/{{ toDate.year }}</p>
+
+      <h3>Options</h3>
+      <div *ngFor="let option of reservationOptions; let i=index">
+        <!-- <input type=”checkbox” [formControl]="option"/> {{option[i].name}} -->
+       </div>
+
+    </div>
+    <div class="col-xl-6" style="text-align: right">
+      <ngb-datepicker
+        #dp
+        (dateSelect)="onDateSelection($event)"
+        [displayMonths]="2"
+        [dayTemplate]="t"
+        outsideDays="hidden"
+      >
+      </ngb-datepicker>
+
+      <ng-template #t let-date let-focused="focused">
+        <span
+          class="custom-day"
+          [class.focused]="focused"
+          [class.range]="isRange(date)"
+          [class.faded]="isHovered(date) || isInside(date)"
+          (mouseenter)="hoveredDate = date"
+          (mouseleave)="hoveredDate = null"
+        >
+          {{ date.day }}
+        </span>
+      </ng-template>
+    </div>
+  </div>
+
+  <div>
+    <br />
+    <div class="row">
+      <div class="col-xl-4"></div>
+      <div class="col-xl-4" style="text-align: center">
+        <button (click)="onSubmit()" class="btn btn-success" type="button">
+          Add to Shopping Cart
+        </button>
+      </div>
+      <div class="col-xl-4" style="text-align: right">
+        <button (click)="onCancel()" class="btn btn-danger" type="button">
+          Cancel
+        </button>
+      </div>
+    </div>
   </div>
 </div>

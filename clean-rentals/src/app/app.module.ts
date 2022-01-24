@@ -33,7 +33,7 @@ import { CarReservationComponent } from './components/cars-content/car-reservati
 import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     }),
     GoogleChartsModule,
     NgxPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ], // https://stackoverflow.com/a/68361628/10470183
   providers: [
