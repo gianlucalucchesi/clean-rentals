@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Client } from '../models/client.model';
 import { environment } from '../../environments/environment';
-import { AuthService } from '@auth0/auth0-angular';
 import { Observable} from 'rxjs';
 
 @Injectable({

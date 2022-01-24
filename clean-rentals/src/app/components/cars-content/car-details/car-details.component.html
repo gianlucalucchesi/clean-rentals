@@ -43,13 +43,13 @@
   }}
   Excl. VAT | day
 
-  <div style="text-align: center">
+  <div *ngIf="!reserveMode"  style="text-align: center">
     <hr/>
     <button (click)="onReserve()" class="btn btn-success" type="button">
       Reserve
     </button>
-    <hr/>
   </div>
+  <hr/>
 </ng-template>
 
 <router-outlet [car]="car"></router-outlet>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Reservation } from '../models/reservation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,9 @@ import { environment } from '../../environments/environment';
 export class ReservationService {
   private currentReservationId: string;
   currentReservationId$ = new Subject<string>();
+  private reserveMode = false;
+  reserveModeChanged$ = new Subject<boolean>();
+  reservation: Reservation;
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +24,18 @@ export class ReservationService {
     return this.http.get(environment.ApiUrl + 'v1/reservation/private/' + id);
   }
 
-  setCurrentReservationId(id: string) {
+  setCurrentReservationId(id: string): void {
     this.currentReservationId = id;
     this.currentReservationId$.next(this.currentReservationId);
+  }
+
+  getReserveMode(): boolean {
+    return this.reserveMode;
+  }
+
+  setReserveMode(reserveMode: boolean): void {
+    this.reserveMode = reserveMode;
+    this.reserveModeChanged$.next(this.reserveMode);
   }
 
 }

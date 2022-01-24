@@ -1,3 +1,14 @@
 <div *ngIf="car">
+  <h2>Reservation</h2>
   {{ car.brand.name }} {{ car.model }}
+
+  <div style="text-align: center">
+    <hr/>
+    <button (click)="onSubmit()" class="btn btn-success" type="button">
+      Add to basket
+    </button> |
+    <button (click)="onCancel()" class="btn btn-danger" type="button">
+      Cancel
+    </button>
+  </div>
 </div>

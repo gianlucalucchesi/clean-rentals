@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
   selector: 'app-car-details',
   templateUrl: './car-details.component.html',
   styleUrls: ['./car-details.component.css'],
 })
-export class CarDetailsComponent implements OnInit {
+export class CarDetailsComponent implements OnInit, OnDestroy {
   car: Car;
   currency: string;
   currencySubscription: Subscription;
+  reserveMode = false;
+  reserveModeSubscription: Subscription;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private carService: CarService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private reserveService: ReservationService
   ) {
     this.currency = this.currencyService.getCurrency();
   }
@@ -39,10 +43,21 @@ export class CarDetailsComponent implements OnInit {
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
       (currency) => (this.currency = currency)
     );
+
+    this.reserveModeSubscription = this.reserveService.reserveModeChanged$.subscribe({
+      next: (mode) => this.reserveMode = mode
+    })
+  }
+
+  ngOnDestroy(): void {
+      this.reserveModeSubscription.unsubscribe();
+      this.currencySubscription.unsubscribe();
   }
 
   onReserve() {
+    this.reserveMode = true;
     this.carService.setCurrentSelectedCar(this.car);
+    this.reserveService.setReserveMode(true);
     this.router.navigate(['reserve'], { relativeTo: this.route });
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormControl, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { CarPage } from 'src/app/models/car-page.model';
@@ -17,6 +18,7 @@ export class CarsContentComponent implements OnInit, OnDestroy {
   currencySubscription: Subscription;
   pageNumber: number = 1;
   pageSize: number = 5;
+  pageSelector: FormControl;
 
   constructor(
     private carService: CarService,
@@ -29,9 +31,9 @@ export class CarsContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.carService
-    .getPaginatedCars$(this.pageNumber, this.pageSize)
-    .pipe(take(1))
-    .subscribe((cars) => this.handleCars(cars))
+      .getPaginatedCars$(this.pageNumber, this.pageSize)
+      .pipe(take(1))
+      .subscribe((cars) => this.handleCars(cars));
 
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
       (currency) => {
@@ -66,9 +68,9 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     this.cars = null;
 
     this.carService
-    .getPaginatedCars$(this.pageNumber, this.pageSize)
-    .pipe(take(1))
-    .subscribe((cars) => this.handleCars(cars))
+      .getPaginatedCars$(this.pageNumber, this.pageSize)
+      .pipe(take(1))
+      .subscribe((cars) => this.handleCars(cars));
   }
 
   changePageSize(event: any) {
@@ -77,5 +79,4 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     this.pageSize = event.target.value;
     this.getCarsPage();
   }
-
 }
