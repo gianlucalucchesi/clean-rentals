@@ -19,7 +19,7 @@ public class UserController {
 
     /**
      * Get all Auth0 users
-     * @return user list
+     * @return list of all users
      * @throws IOException
      * @throws UnirestException
      */

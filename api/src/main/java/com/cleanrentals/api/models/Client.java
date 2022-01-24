@@ -16,16 +16,16 @@ public class Client {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = true)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name", nullable = true)
     private String lastName;
 
     @Column(name = "phone_number", nullable = true)
     private String phoneNumber;
 
-    @Column(name = "email_address", nullable = true)
+    @Column(name = "email_address", nullable = false)
     private String emailAddress;
 
     @Column(name = "auth0_Id", nullable = false)

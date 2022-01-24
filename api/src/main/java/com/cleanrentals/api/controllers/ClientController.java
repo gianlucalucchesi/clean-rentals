@@ -1,5 +1,6 @@
 package com.cleanrentals.api.controllers;
 
+import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Client;
 import com.cleanrentals.api.repositories.ClientRepository;
@@ -50,5 +51,18 @@ public class ClientController {
         }
 
         return new ResponseEntity<Client>(optionalClient.get(), HttpStatus.OK);
+    }
+
+    @PostMapping("private")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client create(@RequestBody Client client) throws ConflictException {
+        Optional<Client> optionalClient = this.clientRepository.findByAuth0Id(client.getAuth0Id());
+
+        if (optionalClient.isPresent()) {
+            throw new ConflictException(String.format("Client %s already exists", client.getAuth0Id()));
+        }
+
+        client.setId(UUID.randomUUID());
+        return this.clientRepository.saveAndFlush(client);
     }
 }
