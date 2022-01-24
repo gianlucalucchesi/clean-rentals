@@ -10,7 +10,9 @@ import {
   faServer,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
+import { Client } from 'src/app/models/client.model';
+import { ClientService } from 'src/app/services/client.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 
 @Component({
@@ -40,6 +42,7 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     public currencyService: CurrencyService,
+    private clientService: ClientService,
     public auth: AuthService,
     @Inject(DOCUMENT) private doc: Document
   ) {
@@ -64,6 +67,7 @@ export class NavBarComponent implements OnInit {
         this.rateEUR = rate;
       }
     );
+
   }
 
   loginWithRedirect() {
