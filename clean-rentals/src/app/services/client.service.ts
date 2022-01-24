@@ -2,16 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Client } from '../models/client.model';
 import { environment } from '../../environments/environment';
-import { AuthService, User } from '@auth0/auth0-angular';
-import { Observable, Subscription, take } from 'rxjs';
+import { AuthService } from '@auth0/auth0-angular';
+import { Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientService implements OnInit {
-  currentClient: Client;
-
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void { }
 
@@ -27,5 +25,9 @@ export class ClientService implements OnInit {
     client.emailAddress = auth0email;
 
     return this.http.post(environment.ApiUrl + 'v1/client/private', client);
+  }
+
+  updateClient(client: Client) {
+    return this.http.put(environment.ApiUrl + 'v1/client/private', client);
   }
 }

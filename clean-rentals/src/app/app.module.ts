@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
@@ -33,6 +33,7 @@ import { CarReservationComponent } from './components/cars-content/car-reservati
 import { CarDetailsComponent } from './components/cars-content/car-details/car-details.component';
 import { CarsComponent } from './pages/cars/cars.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
       apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
     }),
     GoogleChartsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ReactiveFormsModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ], // https://stackoverflow.com/a/68361628/10470183
   providers: [

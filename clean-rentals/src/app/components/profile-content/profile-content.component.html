@@ -21,23 +21,27 @@
     </div>
 
     <div *ngIf="client" class="row">
-      <form>
+      <form (ngSubmit)="onSave()" [formGroup]="clientForm">
         <div class="form-group">
-          <label style="font-weight: bold">First Name: </label>
-          {{ client.firstName }}
+          <label for="firstName" style="font-weight: bold">First Name: </label>
+          <input class="form-control" formControlName="firstName" id="firstName" type="text">
+          <!-- {{ client.firstName }} -->
         </div>
         <div class="form-group">
-          <label style="font-weight: bold">Last Name: </label>
-          {{ client.lastName }}
+          <label for="lastName"  style="font-weight: bold">Last Name: </label>
+          <input class="form-control" formControlName="lastName" id="lastName" type="text">
+          <!-- {{ client.lastName }} -->
         </div>
         <div class="form-group">
-          <label style="font-weight: bold">Phone Number: </label>
-          {{ client.phoneNumber }}
+          <label for="phoneNumber" style="font-weight: bold">Phone Number: </label>
+          <input class="form-control" formControlName="phoneNumber" id="phoneNumber" type="text">
+          <!-- {{ client.phoneNumber }} -->
         </div>
         <div class="form-group">
-          <label style="font-weight: bold">Email verified: </label>
-          {{ user.email_verified }}
+          <label style="font-weight: bold">Email verification: </label>
+          {{ user.email_verified ? "Yes" : "No" }}
         </div>
+        <button class="btn btn-primary" type="submit">Save</button>
       </form>
     </div>
   </div>

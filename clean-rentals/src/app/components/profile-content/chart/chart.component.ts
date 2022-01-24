@@ -1,12 +1,10 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { ChartType } from 'angular-google-charts';
 import { Observable, take } from 'rxjs';
 import { Client } from 'src/app/models/client.model';
 import { Reservation } from 'src/app/models/reservation.model';
+import { ClientService } from 'src/app/services/client.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 
 @Component({
@@ -14,7 +12,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css'],
 })
-export class ChartComponent implements OnChanges {
+export class ChartComponent implements OnInit, OnChanges {
   @Input() client: Client;
   reservations: Reservation[];
 
@@ -33,9 +31,15 @@ export class ChartComponent implements OnChanges {
   width = 400;
   height = 400;
 
-  constructor(private reservationService: ReservationService) {}
+  constructor(
+    private reservationService: ReservationService,
+    private auth: AuthService,
+    private clientService: ClientService
+  ) {}
 
-  // Wait for @Input() to change (= load)
+  ngOnInit(): void {}
+
+  // Wait for @Input() to change then load
   ngOnChanges(): void {
     if (this.client) {
       this.reservationService
@@ -44,6 +48,15 @@ export class ChartComponent implements OnChanges {
         .subscribe((reservations) => {
           this.handleReservations(reservations);
         });
+
+      this.auth.user$.pipe(take(1)).subscribe((profile) => {
+        this.clientService
+          .getClientByAuth0Id$(profile.sub)
+          .pipe(take(1))
+          .subscribe((client) => {
+            next: this.client = client;
+          });
+      });
     }
   }
 
