@@ -1,17 +1,17 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  NgbCalendar,
-  NgbDate,
-  NgbDateStruct,
-} from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription, take } from 'rxjs';
 import { Car } from 'src/app/models/car.model';
+import { Location } from 'src/app/models/location.model';
 import { ReservationOption } from 'src/app/models/reservation-option.model';
 import { Reservation } from 'src/app/models/reservation.model';
 import { CarService } from 'src/app/services/car.service';
+import { CurrencyService } from 'src/app/services/currency.service';
+import { LocationService } from 'src/app/services/location.service';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 
 @Component({
   selector: 'app-car-reservation',
@@ -23,6 +23,10 @@ export class CarReservationComponent implements OnInit, OnDestroy {
   currentCarSubscription: Subscription;
   reservation: Reservation;
   reservationOptions: ReservationOption[];
+  currency: string;
+  currencySubscription: Subscription;
+  reservationOptionsForm: FormGroup;
+  locations: Location[] = [];
 
   // Date picker
   hoveredDate: NgbDate | null = null;
@@ -34,22 +38,66 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     private reserveService: ReservationService,
     private router: Router,
     private route: ActivatedRoute,
-    calendar: NgbCalendar
+    public calendar: NgbCalendar,
+    private currencyService: CurrencyService,
+    private shoppingCartService: ShoppingCartService,
+    private locationService: LocationService
   ) {
     this.reservation = new Reservation();
+    this.reservation.total_price_euro_excl_vat = 0;
+    this.reservation.reservationOptions = [];
+
+    this.reservationOptionsForm = new FormGroup({
+      selectedOptions: new FormControl({
+        selectedOptions: new FormArray([]),
+      }),
+    });
+
     this.car = this.carService.getCurrentSelectedCar();
     this.fromDate = calendar.getToday();
+    this.currency = currencyService.getCurrency();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 7);
   }
 
   ngOnInit(): void {
     this.currentCarSubscription = this.carService.currentSelectedCar$.subscribe(
-      (currentCar) => (this.car = currentCar)
+      {
+        next: (currentCar) => (this.car = currentCar),
+      }
     );
+
+    this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
+      {
+        next: (currency) => (this.currency = currency),
+      }
+    );
+
+    this.reserveService
+      .getReservationOptions$()
+      .pipe(take(1))
+      .subscribe({
+        next: (options) => this.reservationOptions = JSON.parse(JSON.stringify(options))
+      });
+
+    this.locationService.getLocations$().pipe(take(1)).subscribe({
+      next: (locations) => this.locations = JSON.parse(JSON.stringify(locations))
+    })
   }
 
   ngOnDestroy(): void {
     this.currentCarSubscription.unsubscribe();
+    this.currencySubscription.unsubscribe();
+  }
+
+  onCheckboxChange(event: any, option: ReservationOption) {
+    if (event.target.checked) {
+      this.reservation.reservationOptions.push(option);
+    } else {
+      const index = this.reservation.reservationOptions.indexOf(option);
+      this.reservation.reservationOptions.splice(index, 1); // 1 means remove 1 item only
+    }
+
+    this.calculateTotalPrice();
   }
 
   onDateSelection(date: NgbDate) {
@@ -62,7 +110,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       this.fromDate = date;
     }
 
-    this.calculatePrice();
+    this.calculateTotalPrice();
   }
 
   isHovered(date: NgbDate) {
@@ -94,23 +142,54 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  calculatePrice(): number {
-    let dateStart = new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day);
-    let dateStop = new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day);
-    let days = (dateStop.getTime() - dateStart.getTime()) / (1000 * 3600 * 24); // Milliseconds to days
+  calculateTotalPrice() {
+    if (this.fromDate && this.toDate) {
+      this.reservation.dateTimeStart = new Date(
+        this.fromDate.year,
+        this.fromDate.month - 1,
+        this.fromDate.day
+      );
 
-    let carPrice = this.car.start_day_price_euro_excl_vat * days;
-    let optionsPrice = 0; // TODO
+      this.reservation.dateTimeStop = new Date(
+        this.toDate.year,
+        this.toDate.month - 1,
+        this.toDate.day
+      );
 
-    throw new Error('Method not implemented.');
+      // Milliseconds to days
+      // +1 to make inclusive
+      let days =
+        (this.reservation.dateTimeStop.getTime() -
+          this.reservation.dateTimeStart.getTime()) /
+          (1000 * 3600 * 24) +
+        1;
 
-    return carPrice + optionsPrice;
+      let optionsPrice = 0;
+      for (let option of this.reservation.reservationOptions) {
+        optionsPrice += option.day_price_euro_excl_vat;
+      }
+
+      let totalOptionsPrice = optionsPrice * days;
+      let carPrice = this.car.start_day_price_euro_excl_vat * days;
+
+      this.reservation.total_price_euro_excl_vat = carPrice + totalOptionsPrice;
+    }
+  }
+
+  onLocationSelect(location: Location) {
+    this.reservation.location = location;
   }
 
   onSubmit() {
-    this.reservation.dateTimeStart = new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day);
-    this.reservation.dateTimeStop = new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day);
+    if (!this.reservation.location) {
+      this.reservation.location = this.locations[0];
+    }
+    this.reservation.car = this.car;
+    this.shoppingCartService.setReservation(this.reservation);
+    this.router.navigate(['/cars-overview']);
+  }
 
-    console.log(this.reservation)
+  getUsdPrice(euroPrice: number): number {
+    return this.currencyService.convertEuroToUsd(euroPrice);
   }
 }

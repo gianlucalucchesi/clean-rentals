@@ -24,6 +24,10 @@ export class ReservationService {
     return this.http.get(environment.ApiUrl + 'v1/reservation/private/' + id);
   }
 
+  getReservationOptions$(): Observable<any> {
+    return this.http.get(environment.ApiUrl + 'v1/reservation-option');
+  }
+
   setCurrentReservationId(id: string): void {
     this.currentReservationId = id;
     this.currentReservationId$.next(this.currentReservationId);
