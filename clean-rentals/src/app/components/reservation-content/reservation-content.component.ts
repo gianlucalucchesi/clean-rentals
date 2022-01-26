@@ -8,7 +8,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
 @Component({
   selector: 'app-reservation-content',
   templateUrl: './reservation-content.component.html',
-  styleUrls: ['./reservation-content.component.css']
+  styleUrls: ['./reservation-content.component.css'],
 })
 export class ReservationContentComponent implements OnInit {
   @Output() reservations: Reservation[];
@@ -27,13 +27,12 @@ export class ReservationContentComponent implements OnInit {
       this.auth0Id = user.sub;
 
       this.clientService
-      .getClientByAuth0Id$(this.auth0Id)
-      .pipe(take(1))
-      .subscribe((client) => {
-        this.clientId = client.id;
-        this.getReservations();
-      });
-
+        .getClientByAuth0Id$(this.auth0Id)
+        .pipe(take(1))
+        .subscribe((client) => {
+          this.clientId = client.id;
+          this.getReservations();
+        });
     });
   }
 
@@ -44,12 +43,13 @@ export class ReservationContentComponent implements OnInit {
         let responseJson = JSON.stringify(res, null, 2).trim();
         this.reservations = JSON.parse(responseJson);
         // Most recent on top
-        this.reservations = this.reservations.slice().sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart)
+        this.reservations = this.reservations
+          .slice()
+          .sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart);
       },
       error: (err) => {
         this.error = err.error.error;
       },
     });
   }
-
 }

@@ -21,8 +21,13 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
     private shoppingCartService: ShoppingCartService,
     private currencyService: CurrencyService
   ) {
+    if(localStorage.getItem('shopping-cart')) {
+      this.reservations = <Reservation[]>JSON.parse(localStorage.getItem('shopping-cart'));
+    } else {
+      this.reservations = this.shoppingCartService.reservations;
+    }
+
     this.currency = this.currencyService.getCurrency();
-    this.reservations = this.shoppingCartService.reservations;
     this.getTotals();
   }
 
@@ -36,9 +41,8 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
       });
 
     this.currencyChanged = this.currencyService.currencyChanged$.subscribe({
-      next: (currency) => this.currency = currency
-    })
-
+      next: (currency) => (this.currency = currency),
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Subject, take } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Reservation } from '../models/reservation.model';
 import { environment } from '../../environments/environment';
 import { ClientService } from './client.service';
 import { Client } from '../models/client.model';
-import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +18,13 @@ export class ShoppingCartService {
 
   setReservation(reservation: Reservation) {
     this.reservations.push(reservation);
+    localStorage.setItem('shopping-cart', JSON.stringify(this.reservations));
     this.reservationObservable$.next(this.reservations);
   }
 
   validateReservation() {
-    https://stackoverflow.com/a/42185519/10470183
-    this.clientService.getClient().then((client: Client) => {
+    //stackoverflow.com/a/42185519/10470183
+    https: this.clientService.getClient().then((client: Client) => {
       this.client = client;
 
       for (let reservation of this.reservations) {
@@ -36,8 +36,7 @@ export class ShoppingCartService {
 
       this.reservations = [];
       this.reservationObservable$.next(this.reservations);
-
+      localStorage.removeItem('shopping-cart');
     });
   }
-
 }
