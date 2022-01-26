@@ -1,5 +1,6 @@
 package com.cleanrentals.api.controllers;
 
+import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Reservation;
 import com.cleanrentals.api.repositories.ReservationRepository;
@@ -43,7 +44,6 @@ public class ReservationController {
 
     @GetMapping("private/client/{id}/reservations")
     @ResponseStatus(HttpStatus.OK)
-    @CrossOrigin
     public ResponseEntity<List<Reservation>> getByClient(@PathVariable UUID id) throws NotFoundException {
         Optional<List<Reservation>> optionalReservationList = reservationRepository.findByClient(id);
 
@@ -52,5 +52,19 @@ public class ReservationController {
         }
 
         return new ResponseEntity<List<Reservation>>(optionalReservationList.get(), HttpStatus.OK);
+    }
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public Reservation create(@RequestBody Reservation reservation) throws ConflictException {
+        if(reservation.getId() != null) {
+            Optional<Reservation> optionalReservation = this.reservationRepository.findById(reservation.getId());
+
+            if (optionalReservation.isPresent())
+                throw new ConflictException(String.format("Reservation %s already exists", reservation.getId()));
+        }
+
+        reservation.setId(UUID.randomUUID());
+        return reservationRepository.saveAndFlush(reservation);
     }
 }

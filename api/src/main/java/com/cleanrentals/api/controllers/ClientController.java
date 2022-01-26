@@ -65,4 +65,16 @@ public class ClientController {
         client.setId(UUID.randomUUID());
         return this.clientRepository.saveAndFlush(client);
     }
+
+    @PutMapping("private")
+    @ResponseStatus(HttpStatus.OK)
+    public Client update(@RequestBody Client client) throws NotFoundException {
+        Optional<Client> optionalClient = this.clientRepository.findById(client.getId());
+
+        if (optionalClient.isEmpty()) {
+            throw new NotFoundException(String.format("Client with Auth0 id %s not found", client.getId()));
+        }
+
+        return this.clientRepository.saveAndFlush(client);
+    }
 }
