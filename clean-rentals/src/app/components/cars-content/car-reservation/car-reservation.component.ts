@@ -178,6 +178,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
 
   onLocationSelect(location: Location) {
     this.reservation.location = location;
+    console.log(this.reservation.location)
   }
 
   onSubmit() {

@@ -61,11 +61,18 @@
           {{ reservation.car.model }}
         </div>
         <h5>Options</h5>
-        <ul>
+        <ul *ngIf="reservation.car.carOptions.length > 0">
           <li *ngFor="let option of reservation.car.carOptions">
             {{ option.name }}
           </li>
         </ul>
+        <div
+        *ngIf="reservation.car.carOptions.length === 0"
+        class="alert alert-info"
+        role="alert"
+      >
+        Incomplete option list
+      </div>
 
         <h3>Location information</h3>
         <div class="form-group">

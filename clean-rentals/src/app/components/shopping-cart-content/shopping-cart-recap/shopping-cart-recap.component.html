@@ -1,0 +1,39 @@
+<div *ngIf="reservations.length > 0">
+  <div *ngFor="let reservation of reservations">
+    <b>{{ reservation.car.brand.name }} {{ reservation.car.model }}</b
+    ><br />
+    {{ reservation.location.name }}<br />
+    {{ reservation.dateTimeStart | date }} -
+    {{ reservation.dateTimeStop | date }}
+    <hr />
+  </div>
+</div>
+<div style="background-color: #e8e9eb; border-radius: 5px; padding: 5px">
+  Total Excl. VAT:
+  {{
+    currency === "EUR"
+      ? (totalExclTax | currency: "EUR":"symbol":"1.0-2")
+      : (getUsdPrice(totalExclTax) | currency: "USD":"symbol":"1.0-2")
+  }}<br />
+  VAT (21%):
+  {{
+    currency === "EUR"
+      ? (vat | currency: "EUR":"symbol":"1.0-2")
+      : (getUsdPrice(vat) | currency: "USD":"symbol":"1.0-2")
+  }}<br />
+  <b
+    >Total Incl. VAT
+    {{
+      currency === "EUR"
+        ? (totalExclTax + vat | currency: "EUR":"symbol":"1.0-2")
+        : (getUsdPrice(totalExclTax + vat)
+          | currency: "USD":"symbol":"1.0-2")
+    }}</b
+  >
+</div>
+<div style="text-align: center; padding-bottom: 5px">
+  <hr />
+  <button type="button" class="btn btn-success" (click)="submit()">
+    Validate cart
+  </button>
+</div>
