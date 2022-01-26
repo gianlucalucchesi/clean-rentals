@@ -32,7 +32,6 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
         .getReservationItem$(params['id'])
         .subscribe((reservation) => {
           (this.reservation = reservation)
-          console.log(this.reservation)
         });
     });
 
