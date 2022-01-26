@@ -34,6 +34,7 @@ import { CarDetailsComponent } from './components/cars-content/car-details/car-d
 import { CarsComponent } from './pages/cars/cars.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShoppingCartContentComponent } from './components/shopping-cart-content/shopping-cart-content.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CarReservationComponent,
     CarDetailsComponent,
     CarsComponent,
+    ShoppingCartContentComponent,
   ],
   imports: [
     BrowserModule,
