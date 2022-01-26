@@ -43,6 +43,8 @@ export class ReservationContentComponent implements OnInit {
         this.error = null;
         let responseJson = JSON.stringify(res, null, 2).trim();
         this.reservations = JSON.parse(responseJson);
+        // Most recent on top
+        this.reservations = this.reservations.slice().sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart)
       },
       error: (err) => {
         this.error = err.error.error;
