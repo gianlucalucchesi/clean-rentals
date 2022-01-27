@@ -19,6 +19,7 @@ export class ClientService implements OnInit {
     );
   }
 
+  //stackoverflow.com/a/42185519/10470183
   getClient(): Promise<Client> {
     return new Promise((resolve) => {
       this.auth.user$.pipe(take(1)).subscribe({

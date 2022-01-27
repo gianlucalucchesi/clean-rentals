@@ -25,7 +25,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
   reservationOptions: ReservationOption[];
   currency: string;
   currencySubscription: Subscription;
-  reservationOptionsForm: FormGroup;
+  reservationForm: FormGroup;
   locations: Location[] = [];
 
   // Date picker
@@ -47,10 +47,11 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     this.reservation.total_price_euro_excl_vat = 0;
     this.reservation.reservationOptions = [];
 
-    this.reservationOptionsForm = new FormGroup({
+    this.reservationForm = new FormGroup({
       selectedOptions: new FormControl({
         selectedOptions: new FormArray([]),
       }),
+      location: new FormControl(this.locations[0]),
     });
 
     this.car = this.carService.getCurrentSelectedCar();
@@ -76,12 +77,17 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       .getReservationOptions$()
       .pipe(take(1))
       .subscribe({
-        next: (options) => this.reservationOptions = JSON.parse(JSON.stringify(options))
+        next: (options) =>
+          (this.reservationOptions = JSON.parse(JSON.stringify(options))),
       });
 
-    this.locationService.getLocations$().pipe(take(1)).subscribe({
-      next: (locations) => this.locations = JSON.parse(JSON.stringify(locations))
-    })
+    this.locationService
+      .getLocations$()
+      .pipe(take(1))
+      .subscribe({
+        next: (locations) =>
+          (this.locations = JSON.parse(JSON.stringify(locations))),
+      });
   }
 
   ngOnDestroy(): void {
@@ -156,8 +162,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
         this.toDate.day
       );
 
-      // Milliseconds to days
-      // +1 to make inclusive
+      // Milliseconds to days --- +1 to make inclusive
       let days =
         (this.reservation.dateTimeStop.getTime() -
           this.reservation.dateTimeStart.getTime()) /
@@ -176,15 +181,12 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLocationSelect(location: Location) {
-    this.reservation.location = location;
-    console.log(this.reservation.location)
-  }
-
   onSubmit() {
-    if (!this.reservation.location) {
-      this.reservation.location = this.locations[0];
-    }
+    let location = this.locations.find(
+      (x) => x.name === this.reservationForm.get('location').value
+    );
+
+    this.reservation.location = location;
     this.reservation.car = this.car;
     this.shoppingCartService.setReservation(this.reservation);
     this.router.navigate(['/cars-overview']);

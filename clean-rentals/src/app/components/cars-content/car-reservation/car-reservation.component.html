@@ -14,7 +14,7 @@
       </p>
 
       <h3>Options</h3>
-      <form [formGroup]="reservationOptionsForm">
+      <form [formGroup]="reservationForm">
         <div *ngFor="let option of reservationOptions; let i = index">
           <div class="form-check">
             <input
@@ -37,16 +37,23 @@
             <p style="color: gray">{{ option.description }}</p>
           </div>
         </div>
+
+        <div class="form-group">
+          <h3>Location</h3>
+          <select
+            class="form-control"
+            formControlName="location"
+            id="selectedLocation"
+            name="selectedLocation"
+          >
+            <option *ngFor="let location of locations">
+              {{ location.name }}
+            </option>
+          </select>
+        </div>
       </form>
 
-      <h3>Location</h3>
-      <select class="form-select">
-        <option *ngFor="let location of locations" [value]="location" (change)="onLocationSelect(location)">
-          {{ location.name }}
-        </option>
-      </select>
-
-      <br><br>
+      <br /><br />
 
       <h3>Total Price</h3>
       <div class="alert alert-info" role="alert">
