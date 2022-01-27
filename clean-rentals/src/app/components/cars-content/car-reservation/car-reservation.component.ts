@@ -51,7 +51,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       selectedOptions: new FormControl({
         selectedOptions: new FormArray([]),
       }),
-      location: new FormControl(this.locations[0]),
+      location: new FormControl(null)
     });
 
     this.car = this.carService.getCurrentSelectedCar();
@@ -85,8 +85,9 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       .getLocations$()
       .pipe(take(1))
       .subscribe({
-        next: (locations) =>
-          (this.locations = JSON.parse(JSON.stringify(locations))),
+        next: (locations) => {
+          this.locations = JSON.parse(JSON.stringify(locations));
+        }
       });
   }
 
@@ -186,7 +187,12 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       (x) => x.name === this.reservationForm.get('location').value
     );
 
-    this.reservation.location = location;
+    if (location) {
+      this.reservation.location = location;
+    } else {
+      this.reservation.location = this.locations[0];
+    }
+
     this.reservation.car = this.car;
     this.shoppingCartService.setReservation(this.reservation);
     this.router.navigate(['/cars-overview']);
