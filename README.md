@@ -8,3 +8,6 @@ Java Spring Boot Web Application
 ### Web Application - Angular
 
 ### Mobile Application - Flutter
+
+## Database
+### PostgreSQL
