@@ -21,6 +21,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
   ) {
     if(localStorage.getItem('shopping-cart')) {
       this.reservations = <Reservation[]>JSON.parse(localStorage.getItem('shopping-cart'));
+      this.shoppingCartService.reservations = this.reservations;
     } else {
       this.reservations = this.shoppingCartService.reservations;
     }
