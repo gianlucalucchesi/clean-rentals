@@ -10,6 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, UUID> {
-    @Query("SELECT l FROM location AS l WHERE (LOWER(name) = LOWER(:name)) AND (city_id = :cityId)")
-    Optional<Location> findByName(String name, UUID cityId);
+    Optional<Location> findByName(String name);
 }

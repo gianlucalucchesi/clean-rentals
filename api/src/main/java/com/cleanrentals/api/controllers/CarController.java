@@ -31,9 +31,6 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    @Autowired
-    private BrandRepository brandRepository;
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Car> get() throws NotFoundException {
