@@ -2,8 +2,11 @@ package com.cleanrentals.api.controllers;
 
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
+import com.cleanrentals.api.models.Brand;
 import com.cleanrentals.api.models.Car;
+import com.cleanrentals.api.repositories.BrandRepository;
 import com.cleanrentals.api.repositories.CarRepository;
+import com.cleanrentals.api.services.CarService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -25,64 +29,64 @@ import java.util.UUID;
 @Api(tags="Car") // Swagger doc
 public class CarController {
     @Autowired
-    private CarRepository carRepository;
+    private CarService carService;
+
+    @Autowired
+    private BrandRepository brandRepository;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Car>> get() throws NotFoundException {
-        List<Car> cars = carRepository.findAll();
-        return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
+    public List<Car> get() throws NotFoundException {
+        return this.carService.findAll();
     }
 
     @GetMapping("/pagination/{pageNumber}/{pageSize}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Page<Car>> get(@PathVariable int pageNumber, @PathVariable int pageSize) throws NotFoundException {
-        Page<Car> cars = carRepository.findAll(PageRequest.of(pageNumber, pageSize));
-        return new ResponseEntity<Page<Car>>(cars, HttpStatus.OK);
+    public Page<Car> get(@PathVariable int pageNumber, @PathVariable int pageSize) throws NotFoundException {
+        Page<Car> carPage = carService.findAll(PageRequest.of(pageNumber, pageSize));
+        return carPage;
     }
 
     @GetMapping(value = "private/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Car> get(@PathVariable UUID id) throws NotFoundException {
-        Optional<Car> optionalCar = carRepository.findById(id);
-
-        if (optionalCar.isEmpty())
-            throw new NotFoundException(String.format("Car with id %s not found", id));
-
-        return new ResponseEntity<Car>(optionalCar.get(), HttpStatus.OK);
+    public Car get(@PathVariable UUID id) throws NotFoundException {
+        return this.carService.findById(id);
     }
 
     @GetMapping(value = "/private-scoped/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Car> get2(@PathVariable UUID id) throws NotFoundException {
-        Optional<Car> optionalCar = carRepository.findById(id);
-
-        if (optionalCar.isEmpty())
-            throw new NotFoundException(String.format("Car with id %s not found", id));
-
-        return new ResponseEntity<Car>(optionalCar.get(), HttpStatus.OK);
+    public Car getScoped(@PathVariable UUID id) throws NotFoundException {
+        return this.carService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Car create(@RequestBody Car car) throws ConflictException {
-        Optional<Car> optionalCar = carRepository.findByModelAndBrand(car.getModel(), car.getBrand().getId());
-
-        if (optionalCar.isPresent())
-            throw new ConflictException(String.format("%s %s already exists", car.getBrand().getName(), car.getModel()));
-
-        car.setId(UUID.randomUUID());
-        return carRepository.saveAndFlush(car);
+    public Car create(@RequestBody Car car) throws ConflictException, NotFoundException {
+        return this.carService.create(car);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable UUID id) throws NotFoundException {
-        Optional<Car> optionalCar = carRepository.findById(id);
-
-        if (optionalCar.isEmpty())
-            throw new NotFoundException(String.format("Car with id %s does not exist", id));
-
-        carRepository.delete(optionalCar.get());
+        this.carService.delete(id);
     }
+
+    @GetMapping("/model/{model}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> findByModel(@PathVariable String model) {
+        return this.carService.findByModel(model);
+    }
+
+    @GetMapping("/brand/{brand}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> findByBrand(@PathVariable String brand) throws NotFoundException {
+        return this.carService.findByBrand(brand);
+    }
+
+    @GetMapping("/brand/{brand}/model/{model}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Car> findByModelAndBrand(@PathVariable String brand, @PathVariable String model) throws NotFoundException {
+        return this.carService.findByModelAndBrand(model, brand);
+    }
+
 }

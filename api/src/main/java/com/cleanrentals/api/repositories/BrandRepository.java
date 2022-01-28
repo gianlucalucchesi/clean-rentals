@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, UUID> {
-    @Query("SELECT b FROM brand AS b WHERE LOWER(name) = LOWER(:name)")
     Optional<Brand> findByName(String name);
+
 }
