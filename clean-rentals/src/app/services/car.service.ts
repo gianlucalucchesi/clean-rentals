@@ -8,7 +8,7 @@ import { Car } from '../models/car.model';
   providedIn: 'root',
 })
 export class CarService {
-  car: Car;
+  private car: Car;
   currentSelectedCar$ = new Subject<Car>();
 
   constructor(private http: HttpClient) {}

@@ -45,8 +45,9 @@ export class ChartComponent implements OnInit, OnChanges {
       this.reservationService
         .getClientReservations$(this.client.id)
         .pipe(take(1))
-        .subscribe((reservations) => {
-          this.handleReservations(reservations);
+        .subscribe({
+          next: (reservations) => this.handleReservations(reservations),
+          error: () => this.reservations = []
         });
 
       this.auth.user$.pipe(take(1)).subscribe((profile) => {

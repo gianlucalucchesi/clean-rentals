@@ -49,6 +49,7 @@ export class ReservationContentComponent implements OnInit {
       },
       error: (err) => {
         this.error = err.error.error;
+        this.reservations = [];
       },
     });
   }
