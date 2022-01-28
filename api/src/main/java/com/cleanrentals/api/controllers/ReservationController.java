@@ -64,7 +64,7 @@ public class ReservationController {
                 throw new ConflictException(String.format("Reservation %s already exists", reservation.getId()));
         }
 
-        reservation.setId(UUID.randomUUID());
+//        reservation.setId(UUID.randomUUID()); // Not needed because comes with ID from body
         return reservationRepository.saveAndFlush(reservation);
     }
 }

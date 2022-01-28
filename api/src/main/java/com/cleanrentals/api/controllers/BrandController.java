@@ -30,17 +30,6 @@ public class BrandController {
         return new ResponseEntity<List<Brand>>(brands, HttpStatus.OK);
     }
 
-//    @GetMapping("name/{brandName}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Brand> getByName(@PathVariable String brandName) throws NotFoundException {
-//        Optional<Brand> optionalBrand = brandRepository.findByName(brandName);
-//
-//        if (optionalBrand.isEmpty())
-//            throw new NotFoundException(brandName + " does not exist");
-//
-//        return new ResponseEntity<Brand>(optionalBrand.get(), HttpStatus.OK);
-//    }
-
     @GetMapping(value = "{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Brand> get(@PathVariable UUID id) throws NotFoundException {
