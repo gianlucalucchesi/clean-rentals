@@ -4,6 +4,7 @@ import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.CarOption;
 import com.cleanrentals.api.repositories.CarOptionRepository;
+import com.cleanrentals.api.services.CarOptionService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,50 +22,29 @@ import java.util.UUID;
 @Api(tags="Car Option") // Swagger doc
 public class CarOptionController {
     @Autowired
-    private CarOptionRepository carOptionRepository;
+    private CarOptionService carOptionService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<CarOption>> get() {
-        List<CarOption> carOptions = carOptionRepository.findAll();
-        return new ResponseEntity<List<CarOption>>(carOptions, HttpStatus.OK);
+    public List<CarOption> get() {
+        return this.carOptionService.findAll();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CarOption> get(@PathVariable UUID id) throws NotFoundException {
-        Optional<CarOption> optionalCarOption = carOptionRepository.findById(id);
-
-        if (optionalCarOption.isEmpty()) {
-            throw new NotFoundException(String.format("Car option with id %s does not exist", id));
-        }
-
-        return new ResponseEntity<CarOption>(optionalCarOption.get(), HttpStatus.OK);
+    public CarOption get(@PathVariable UUID id) throws NotFoundException {
+        return this.carOptionService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CarOption create(@RequestBody CarOption carOption) throws ConflictException {
-        Optional<CarOption> optionalCarOption = carOptionRepository.findByName(carOption.getName());
-
-        if (optionalCarOption.isPresent()) {
-            throw new ConflictException(String.format("Car option '%s' already exists", carOption.getName()));
-        }
-
-        carOption.setId(UUID.randomUUID());
-        return carOptionRepository.saveAndFlush(carOption);
+        return this.carOptionService.create(carOption);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public CarOption update(@RequestBody CarOption carOption) throws NotFoundException {
-        Optional<CarOption> optionalExistingCarOption = carOptionRepository.findById(carOption.getId());
-
-        if (optionalExistingCarOption.isEmpty()) {
-            throw new NotFoundException(String.format("Car option with id %s does not exist", carOption.getId()));
-        }
-
-        BeanUtils.copyProperties(carOption, optionalExistingCarOption.get() , "id");
-        return carOptionRepository.saveAndFlush(carOption);
+        return this.carOptionService.update(carOption);
     }
 }
