@@ -14,6 +14,8 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
   reservations: Reservation[] = [];
   currencyChanged: Subscription;
   @Output() currency: string;
+  checkoutSuccess = false;
+  checkoutStatusChanged: Subscription;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -31,7 +33,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reservationsChanged =
-    this.shoppingCartService.reservationObservable$.subscribe({
+    this.shoppingCartService.reservationChanged$.subscribe({
       next: (reservations) => {
         this.reservations = reservations;
       },
@@ -40,11 +42,16 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
     this.currencyChanged = this.currencyService.currencyChanged$.subscribe({
       next: (currency) => this.currency = currency
     })
+
+    this.checkoutStatusChanged = this.shoppingCartService.checkoutStatusChanged$.subscribe({
+      next: (checkoutSuccess) => this.checkoutSuccess = checkoutSuccess
+    })
   }
 
   ngOnDestroy(): void {
     this.reservationsChanged.unsubscribe();
     this.currencyChanged.unsubscribe();
+    this.checkoutStatusChanged.unsubscribe();
   }
 
 }

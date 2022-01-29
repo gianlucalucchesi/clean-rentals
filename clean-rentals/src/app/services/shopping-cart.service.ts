@@ -11,9 +11,11 @@ import * as uuid from 'uuid';
   providedIn: 'root',
 })
 export class ShoppingCartService {
-  reservationObservable$ = new Subject<Reservation[]>();
+  reservationChanged$ = new Subject<Reservation[]>();
   reservations: Reservation[] = [];
   client: Client;
+  checkoutSuccess = false;
+  checkoutStatusChanged$ = new Subject<boolean>();
 
   constructor(private http: HttpClient, private clientService: ClientService) {}
 
@@ -21,14 +23,14 @@ export class ShoppingCartService {
     reservation.id = uuid.v4();
     this.reservations.push(reservation);
     localStorage.setItem('shopping-cart', JSON.stringify(this.reservations));
-    this.reservationObservable$.next(this.reservations);
+    this.reservationChanged$.next(this.reservations);
   }
 
   removeReservation(reservation: Reservation) {
     const index = this.reservations.findIndex(x => x.id === reservation.id);
     this.reservations.splice(index, 1);
     localStorage.setItem('shopping-cart', JSON.stringify(this.reservations));
-    this.reservationObservable$.next(this.reservations);
+    this.reservationChanged$.next(this.reservations);
   }
 
   validateReservation() {
@@ -45,8 +47,15 @@ export class ShoppingCartService {
       }
 
       this.reservations = [];
-      this.reservationObservable$.next(this.reservations);
+      this.reservationChanged$.next(this.reservations);
       localStorage.removeItem('shopping-cart');
+      this.checkoutSuccess = true;
+      this.checkoutStatusChanged$.next(this.checkoutSuccess);
     });
+  }
+
+  changeCheckoutState(value: boolean) {
+    this.checkoutSuccess = value;
+    this.checkoutStatusChanged$.next(this.checkoutSuccess);
   }
 }

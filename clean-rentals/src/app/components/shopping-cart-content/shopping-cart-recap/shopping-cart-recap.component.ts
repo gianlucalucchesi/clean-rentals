@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation.model';
 import { CurrencyService } from 'src/app/services/currency.service';
@@ -17,7 +18,8 @@ export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
 
   constructor(
     private shoppingCartService: ShoppingCartService,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private router: Router
   ) {
     if(localStorage.getItem('shopping-cart')) {
       this.reservations = <Reservation[]>JSON.parse(localStorage.getItem('shopping-cart'));
@@ -31,7 +33,7 @@ export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reservationsChanged =
-      this.shoppingCartService.reservationObservable$.subscribe({
+      this.shoppingCartService.reservationChanged$.subscribe({
         next: (reservations) => {
           this.reservations = reservations;
           this.getTotals();
@@ -57,5 +59,12 @@ export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
 
   submit() {
     this.shoppingCartService.validateReservation();
+
+    this.shoppingCartService.changeCheckoutState(true);
+
+    setTimeout(() => {
+    this.router.navigate(['/']);
+    this.shoppingCartService.changeCheckoutState(false);
+    }, 3000);
   }
 }
