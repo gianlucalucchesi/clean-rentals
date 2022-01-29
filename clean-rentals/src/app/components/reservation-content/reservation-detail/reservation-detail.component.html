@@ -39,10 +39,10 @@
           <label><b>Total paid:</b></label>
           {{
           currency === 'EUR'
-            ? (reservation.total_price_euro_excl_vat
+            ? (reservation.total_price_euro_excl_vat * 1.21
               | currency: "EUR":"symbol")
-            : (getUsdPrice() | currency)
-          }}
+            : (getUsdPrice()*1.21 | currency)
+          }} Incl. VAT
         </div>
 
         <h3>Client information</h3>
