@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, NgModel } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { CarPage } from 'src/app/models/car-page.model';

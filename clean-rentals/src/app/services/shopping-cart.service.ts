@@ -40,7 +40,6 @@ export class ShoppingCartService {
 
       for (let reservation of this.reservations) {
         reservation.client = this.client;
-        console.log(reservation);
         this.http
           .post(environment.ApiUrl + 'v1/reservation', reservation)
           .subscribe();

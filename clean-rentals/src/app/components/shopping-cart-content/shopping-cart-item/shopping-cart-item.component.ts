@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Reservation } from 'src/app/models/reservation.model';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
@@ -16,8 +16,6 @@ export class ShoppingCartItemComponent {
     private currencyService: CurrencyService,
     private shoppingCartService: ShoppingCartService
   ) {}
-
-  ngOnInit(): void {}
 
   getUsdPrice(amount: number) {
     return this.currencyService.convertEuroToUsd(amount);

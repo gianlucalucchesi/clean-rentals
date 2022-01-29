@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-import { Subscription, take } from 'rxjs';
+import { take } from 'rxjs';
 import { Reservation } from 'src/app/models/reservation.model';
 import { ClientService } from 'src/app/services/client.service';
 import { ReservationService } from 'src/app/services/reservation.service';

@@ -1,7 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '@auth0/auth0-angular';
-import { take } from 'rxjs';
 import { Client } from 'src/app/models/client.model';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -18,21 +17,20 @@ export class ProfileContentComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.clientForm = new FormGroup({
-      'firstName': new FormControl(null),
-      'lastName': new FormControl(null),
-      'phoneNumber': new FormControl(null)
-    })
-
+      firstName: new FormControl(null),
+      lastName: new FormControl(null),
+      phoneNumber: new FormControl(null),
+    });
   }
 
   // Wait for @Input() to change then load
   ngOnChanges(): void {
     if (this.client) {
       this.clientForm.patchValue({
-        'firstName': this.client.firstName,
-        'lastName': this.client.lastName,
-        'phoneNumber': this.client.phoneNumber
-      })
+        firstName: this.client.firstName,
+        lastName: this.client.lastName,
+        phoneNumber: this.client.phoneNumber,
+      });
     }
   }
 

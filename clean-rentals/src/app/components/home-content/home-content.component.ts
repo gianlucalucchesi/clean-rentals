@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { take } from 'rxjs';
-import { Client } from 'src/app/models/client.model';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({

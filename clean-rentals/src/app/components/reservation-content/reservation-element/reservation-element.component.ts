@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Reservation } from 'src/app/models/reservation.model';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -8,7 +8,7 @@ import { ReservationService } from 'src/app/services/reservation.service';
   templateUrl: './reservation-element.component.html',
   styleUrls: ['./reservation-element.component.css'],
 })
-export class ReservationElementComponent implements OnInit {
+export class ReservationElementComponent {
   @Input() reservation: Reservation;
 
   constructor(
@@ -17,10 +17,8 @@ export class ReservationElementComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
-
   onSelectReservation() {
     this.reservationService.setCurrentReservationId(this.reservation.id);
-    this.router.navigate([this.reservation.id], {relativeTo: this.route});
+    this.router.navigate([this.reservation.id], { relativeTo: this.route });
   }
 }

@@ -21,8 +21,10 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
     private shoppingCartService: ShoppingCartService,
     private currencyService: CurrencyService
   ) {
-    if(localStorage.getItem('shopping-cart')) {
-      this.reservations = <Reservation[]>JSON.parse(localStorage.getItem('shopping-cart'));
+    if (localStorage.getItem('shopping-cart')) {
+      this.reservations = <Reservation[]>(
+        JSON.parse(localStorage.getItem('shopping-cart'))
+      );
       this.shoppingCartService.reservations = this.reservations;
     } else {
       this.reservations = this.shoppingCartService.reservations;
@@ -33,19 +35,20 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reservationsChanged =
-    this.shoppingCartService.reservationChanged$.subscribe({
-      next: (reservations) => {
-        this.reservations = reservations;
-      },
-    });
+      this.shoppingCartService.reservationChanged$.subscribe({
+        next: (reservations) => {
+          this.reservations = reservations;
+        },
+      });
 
     this.currencyChanged = this.currencyService.currencyChanged$.subscribe({
-      next: (currency) => this.currency = currency
-    })
+      next: (currency) => (this.currency = currency),
+    });
 
-    this.checkoutStatusChanged = this.shoppingCartService.checkoutStatusChanged$.subscribe({
-      next: (checkoutSuccess) => this.checkoutSuccess = checkoutSuccess
-    })
+    this.checkoutStatusChanged =
+      this.shoppingCartService.checkoutStatusChanged$.subscribe({
+        next: (checkoutSuccess) => (this.checkoutSuccess = checkoutSuccess),
+      });
   }
 
   ngOnDestroy(): void {
@@ -53,5 +56,4 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
     this.currencyChanged.unsubscribe();
     this.checkoutStatusChanged.unsubscribe();
   }
-
 }

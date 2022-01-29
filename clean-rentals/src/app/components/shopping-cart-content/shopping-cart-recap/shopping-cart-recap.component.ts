@@ -7,7 +7,7 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 @Component({
   selector: 'app-shopping-cart-recap',
   templateUrl: './shopping-cart-recap.component.html',
-  styleUrls: ['./shopping-cart-recap.component.css']
+  styleUrls: ['./shopping-cart-recap.component.css'],
 })
 export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
   reservationsChanged: Subscription;
@@ -21,8 +21,10 @@ export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
     private currencyService: CurrencyService,
     private router: Router
   ) {
-    if(localStorage.getItem('shopping-cart')) {
-      this.reservations = <Reservation[]>JSON.parse(localStorage.getItem('shopping-cart'));
+    if (localStorage.getItem('shopping-cart')) {
+      this.reservations = <Reservation[]>(
+        JSON.parse(localStorage.getItem('shopping-cart'))
+      );
     } else {
       this.reservations = this.shoppingCartService.reservations;
     }
@@ -59,12 +61,11 @@ export class ShoppingCartRecapComponent implements OnInit, OnDestroy {
 
   submit() {
     this.shoppingCartService.validateReservation();
-
     this.shoppingCartService.changeCheckoutState(true);
 
     setTimeout(() => {
-    this.router.navigate(['/']);
-    this.shoppingCartService.changeCheckoutState(false);
+      this.router.navigate(['/']);
+      this.shoppingCartService.changeCheckoutState(false);
     }, 3000);
   }
 }

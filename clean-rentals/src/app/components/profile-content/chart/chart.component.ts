@@ -47,7 +47,7 @@ export class ChartComponent implements OnInit, OnChanges {
         .pipe(take(1))
         .subscribe({
           next: (reservations) => this.handleReservations(reservations),
-          error: () => this.reservations = []
+          error: () => (this.reservations = []),
         });
 
       this.auth.user$.pipe(take(1)).subscribe((profile) => {

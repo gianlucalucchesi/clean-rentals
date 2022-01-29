@@ -6,7 +6,7 @@ import { faFacebookF, faGithub, faInstagram, faLinkedin, faTwitter } from '@fort
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   faFacebookF = faFacebookF;
   faTwitter = faTwitter;
   faInstagram = faInstagram;
@@ -17,8 +17,4 @@ export class FooterComponent implements OnInit {
   constructor() {
     this.year = new Date().getFullYear();
   }
-
-  ngOnInit(): void {
-  }
-
 }
