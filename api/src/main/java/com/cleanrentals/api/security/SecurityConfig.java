@@ -10,19 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    @Value( "${auth0.audience}" )
+    @Value("${auth0.audience}")
     private String audience;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
@@ -41,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:cars")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
+
     }
 
     @Override

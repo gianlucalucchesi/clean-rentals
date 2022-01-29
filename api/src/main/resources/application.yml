@@ -5,6 +5,13 @@ debug: false
 
 server:
   port: 8080 # 8080 = default port
+  ssl: # https://stackoverflow.com/questions/58802767/no-proceed-anyway-option-on-neterr-cert-invalid-in-chrome-on-macos/58957322#58957322
+    key-store: classpath:cleanrentals.p12
+    key-store-password: ${SSL_PWD}
+    key-store-type: pkcs12
+    key-alias: cleanrentals
+    key-password: ${SSL_PWD}
+    enabled: true
 
 auth0:
   audience: ${AUTH0_AUDIENCE}
