@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
-import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
@@ -38,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:cars")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
-
     }
 
     @Override
