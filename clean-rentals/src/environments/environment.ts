@@ -7,6 +7,9 @@ export const environment = {
     audience: 'https://localhost:8080/',
     redirectUri: window.location.origin,
   },
+  google: {
+    apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
+  },
   httpInterceptor: {
     allowedList: [
       'https://localhost:8080/api/*',

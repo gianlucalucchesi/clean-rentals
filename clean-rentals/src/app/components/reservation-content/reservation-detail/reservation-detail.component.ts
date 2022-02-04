@@ -28,17 +28,15 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // https://angular-training-guide.rangle.io/routing/child_routes
     this.route.params.pipe(take(1)).subscribe((params) => {
-      this.reservationService
-        .getReservationItem$(params['id'])
-        .subscribe((reservation) => {
-          (this.reservation = reservation)
-        });
+      this.reservationService.getReservationItem$(params['id']).subscribe({
+        next: (reservation) => (this.reservation = reservation),
+      });
     });
 
     this.currencySubscription$ =
-      this.currencyService.currencyChanged$.subscribe(
-        (currency) => (this.currency = currency)
-      );
+      this.currencyService.currencyChanged$.subscribe({
+        next: (currency) => (this.currency = currency),
+      });
   }
 
   ngOnDestroy(): void {
@@ -46,7 +44,8 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
   }
 
   getUsdPrice(): number {
-    return this.currencyService.convertEuroToUsd(this.reservation.total_price_euro_excl_vat);
+    return this.currencyService.convertEuroToUsd(
+      this.reservation.total_price_euro_excl_vat
+    );
   }
-
 }

@@ -56,16 +56,17 @@ export class NavBarComponent implements OnInit {
     //   })
     // })
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
-      (currency) => {
-        this.currency = currency;
+      {
+        next: (currency) => (this.currency = currency),
       }
     );
-    this.rateSubscription = this.currencyService.rateChanged$.subscribe(
-      (rate) => {
+
+    this.rateSubscription = this.currencyService.rateChanged$.subscribe({
+      next: (rate) => {
         this.rateUSD = 1 / rate;
         this.rateEUR = rate;
-      }
-    );
+      },
+    });
   }
 
   loginWithRedirect() {

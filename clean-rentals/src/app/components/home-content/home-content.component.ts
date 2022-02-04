@@ -25,9 +25,7 @@ export class HomeContentComponent implements OnInit {
             .getClientByAuth0Id$(user.sub)
             .pipe(take(1))
             .subscribe({
-              next: () => {
-                // Nothing to do because client exists in database
-              },
+              next: () => null, // Nothing to do because client exists in database
               error: (err) => {
                 this.clientService
                   .addNewClient(user.sub, user.email)

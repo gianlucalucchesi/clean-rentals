@@ -80,14 +80,14 @@ import { ShoppingCartRecapComponent } from './components/shopping-cart-content/s
     }),
     FontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
+      apiKey: env.google.apiKey
     }),
     GoogleChartsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ], // https://stackoverflow.com/a/68361628/10470183
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // https://stackoverflow.com/a/68361628/10470183
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

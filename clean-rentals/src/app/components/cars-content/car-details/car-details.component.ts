@@ -45,14 +45,18 @@ export class CarDetailsComponent implements OnInit, OnDestroy {
       this.carService
         .getCarById$(params['id'])
         .pipe(take(1))
-        .subscribe((car) => {
-          let json = JSON.stringify(car);
-          this.car = JSON.parse(json);
+        .subscribe({
+          next: (car) => {
+            let json = JSON.stringify(car);
+            this.car = JSON.parse(json);
+          },
         });
     });
 
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
-      (currency) => (this.currency = currency)
+      {
+        next: (currency) => (this.currency = currency),
+      }
     );
 
     this.reserveModeSubscription =

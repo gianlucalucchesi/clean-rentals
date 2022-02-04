@@ -23,16 +23,20 @@ export class ReservationContentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.user$.pipe(take(1)).subscribe((user) => {
-      this.auth0Id = user.sub;
+    this.auth.user$.pipe(take(1)).subscribe({
+      next: (user) => {
+        this.auth0Id = user.sub;
 
-      this.clientService
-        .getClientByAuth0Id$(this.auth0Id)
-        .pipe(take(1))
-        .subscribe((client) => {
-          this.clientId = client.id;
-          this.getReservations();
-        });
+        this.clientService
+          .getClientByAuth0Id$(this.auth0Id)
+          .pipe(take(1))
+          .subscribe({
+            next: (client) => {
+              this.clientId = client.id;
+              this.getReservations();
+            },
+          });
+      },
     });
   }
 

@@ -33,11 +33,13 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     this.carService
       .getPaginatedCars$(this.pageNumber, this.pageSize)
       .pipe(take(1))
-      .subscribe((cars) => this.handleCars(cars));
+      .subscribe({
+        next: (cars) => this.handleCars(cars),
+      });
 
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
-      (currency) => {
-        this.currency = currency;
+      {
+        next: (currency) => (this.currency = currency),
       }
     );
   }

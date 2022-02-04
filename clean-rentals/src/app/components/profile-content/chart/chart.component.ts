@@ -54,8 +54,8 @@ export class ChartComponent implements OnInit, OnChanges {
         this.clientService
           .getClientByAuth0Id$(profile.sub)
           .pipe(take(1))
-          .subscribe((client) => {
-            next: this.client = client;
+          .subscribe({
+            next: (client) => (this.client = client),
           });
       });
     }

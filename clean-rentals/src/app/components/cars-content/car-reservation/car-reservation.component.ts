@@ -51,7 +51,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       selectedOptions: new FormControl({
         selectedOptions: new FormArray([]),
       }),
-      location: new FormControl(null)
+      location: new FormControl(null),
     });
 
     this.car = this.carService.getCurrentSelectedCar();
@@ -85,9 +85,8 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       .getLocations$()
       .pipe(take(1))
       .subscribe({
-        next: (locations) => {
-          this.locations = JSON.parse(JSON.stringify(locations));
-        }
+        next: (locations) =>
+          (this.locations = JSON.parse(JSON.stringify(locations))),
       });
   }
 
@@ -101,7 +100,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       this.reservation.reservationOptions.push(option);
     } else {
       const index = this.reservation.reservationOptions.indexOf(option);
-      this.reservation.reservationOptions.splice(index, 1); // 1 means remove 1 item only
+      this.reservation.reservationOptions.splice(index, 1); // 1 means remove one item only
     }
 
     this.calculateTotalPrice();

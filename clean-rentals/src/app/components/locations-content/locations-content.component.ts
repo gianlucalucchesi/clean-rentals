@@ -17,7 +17,7 @@ interface Ilocation {
 })
 export class LocationsContentComponent implements OnInit {
   @Output() locations: Ilocation[] = [];
-  startLocation = { lat: 50.849823, lng: 4.449186 }; // EPHEC Wolumé
+  startLocation = { lat: 50.849823, lng: 4.449186 }; // EPHEC Woluwé
 
   constructor(private locationService: LocationService) {}
 

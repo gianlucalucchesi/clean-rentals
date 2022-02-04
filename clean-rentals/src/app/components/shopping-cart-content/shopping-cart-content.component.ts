@@ -36,9 +36,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reservationsChanged =
       this.shoppingCartService.reservationChanged$.subscribe({
-        next: (reservations) => {
-          this.reservations = reservations;
-        },
+        next: (reservations) => (this.reservations = reservations),
       });
 
     this.currencyChanged = this.currencyService.currencyChanged$.subscribe({
