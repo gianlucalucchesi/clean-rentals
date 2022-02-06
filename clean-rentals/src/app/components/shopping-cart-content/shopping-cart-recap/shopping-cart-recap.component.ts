@@ -16,6 +16,11 @@ import { environment as env } from '../../../../environments/environment';
 
 declare let paypal: any;
 
+/*
+PayPal sandbox email: sb-fmkgp12805364@personal.example.com
+PayPal sandbox psw: 9q#d*HN=
+*/
+
 @Component({
   selector: 'app-shopping-cart-recap',
   templateUrl: './shopping-cart-recap.component.html',
