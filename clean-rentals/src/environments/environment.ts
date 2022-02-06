@@ -10,6 +10,9 @@ export const environment = {
   google: {
     apiKey: 'AIzaSyCjQIrikhLzGX13pF_XoNM6ZcCHoCH0zXs'
   },
+  paypal: {
+    clientId: 'AdG_iJpHMoFdCmXlMU29WqAJcufp7B-RNOSaiqOUz68uEMexig5ESmY2Q-TNMmyHqmsVZht9IQ_AVMcD',
+  },
   httpInterceptor: {
     allowedList: [
       'https://localhost:8080/api/*',
