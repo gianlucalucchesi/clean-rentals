@@ -16,6 +16,8 @@ export class ShoppingCartService {
   client: Client;
   checkoutSuccess = false;
   checkoutStatusChanged$ = new Subject<boolean>();
+  checkoutFailed = false;
+  checkoutFailedChanged$ = new Subject<boolean>();
 
   constructor(private http: HttpClient, private clientService: ClientService) {}
 
@@ -42,7 +44,10 @@ export class ShoppingCartService {
         reservation.client = this.client;
         this.http
           .post(environment.ApiUrl + 'v1/reservation', reservation)
-          .subscribe();
+          .subscribe({
+            next: () => null,
+            error: (err) => this.checkoutFailedChanged(true)
+          });
       }
 
       this.reservations = [];
@@ -56,5 +61,10 @@ export class ShoppingCartService {
   changeCheckoutState(value: boolean) {
     this.checkoutSuccess = value;
     this.checkoutStatusChanged$.next(this.checkoutSuccess);
+  }
+
+  checkoutFailedChanged(value: boolean) {
+    this.checkoutFailed = true;
+    this.checkoutFailedChanged$.next(this.checkoutFailed);
   }
 }

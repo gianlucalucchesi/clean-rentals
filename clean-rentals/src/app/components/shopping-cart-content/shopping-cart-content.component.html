@@ -2,8 +2,11 @@
   Empty shopping cart
 </div>
 
-<div *ngIf="checkoutSuccess" class="alert alert-success" role="alert">
+<div *ngIf="checkoutSuccess && !checkoutFailed" class="alert alert-success" role="alert">
   Checkout successful. Thank you!
+</div>
+<div *ngIf="checkoutFailed" class="alert alert-danger" role="alert">
+  Reservation failed. Someone else booked that car in the meantime. Sorry !
 </div>
 
 <div *ngIf="reservations.length > 0 && !checkoutSuccess">

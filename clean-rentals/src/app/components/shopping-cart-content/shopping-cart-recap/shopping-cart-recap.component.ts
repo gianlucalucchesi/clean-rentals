@@ -60,6 +60,7 @@ export class ShoppingCartRecapComponent
         setTimeout(() => {
           this.router.navigate(['/']);
           this.shoppingCartService.changeCheckoutState(false);
+          this.shoppingCartService.checkoutFailedChanged(false);
         }, 5000);
       });
     },
