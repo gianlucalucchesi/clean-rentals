@@ -85,7 +85,7 @@ export class ShoppingCartRecapComponent
   ngOnChanges(): void {
     this.amountPayable =
       this.currency == 'EUR'
-        ? (this.totalExclTax * 1.21)
+        ? (+Math.round((this.totalExclTax * 1.21) * 100) / 100)
         : (this.getUsdPrice(this.totalExclTax * 1.21));
   }
 
@@ -133,13 +133,4 @@ export class ShoppingCartRecapComponent
     return +Math.round(usdAmount * 100) / 100
   }
 
-  // submit() {
-  //   this.shoppingCartService.validateReservation();
-  //   this.shoppingCartService.changeCheckoutState(true);
-
-  //   setTimeout(() => {
-  //     this.router.navigate(['/']);
-  //     this.shoppingCartService.changeCheckoutState(false);
-  //   }, 3000);
-  // }
 }
