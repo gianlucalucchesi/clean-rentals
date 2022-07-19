@@ -37,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartContentComponent } from './components/shopping-cart-content/shopping-cart-content.component';
 import { ShoppingCartItemComponent } from './components/shopping-cart-content/shopping-cart-item/shopping-cart-item.component';
 import { ShoppingCartRecapComponent } from './components/shopping-cart-content/shopping-cart-recap/shopping-cart-recap.component';
+import { ErrorContentComponent } from './components/error-content/error-content.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ShoppingCartRecapComponent } from './components/shopping-cart-content/s
     ShoppingCartContentComponent,
     ShoppingCartItemComponent,
     ShoppingCartRecapComponent,
+    ErrorContentComponent,
   ],
   imports: [
     BrowserModule,

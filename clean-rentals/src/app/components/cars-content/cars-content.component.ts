@@ -6,6 +6,7 @@ import { CarPage } from 'src/app/models/car-page.model';
 import { Car } from 'src/app/models/car.model';
 import { CarService } from 'src/app/services/car.service';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-cars-content',
@@ -24,7 +25,8 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     private carService: CarService,
     private currencyService: CurrencyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public auth: AuthService,
   ) {
     this.currency = this.currencyService.getCurrency();
   }

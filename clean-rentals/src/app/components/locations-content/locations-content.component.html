@@ -1,8 +1,19 @@
-<div class="container" *ngIf="(locations.length === 0); else loaded">
-  <app-loading></app-loading>
+<div *ngIf="(auth.isAuthenticated$ | async) === false; else loading">
+  <app-error-content></app-error-content>
 </div>
 
+<ng-template #loading>
+  <div class="container" *ngIf="(locations.length === 0); else loaded">
+    <app-loading></app-loading>
+  </div>
+</ng-template>
+
 <ng-template #loaded class="locations" style="padding-bottom: 100px">
+  <h1>Locations</h1>
+
+  <p class="lead">See all our locations below.</p>
+
+
   <agm-map
     [latitude]="startLocation.lat"
     [longitude]="startLocation.lng"

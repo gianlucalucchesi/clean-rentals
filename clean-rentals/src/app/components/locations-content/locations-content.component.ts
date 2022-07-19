@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { take } from 'rxjs';
 import { Location } from 'src/app/models/location.model';
 import { LocationService } from 'src/app/services/location.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 interface Ilocation {
   lat: number;
@@ -19,7 +20,10 @@ export class LocationsContentComponent implements OnInit {
   @Output() locations: Ilocation[] = [];
   startLocation = { lat: 50.849823, lng: 4.449186 }; // EPHEC Woluwé
 
-  constructor(private locationService: LocationService) {}
+  constructor(
+    private locationService: LocationService,
+    public auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.locationService

@@ -1,6 +1,12 @@
-<div class="container" *ngIf="!cars; else loaded">
-  <app-loading></app-loading>
+<div *ngIf="(auth.isAuthenticated$ | async) === false; else loading">
+  <app-error-content></app-error-content>
 </div>
+
+<ng-template #loading>
+  <div class="container" *ngIf="!cars; else loaded">
+    <app-loading></app-loading>
+  </div>
+</ng-template>
 
 <ng-template #loaded>
   <h1>Cars</h1>
