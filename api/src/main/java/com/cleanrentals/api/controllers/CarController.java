@@ -44,7 +44,7 @@ public class CarController {
         return carPage;
     }
 
-    @GetMapping(value = "private/{id}")
+    @GetMapping(value = "/private/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Car get(@PathVariable UUID id) throws NotFoundException {
         return this.carService.findById(id);
