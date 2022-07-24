@@ -11,6 +11,8 @@ final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 /// -----------------------------------
 ///           Auth0 Variables
 /// -----------------------------------
+/// https://auth0.com/blog/get-started-with-flutter-authentication/
+/// https://auth0.com/blog/flutter-authentication-authorization-with-auth0-part-1-adding-authentication-to-an-app/
 
 const AUTH0_DOMAIN = 'dev-qkw53hzi.eu.auth0.com';
 const AUTH0_CLIENT_ID = 'EUjEN89wRH4dKpVqnKBHVIorYjaDVY9j';
