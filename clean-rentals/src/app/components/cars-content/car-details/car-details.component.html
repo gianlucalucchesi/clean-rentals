@@ -1,0 +1,62 @@
+<div *ngIf="!car; else loaded" class="container">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #loaded>
+  <div id="details">
+    <div class="col" style="text-align: center">
+      <h1>{{ car.brand.name }} {{ car.model }}</h1>
+      <img
+        src="{{ '../../../../' + car.image_url }}"
+        height="50%"
+        width="50%"
+      />
+    </div>
+    <hr />
+
+    <h2>Options</h2>
+    <ul *ngIf="car.carOptions.length > 0">
+      <li *ngFor="let option of car.carOptions">
+        {{ option.name }}
+      </li>
+    </ul>
+
+    <div
+      *ngIf="car.carOptions.length === 0"
+      class="alert alert-info"
+      role="alert"
+    >
+      Incomplete option list
+    </div>
+
+    <h2>Specifications</h2>
+    <ul>
+      <li><b>Year: </b>{{ car.year }}</li>
+      <li><b>Seats: </b>{{ car.seats }}</li>
+      <li><b>Doors: </b>{{ car.doors }}</li>
+      <li><b>Horsepower: </b>{{ car.horsepower }} PS</li>
+      <li><b>WLTP range: </b>{{ car.wltp_range_km }} km</li>
+      <li><b>Battery capacity: </b>{{ car.battery_capacity_kwh }} kWh</li>
+    </ul>
+
+    <h2>Price</h2>
+    As from
+    {{
+      currency === "EUR"
+        ? (car.start_day_price_euro_excl_vat | currency: "EUR":"symbol":"1.0-0")
+        : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
+    }}
+    Excl. VAT | day
+
+    <div *ngIf="!reserveMode" style="text-align: center">
+      <hr />
+      <button (click)="onReserve()" class="btn btn-success" type="button">
+        Reserve
+      </button>
+    </div>
+    <hr />
+    <router-outlet [car]="car"></router-outlet>
+  </div>
+</ng-template>
+
+

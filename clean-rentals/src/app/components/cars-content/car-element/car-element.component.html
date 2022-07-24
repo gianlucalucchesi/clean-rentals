@@ -1,0 +1,53 @@
+<div *ngIf="car">
+  <div class="container py-1">
+    <div class="h-100 p-2 border" id="card">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="parent">
+            <div class="div1">
+              <h2>{{ car.brand.name }} {{ car.model }}</h2>
+            </div>
+            <div class="div2" style="position: absolute; bottom: 0">
+              <span>
+                <img
+                  height="20"
+                  src="../../../../assets/images/door.png"
+                  width="20"
+                />
+                {{ car.doors }}
+                <img
+                  height="20"
+                  src="../../../../assets/images/seat.png"
+                  width="20"
+                />
+                {{ car.seats }}
+                <img
+                  height="20"
+                  src="../../../../assets/images/gear-stick.png"
+                  width="20"
+                />
+                Automatic
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3" style="text-align: right">
+          <img
+            src="{{ '../../../' + car.image_url }}"
+            width="100%"
+          /><br/>
+          As from
+          <b
+          >{{
+            currency === 'EUR'
+              ? (car.start_day_price_euro_excl_vat
+                | currency: "EUR":"symbol":"1.0-0")
+              : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
+            }}
+            Excl. VAT</b
+          > | day
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

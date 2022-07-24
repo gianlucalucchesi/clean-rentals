@@ -1,0 +1,17 @@
+<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
+  <app-loading></app-loading>
+</div>
+
+<ng-template #loaded>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col">
+        <app-profile-content [client]="client"></app-profile-content>
+      </div>
+      <div class="col">
+        <app-chart [client]="client"></app-chart>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
