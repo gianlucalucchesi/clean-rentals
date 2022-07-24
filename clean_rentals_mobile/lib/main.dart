@@ -5,18 +5,18 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+/// https://auth0.com/blog/get-started-with-flutter-authentication/
+/// https://auth0.com/blog/flutter-authentication-authorization-with-auth0-part-1-adding-authentication-to-an-app/
+
 final FlutterAppAuth appAuth = FlutterAppAuth();
 final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
 /// -----------------------------------
 ///           Auth0 Variables
 /// -----------------------------------
-/// https://auth0.com/blog/get-started-with-flutter-authentication/
-/// https://auth0.com/blog/flutter-authentication-authorization-with-auth0-part-1-adding-authentication-to-an-app/
 
 const AUTH0_DOMAIN = 'dev-qkw53hzi.eu.auth0.com';
 const AUTH0_CLIENT_ID = 'EUjEN89wRH4dKpVqnKBHVIorYjaDVY9j';
-
 const AUTH0_REDIRECT_URI = 'com.cleanrentals.mobile://login-callback';
 const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
 
@@ -51,11 +51,11 @@ class Profile extends StatelessWidget {
         SizedBox(height: 24.0),
         Text('Name: $name'),
         SizedBox(height: 48.0),
-        RaisedButton(
+        ElevatedButton(
           onPressed: () {
             logoutAction();
           },
-          child: Text('Logout'),
+          child: const Text('Logout'),
         ),
       ],
     );
@@ -77,15 +77,19 @@ class Login extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        RaisedButton(
+        ElevatedButton(
           onPressed: () {
             loginAction();
           },
-          child: Text('Login'),
+          child: const Text('Login'),
         ),
-        Text(loginError ?? ''),
+        //Text(loginError),
       ],
     );
+  }
+
+  print(loginError) {
+    print(loginError);
   }
 }
 
@@ -161,13 +165,10 @@ class _MyAppState extends State<MyApp> {
     try {
       final AuthorizationTokenResponse? result =
           await appAuth.authorizeAndExchangeCode(
-        AuthorizationTokenRequest(
-          AUTH0_CLIENT_ID,
-          AUTH0_REDIRECT_URI,
-          issuer: 'https://$AUTH0_DOMAIN',
-          scopes: ['openid', 'profile', 'offline_access'],
-          // promptValues: ['login']
-        ),
+        AuthorizationTokenRequest(AUTH0_CLIENT_ID, AUTH0_REDIRECT_URI,
+            issuer: 'https://$AUTH0_DOMAIN',
+            scopes: ['openid', 'profile', 'offline_access'],
+            promptValues: ['login']),
       );
 
       if (result != null) {
@@ -226,9 +227,9 @@ class _MyAppState extends State<MyApp> {
       ));
 
       final idToken = parseIdToken(response!.idToken);
-      final profile = await getUserDetails(response!.accessToken);
+      final profile = await getUserDetails(response.accessToken);
 
-      secureStorage.write(key: 'refresh_token', value: response!.refreshToken);
+      secureStorage.write(key: 'refresh_token', value: response.refreshToken);
 
       setState(() {
         isBusy = false;
@@ -237,7 +238,7 @@ class _MyAppState extends State<MyApp> {
         picture = profile['picture'];
       });
     } catch (e, s) {
-      print('error on refresh token: $e - stack: $s');
+      //print('error on refresh token: $e - stack: $s');
       logoutAction();
     }
   }
