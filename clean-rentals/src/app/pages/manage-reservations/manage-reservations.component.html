@@ -1,9 +1,0 @@
-<div class="container" *ngIf="auth.isLoading$ | async; else loaded">
-  <app-loading></app-loading>
-</div>
-
-<ng-template #loaded>
-<!-- <app-reservation-content *ngIf="!reservationId"></app-reservation-content>
-<router-outlet *ngIf="reservationId"></router-outlet> -->
-<router-outlet></router-outlet>
-</ng-template>
