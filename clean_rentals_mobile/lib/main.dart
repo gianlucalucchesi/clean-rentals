@@ -44,13 +44,13 @@ class Profile extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: NetworkImage(picture ?? ''),
+              image: NetworkImage(picture),
             ),
           ),
         ),
-        SizedBox(height: 24.0),
+        const SizedBox(height: 24.0),
         Text('Name: $name'),
-        SizedBox(height: 48.0),
+        const SizedBox(height: 48.0),
         ElevatedButton(
           onPressed: () {
             logoutAction();
@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Auth0 Demo',
+      title: 'Clean Rentals',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Clean Rentals'),
@@ -238,7 +238,7 @@ class _MyAppState extends State<MyApp> {
         picture = profile['picture'];
       });
     } catch (e, s) {
-      //print('error on refresh token: $e - stack: $s');
+      print('error on refresh token: $e - stack: $s');
       logoutAction();
     }
   }
