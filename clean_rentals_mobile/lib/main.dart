@@ -78,9 +78,7 @@ class Login extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         ElevatedButton(
-          onPressed: () {
-            loginAction();
-          },
+          onPressed: () => loginAction(),
           child: const Text('Login'),
         ),
         //Text(loginError),
@@ -122,6 +120,32 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Clean Rentals'),
+          backgroundColor: Colors.green,
+          // leading:
+          actions: <Widget>[
+            Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.search,
+                    size: 26.0,
+                  ),
+                )),
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Icon(Icons.more_vert),
+                )),
+            TextButton(
+              onPressed: () => loginAction(),
+              child: const Text(
+                "Login",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
         ),
         body: Center(
           child: isBusy
