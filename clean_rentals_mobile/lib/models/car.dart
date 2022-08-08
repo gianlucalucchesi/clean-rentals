@@ -1,4 +1,4 @@
-import 'package:clean_rentals_mobile/models/car-option.dart';
+import 'package:clean_rentals_mobile/models/car_option.dart';
 
 import 'brand.dart';
 

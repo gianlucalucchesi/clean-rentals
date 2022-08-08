@@ -1,4 +1,4 @@
-import 'package:clean_rentals_mobile/models/reservation-option.dart';
+import 'package:clean_rentals_mobile/models/reservation_option.dart';
 
 import 'car.dart';
 import 'client.dart';
