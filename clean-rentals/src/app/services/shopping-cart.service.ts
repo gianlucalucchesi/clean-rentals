@@ -11,6 +11,10 @@ import * as uuid from 'uuid';
   providedIn: 'root',
 })
 export class ShoppingCartService {
+  //************* PayPal sandbox account *************//
+  // email: sb-fmkgp12805364@personal.example.com
+  // pwd: 9q#d*HN=
+
   reservationChanged$ = new Subject<Reservation[]>();
   reservations: Reservation[] = [];
   client: Client;
