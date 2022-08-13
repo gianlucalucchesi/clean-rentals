@@ -5,9 +5,9 @@
 Java Spring Boot Web Application
 
 ## Front-End
-### Web Application - Angular
+### Angular Web Application
 
-### Mobile Application - Flutter
+### Flutter Mobile Application
 
 ## Database
 ### PostgreSQL
