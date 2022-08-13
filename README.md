@@ -1,7 +1,7 @@
 # CleanRentals
 
 ## Back-end 
-### api
+### REST API
 Java Spring Boot Web Application
 
 ## Front-End
