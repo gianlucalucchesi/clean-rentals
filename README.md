@@ -1,13 +1,14 @@
 # CleanRentals
 
 ## Back-end 
-### api
-Java Spring Boot Web Application
+### REST API
+#### Java Spring Boot Web Application
+#### Swagger
 
 ## Front-End
-### Web Application - Angular
+### Angular Web Application
 
-### Mobile Application - Flutter
+### Flutter Mobile Application
 
 ## Database
 ### PostgreSQL
