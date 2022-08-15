@@ -12,7 +12,7 @@
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Clean Rentals</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -58,11 +58,10 @@
 			<version>2.8.9</version>
 		</dependency>
 
-		<!-- Actuator ==> WHY DID I ADD THIS? -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--		</dependency>-->
 
 		<!-- Swagger v3 -->
 		<dependency>
