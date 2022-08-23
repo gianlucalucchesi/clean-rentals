@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/providers/auth0.dart';
 
 class Profile extends StatelessWidget {
-  final logoutAction;
   final String name;
   final String picture;
 
-  Profile(this.logoutAction, this.name, this.picture);
+  const Profile(this.name, this.picture);
 
   @override
   Widget build(BuildContext context) {
+    final auth0 = Provider.of<Auth0>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -29,7 +33,8 @@ class Profile extends StatelessWidget {
         const SizedBox(height: 48.0),
         ElevatedButton(
           onPressed: () {
-            logoutAction();
+            auth0.logout();
+            Navigator.of(context).pushReplacementNamed('/login');
           },
           child: const Text('Logout'),
         ),

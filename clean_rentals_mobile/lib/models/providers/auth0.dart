@@ -1,8 +1,62 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+
 class Auth0 with ChangeNotifier {
-  static const AUTH0_DOMAIN = 'dev-qkw53hzi.eu.auth0.com';
-  static const AUTH0_CLIENT_ID = 'EUjEN89wRH4dKpVqnKBHVIorYjaDVY9j';
-  static const AUTH0_REDIRECT_URI = 'com.cleanrentals.mobile://login-callback';
-  static const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
+  bool _isBusy = false;
+  bool _isLoggedIn = false;
+  String _errorMessage = '';
+  String _name = '';
+  String _picture = '';
+
+  bool get isBusy {
+    return _isBusy;
+  }
+
+  bool get isLoggedIn {
+    return _isLoggedIn;
+  }
+
+  String get errorMessage {
+    return _errorMessage;
+  }
+
+  String get name {
+    return _name;
+  }
+
+  String get picture {
+    return _picture;
+  }
+
+  setIsBusy(bool value) {
+    _isBusy = value;
+    notifyListeners();
+  }
+
+  setIsLoggedIn(bool value) {
+    _isLoggedIn = value;
+    notifyListeners();
+  }
+
+  setErrorMessage(String errorMessage) {
+    _errorMessage = errorMessage;
+  }
+
+  setName(String name) {
+    _name = name;
+  }
+
+  setPicture(String picture) {
+    _picture = picture;
+  }
+
+  logout() async {
+    await secureStorage.delete(key: 'refresh_token');
+    _isBusy = false;
+    _isLoggedIn = false;
+    notifyListeners();
+  }
 }
