@@ -1,9 +1,11 @@
+import 'package:clean_rentals_mobile/screens/reservation_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './screens/profile_screen.dart';
 import './screens/add_car_screen.dart';
 import './screens/add_location_screen.dart';
+import 'models/reservation.dart';
 import 'screens/login_screen.dart';
 import 'screens/reservations_overview_screen.dart';
 
@@ -12,6 +14,8 @@ import './models/providers/reservation_list_provider.dart';
 
 void main() {
   // https://stackoverflow.com/questions/57405228/provider-in-init-method-of-main-dart
+  // MultiProviders should have come in CleanRentals app but Auth0 live data needed
+  // in that class so the provider should be initialized at a higher level
   runApp(
     MultiProvider(
       providers: [
@@ -32,12 +36,10 @@ void main() {
 class CleanRentals extends StatelessWidget {
   const CleanRentals(var context);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final auth0 = Provider.of<Auth0>(context);
     bool isLoggedIn = auth0.isLoggedIn;
-    // bool isLoggedIn = false;
 
     return MaterialApp(
       title: 'Clean Rentals',
@@ -53,6 +55,8 @@ class CleanRentals extends StatelessWidget {
         AddLocationScreen.routeName: (context) => const AddLocationScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
         ProfileScreen.routeName: (context) => const ProfileScreen(),
+        ReservationDetailScreen.routeName: ((context) =>
+            const ReservationDetailScreen())
       },
     );
   }

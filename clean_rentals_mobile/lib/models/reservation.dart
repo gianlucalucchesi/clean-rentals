@@ -5,7 +5,7 @@ import 'client.dart';
 import 'location.dart';
 import 'reservation_option.dart';
 
-class Reservation {
+class Reservation with ChangeNotifier {
   final String id;
   final Client client;
   final Car car;

@@ -6,7 +6,7 @@ const FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
 class Auth0 with ChangeNotifier {
   bool _isBusy = false;
-  bool _isLoggedIn = false;
+  bool _isLoggedIn = true; // FIXME : this should be put back to false
   String _errorMessage = '';
   String _name = '';
   String _picture = '';

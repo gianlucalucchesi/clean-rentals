@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/app_drawer.dart';
-import '../widgets/reservation_item.dart';
+import '../widgets/reservation_grid.dart';
 
 class ReservationsOverviewScreen extends StatefulWidget {
   static const routeName = '/reservations';
@@ -20,14 +20,7 @@ class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
       appBar: AppBar(
         title: const Text("Reservations"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ReservationItem(),
-          ],
-        ),
-      ),
+      body: const ReservationGrid(),
       drawer: const AppDrawer(),
     );
   }

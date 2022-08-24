@@ -1,3 +1,9 @@
+import 'package:clean_rentals_mobile/screens/add_car_screen.dart';
+import 'package:clean_rentals_mobile/screens/add_location_screen.dart';
+import 'package:clean_rentals_mobile/screens/login_screen.dart';
+import 'package:clean_rentals_mobile/screens/profile_screen.dart';
+import 'package:clean_rentals_mobile/screens/reservation_details_screen.dart';
+import 'package:clean_rentals_mobile/screens/reservations_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,36 +27,38 @@ class AppDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.login),
               title: const Text("Login"),
-              onTap: () =>
-                  Navigator.of(context).pushReplacementNamed('/login')),
+              onTap: () => Navigator.of(context)
+                  .pushReplacementNamed(LoginScreen.routeName)),
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.car_rental),
             title: const Text('All reservations'),
-            onTap: () =>
-                Navigator.of(context).pushReplacementNamed('/reservations'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(ReservationsOverviewScreen.routeName),
           ),
         if (isLoggedIn) const Divider(),
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.add),
             title: const Text('Add car'),
-            onTap: () => Navigator.of(context).pushReplacementNamed('/add-car'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(AddCarScreen.routeName),
           ),
         if (isLoggedIn) const Divider(),
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.add_location_alt),
             title: const Text('Add location'),
-            onTap: () =>
-                Navigator.of(context).pushReplacementNamed('/add-location'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(AddLocationScreen.routeName),
           ),
         if (isLoggedIn) const Divider(),
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text('Profile'),
-            onTap: () => Navigator.of(context).pushReplacementNamed('/profile'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(ProfileScreen.routeName),
           ),
       ]),
     );
