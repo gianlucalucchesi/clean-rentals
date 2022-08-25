@@ -13,6 +13,7 @@ class ReservationsOverviewScreen extends StatefulWidget {
       _ReservationsOverviewScreen();
 }
 
+// TODO: filter on All/Current/Future reservations
 class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
