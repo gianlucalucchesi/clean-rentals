@@ -14,25 +14,19 @@ class ReservationItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
-        footer: GridTileBar(
-          backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () => {},
-          ),
-          title: Text(
-            ('${reservation.car.brand.name} ${reservation.car.model}'),
-            textAlign: TextAlign.center,
-          ),
-          trailing: IconButton(
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.green,
-              ),
-              onPressed: () {}),
-          subtitle: Text(
-            '\$${reservation.total_price_euro_excl_vat}',
-            textAlign: TextAlign.center,
+        footer: Container(
+          padding: const EdgeInsets.all(8),
+          color: Colors.black54,
+          height: 50,
+          child: GridTileBar(
+            title: Text(
+              ('${reservation.car.brand.name} ${reservation.car.model}'),
+              textAlign: TextAlign.center,
+            ),
+            subtitle: Text(
+              '€${reservation.total_price_euro_excl_vat}',
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
         child: GestureDetector(
@@ -42,9 +36,8 @@ class ReservationItem extends StatelessWidget {
               arguments: reservation.id,
             ),
           },
-          child: Image.network(
-            reservation.car.image_url,
-            fit: BoxFit.cover,
+          child: Image(
+            image: AssetImage(reservation.car.image_url),
           ),
         ),
       ),

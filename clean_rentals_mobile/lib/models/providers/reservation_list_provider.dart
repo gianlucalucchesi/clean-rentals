@@ -1,6 +1,3 @@
-import 'package:clean_rentals_mobile/models/country.dart';
-import 'package:clean_rentals_mobile/models/reservation.dart';
-import 'package:clean_rentals_mobile/models/reservation_option.dart';
 import 'package:flutter/material.dart';
 
 import '../brand.dart';
@@ -9,6 +6,9 @@ import '../car_option.dart';
 import '../city.dart';
 import '../client.dart';
 import '../location.dart';
+import '../country.dart';
+import '../reservation.dart';
+import '../reservation_option.dart';
 
 class ReservationListProvider with ChangeNotifier {
   final List<Reservation> _reservationList = [
@@ -39,8 +39,7 @@ class ReservationListProvider with ChangeNotifier {
           id: '0af53a43-1cfb-4545-b9a2-eb105dc56820',
           name: 'GPS',
         ),
-        image_url:
-            'https://static.moniteurautomobile.be/imgcontrol/images_tmp/clients/moniteur/c680-d465/content/medias/images/cars/audi/q4/audi--q4-e-tron--2021/audi--q4-e-tron--2021-m-1.jpg',
+        image_url: 'assets/images/cars/AudiQ4.png',
       ),
       location: Location(
         id: 'f0ea936f-519a-4215-b613-ac7b33a1179c',
