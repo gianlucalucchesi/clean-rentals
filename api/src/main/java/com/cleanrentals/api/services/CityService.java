@@ -24,7 +24,7 @@ public class CityService {
     public City findById(UUID id) throws NotFoundException {
         Optional<City> optionalCity = this.cityRepository.findById(id);
 
-        if(optionalCity.isEmpty())
+        if (optionalCity.isEmpty())
             throw new NotFoundException(String.format("City with id %s not found", id));
 
         return optionalCity.get();
@@ -33,7 +33,7 @@ public class CityService {
     public City findByName(String name) throws NotFoundException {
         Optional<City> optionalCity = this.cityRepository.findByName(name);
 
-        if(optionalCity.isEmpty())
+        if (optionalCity.isEmpty())
             throw new NotFoundException(String.format("City %s not found", name));
 
         return optionalCity.get();
@@ -42,10 +42,10 @@ public class CityService {
     public City create(City city) throws ConflictException {
         Optional<City> optionalExistingCity = this.cityRepository.findByName(city.getName());
 
-        if(optionalExistingCity.isPresent())
+        if (optionalExistingCity.isPresent())
             throw new ConflictException(String.format("City %s already exists", city.getName()));
 
-        if(city.getId() == null) {
+        if (city.getId() == null) {
             city.setId(UUID.randomUUID());
         }
 

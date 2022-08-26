@@ -5,11 +5,8 @@ import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Client;
 import com.cleanrentals.api.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,7 +33,7 @@ public class ClientService {
     public Client findByAuth0Id(String auth0Id) throws NotFoundException {
         Optional<Client> optionalClient = this.clientRepository.findByAuth0Id(auth0Id);
 
-        if(optionalClient.isEmpty())
+        if (optionalClient.isEmpty())
             throw new NotFoundException(String.format("Client with Auth0 id %s not found", auth0Id));
 
         return optionalClient.get();
@@ -45,10 +42,10 @@ public class ClientService {
     public Client create(Client client) throws ConflictException {
         Optional<Client> optionalClient = this.clientRepository.findByAuth0Id(client.getAuth0Id());
 
-        if(optionalClient.isPresent())
+        if (optionalClient.isPresent())
             throw new ConflictException(String.format("Client %s already exists", client.getAuth0Id()));
 
-        if(client.getId() == null)
+        if (client.getId() == null)
             client.setId(UUID.randomUUID());
 
         return this.clientRepository.saveAndFlush(client);

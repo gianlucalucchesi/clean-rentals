@@ -5,14 +5,8 @@ import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Client;
 import com.cleanrentals.api.models.Reservation;
 import com.cleanrentals.api.repositories.ReservationRepository;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -54,20 +48,21 @@ public class ReservationService {
     /**
      * Rollback annotation: if ConflictException occurs
      * https://stackoverflow.com/a/62430809
+     *
      * @param reservation
      * @return
      * @throws ConflictException
      */
     @Transactional(rollbackFor = ConflictException.class)
     public Reservation create(Reservation reservation) throws ConflictException {
-        if(reservation.getId() != null) {
+        if (reservation.getId() != null) {
             Optional<Reservation> optionalReservation = this.reservationRepository.findById(reservation.getId());
 
             if (optionalReservation.isPresent())
                 throw new ConflictException(String.format("Reservation %s already exists", reservation.getId()));
         }
 
-        if(reservation.getId() == null)
+        if (reservation.getId() == null)
             reservation.setId(UUID.randomUUID());
 
         reservationRepository.saveAndFlush(reservation);
@@ -75,8 +70,8 @@ public class ReservationService {
         List<Reservation> inDbReservations = reservationRepository.findReservationBetweenDates(
                 reservation.getCar(), reservation.getDateTimeStart(), reservation.getDateTimeStop());
 
-        if(inDbReservations.size() > 1) {
-            throw new ConflictException(String.format("Double reservation for the same car"));
+        if (inDbReservations.size() > 1) {
+            throw new ConflictException("Double reservation for the same car");
         }
 
         reservationRepository.flush();

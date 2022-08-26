@@ -7,7 +7,8 @@ import java.util.UUID;
 
 @Entity(name = "location")
 @Table(name = "location")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // This prevents an issue with lazy loading (serialization issue)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// This prevents an issue with lazy loading (serialization issue)
 public class Location {
     @Id
     @Column(name = "id", nullable = false)
@@ -58,8 +59,8 @@ public class Location {
         this.name = name;
     }
 
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinColumn(name="city_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "city_id")
     public City getCity() {
         return city;
     }

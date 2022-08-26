@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/location")
-@Api(tags="Location") // Swagger doc
+@Api(tags = "Location") // Swagger doc
 public class LocationController {
     @Autowired
     private LocationService locationService;

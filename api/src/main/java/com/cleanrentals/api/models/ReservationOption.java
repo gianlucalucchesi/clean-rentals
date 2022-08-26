@@ -10,7 +10,8 @@ import java.util.UUID;
 
 @Entity(name = "reservation_option")
 @Table(name = "reservation_option")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // This prevents an issue with lazy loading (serialization issue)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// This prevents an issue with lazy loading (serialization issue)
 public class ReservationOption {
     @Id
     @Column(name = "id", nullable = false)

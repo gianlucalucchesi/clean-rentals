@@ -17,7 +17,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/api/v1/reservation", produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(tags="Reservation") // Swagger doc
+@Api(tags = "Reservation") // Swagger doc
 @EnableTransactionManagement
 public class ReservationController {
     @Autowired

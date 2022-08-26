@@ -9,22 +9,41 @@ import java.util.UUID;
 
 @Entity(name = "car")
 @Table(name = "car")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // This prevents an issue with lazy loading (serialization issue)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// This prevents an issue with lazy loading (serialization issue)
 public class Car {
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "car_car_option",
+            joinColumns = {@JoinColumn(name = "car_id")},
+            inverseJoinColumns = {@JoinColumn(name = "car_option_id")}
+    )
+    Set<CarOption> carOptions = new HashSet<>();
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "brand_id", nullable = false)
 //    @JsonIgnore
     private Brand brand;
-
     @Column(name = "model", nullable = false)
     private String model;
-
     @Column(name = "image_url", nullable = false)
     private String image_url;
+    @Column(name = "start_day_price_euro_excl_vat", nullable = false)
+    private float start_day_price_euro_excl_vat;
+    @Column(name = "seats", nullable = false)
+    private int seats;
+    @Column(name = "doors", nullable = false)
+    private int doors;
+    @Column(name = "year", nullable = false)
+    private int year;
+    @Column(name = "horsepower", nullable = false)
+    private int horsepower;
+    @Column(name = "wltp_range_km", nullable = false)
+    private int wltp_range_km;
+    @Column(name = "battery_capacity_kwh", nullable = false)
+    private int battery_capacity_kwh;
 
     public UUID getId() {
         return id;
@@ -39,35 +58,6 @@ public class Car {
     public Brand getBrand() {
         return brand;
     }
-
-    @Column(name = "start_day_price_euro_excl_vat", nullable = false)
-    private float start_day_price_euro_excl_vat;
-
-    @Column(name = "seats", nullable = false)
-    private int seats;
-
-    @Column(name = "doors", nullable = false)
-    private int doors;
-
-    @Column(name = "year", nullable = false)
-    private int year;
-
-    @Column(name = "horsepower", nullable = false)
-    private int horsepower;
-
-    @Column(name = "wltp_range_km", nullable = false)
-    private int wltp_range_km;
-
-    @Column(name = "battery_capacity_kwh", nullable = false)
-    private int battery_capacity_kwh;
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "car_car_option",
-            joinColumns = { @JoinColumn(name = "car_id") },
-            inverseJoinColumns = { @JoinColumn(name = "car_option_id") }
-    )
-    Set<CarOption> carOptions = new HashSet<>();
 
     public void setBrand(Brand brand) {
         this.brand = brand;

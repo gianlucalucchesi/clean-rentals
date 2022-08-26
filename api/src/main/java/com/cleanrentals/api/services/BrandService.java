@@ -8,7 +8,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,7 +33,7 @@ public class BrandService {
     public Brand findByName(String name) throws NotFoundException {
         Optional<Brand> optionalBrand = this.brandRepository.findByName(name);
 
-        if(optionalBrand.isEmpty())
+        if (optionalBrand.isEmpty())
             throw new NotFoundException(String.format("Brand %s not found", name));
 
         return optionalBrand.get();
@@ -46,7 +45,7 @@ public class BrandService {
         if (optionalBrand.isPresent())
             throw new ConflictException(String.format("Brand name %s already exists", brand.getName()));
 
-        if(brand.getId() == null)
+        if (brand.getId() == null)
             brand.setId(UUID.randomUUID());
 
         return this.brandRepository.saveAndFlush(brand);

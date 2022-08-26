@@ -5,12 +5,9 @@ import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Brand;
 import com.cleanrentals.api.models.Car;
 import com.cleanrentals.api.repositories.CarRepository;
-import io.swagger.models.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

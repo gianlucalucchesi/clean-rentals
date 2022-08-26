@@ -3,17 +3,13 @@ package com.cleanrentals.api.controllers;
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Brand;
-import com.cleanrentals.api.repositories.BrandRepository;
 import com.cleanrentals.api.services.BrandService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

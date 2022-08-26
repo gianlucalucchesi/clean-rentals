@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/reservation-option")
-@Api(tags="Reservation Option") // Swagger doc
+@Api(tags = "Reservation Option") // Swagger doc
 public class ReservationOptionController {
     @Autowired
     private ReservationOptionService reservationOptionService;

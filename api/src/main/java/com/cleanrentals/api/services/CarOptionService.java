@@ -2,13 +2,10 @@ package com.cleanrentals.api.services;
 
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
-import com.cleanrentals.api.models.Car;
 import com.cleanrentals.api.models.CarOption;
 import com.cleanrentals.api.repositories.CarOptionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -63,7 +60,7 @@ public class CarOptionService {
             throw new NotFoundException(String.format("Car option with id %s does not exist", carOption.getId()));
         }
 
-        BeanUtils.copyProperties(carOption, optionalExistingCarOption.get() , "id");
+        BeanUtils.copyProperties(carOption, optionalExistingCarOption.get(), "id");
         return carOptionRepository.saveAndFlush(carOption);
     }
 }

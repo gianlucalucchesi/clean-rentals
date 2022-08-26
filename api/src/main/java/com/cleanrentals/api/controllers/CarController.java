@@ -2,10 +2,7 @@ package com.cleanrentals.api.controllers;
 
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
-import com.cleanrentals.api.models.Brand;
 import com.cleanrentals.api.models.Car;
-import com.cleanrentals.api.repositories.BrandRepository;
-import com.cleanrentals.api.repositories.CarRepository;
 import com.cleanrentals.api.services.CarService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +10,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @CrossOrigin
 @RequestMapping(path = "/api/v1/car", produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(tags="Car") // Swagger doc
+@Api(tags = "Car") // Swagger doc
 public class CarController {
     @Autowired
     private CarService carService;

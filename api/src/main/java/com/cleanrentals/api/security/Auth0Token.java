@@ -1,6 +1,5 @@
 package com.cleanrentals.api.security;
 
-import antlr.Token;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -10,6 +9,7 @@ public class Auth0Token {
     /**
      * Get Auth0 management api access tokens for production
      * https://auth0.com/docs/security/tokens/access-tokens/get-management-api-access-tokens-for-production
+     *
      * @return Auth0 management token
      * @throws UnirestException
      */

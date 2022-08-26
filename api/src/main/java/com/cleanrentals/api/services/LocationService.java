@@ -6,8 +6,6 @@ import com.cleanrentals.api.models.Location;
 import com.cleanrentals.api.repositories.LocationRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +37,7 @@ public class LocationService {
         if (optionalLocation.isPresent())
             throw new ConflictException(String.format("Location '%s' already exists", location.getName()));
 
-        if(location.getId() == null)
+        if (location.getId() == null)
             location.setId(UUID.randomUUID());
 
         return locationRepository.saveAndFlush(location);

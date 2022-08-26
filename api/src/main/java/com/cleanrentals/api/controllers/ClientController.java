@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/client")
-@Api(tags="Client") // Swagger doc
+@Api(tags = "Client") // Swagger doc
 public class ClientController {
     @Autowired
     private ClientService clientService;

@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/country")
-@Api(tags="Country") // Swagger doc
+@Api(tags = "Country") // Swagger doc
 public class CountryController {
     @Autowired
     private CountryService countryService;

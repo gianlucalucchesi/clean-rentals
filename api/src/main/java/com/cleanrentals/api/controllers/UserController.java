@@ -13,11 +13,12 @@ import java.io.IOException;
 @RestController
 @RequestMapping(path = "api/v1/user", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*")
-@Api(tags="User") // Swagger doc
+@Api(tags = "User") // Swagger doc
 public class UserController {
 
     /**
      * Get all Auth0 users
+     *
      * @return list of all users
      * @throws IOException
      * @throws UnirestException
@@ -37,6 +38,7 @@ public class UserController {
 
     /**
      * Get Auth0 user
+     *
      * @param user_id Auth0 user id
      * @return Auth0 user
      * @throws UnirestException
@@ -58,6 +60,7 @@ public class UserController {
     /**
      * Get user permissions for specific Auth0 user
      * https://auth0.com/docs/authorization/rbac/rbac-users/view-user-permissions
+     *
      * @param user_id Auth0 user id
      * @return
      * @throws UnirestException
@@ -79,6 +82,7 @@ public class UserController {
     /**
      * Get user roles for specific Auth0 user
      * https://auth0.com/docs/users/view-user-roles
+     *
      * @param user_id
      * @return
      */

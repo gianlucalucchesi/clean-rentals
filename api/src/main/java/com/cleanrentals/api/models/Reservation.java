@@ -10,40 +10,34 @@ import java.util.UUID;
 
 @Entity(name = "reservation")
 @Table(name = "reservation")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // This prevents an issue with lazy loading (serialization issue)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// This prevents an issue with lazy loading (serialization issue)
 public class Reservation {
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "reservation_reservation_option",
+            joinColumns = {@JoinColumn(name = "reservation_id")},
+            inverseJoinColumns = {@JoinColumn(name = "reservation_option_id")}
+    )
+    Set<ReservationOption> reservationOptions = new HashSet<>();
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
-
     @Column(name = "date_time_start", nullable = false)
     private Date dateTimeStart;
-
     @Column(name = "date_time_stop", nullable = false)
     private Date dateTimeStop;
-
     @Column(name = "total_price_euro_excl_vat", nullable = false)
     private float total_price_euro_excl_vat;
-
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "reservation_reservation_option",
-            joinColumns = { @JoinColumn(name = "reservation_id") },
-            inverseJoinColumns = { @JoinColumn(name = "reservation_option_id") }
-    )
-    Set<ReservationOption> reservationOptions = new HashSet<>();
 
     public UUID getId() {
         return id;

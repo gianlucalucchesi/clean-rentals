@@ -3,7 +3,6 @@ package com.cleanrentals.api.controllers;
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.City;
-import com.cleanrentals.api.repositories.CityRepository;
 import com.cleanrentals.api.services.CityService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/city")
-@Api(tags="City") // Swagger doc
+@Api(tags = "City") // Swagger doc
 public class CityController {
     @Autowired
     private CityService cityService;

@@ -3,23 +3,18 @@ package com.cleanrentals.api.controllers;
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.CarOption;
-import com.cleanrentals.api.repositories.CarOptionRepository;
 import com.cleanrentals.api.services.CarOptionService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/car-option")
-@Api(tags="Car Option") // Swagger doc
+@Api(tags = "Car Option") // Swagger doc
 public class CarOptionController {
     @Autowired
     private CarOptionService carOptionService;
