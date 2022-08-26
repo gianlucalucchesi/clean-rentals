@@ -3,6 +3,19 @@ import 'package:clean_rentals_mobile/models/car_option.dart';
 import 'brand.dart';
 
 class Car {
+  final String id;
+  final Brand brand;
+  final String model;
+  final int seats;
+  final int doors;
+  final int year;
+  final int horsepower;
+  final int wltp_range_km;
+  final int battery_capacity_kwh;
+  final int start_day_price_euro_excl_vat;
+  final List<CarOption>? carOptions;
+  final String image_url;
+
   Car({
     required this.id,
     required this.brand,
@@ -17,17 +30,4 @@ class Car {
     this.carOptions,
     required this.image_url,
   });
-
-  final String id;
-  final Brand brand;
-  final String model;
-  final int seats;
-  final int doors;
-  final int year;
-  final int horsepower;
-  final int wltp_range_km;
-  final int battery_capacity_kwh;
-  final int start_day_price_euro_excl_vat;
-  final CarOption? carOptions;
-  final String image_url;
 }

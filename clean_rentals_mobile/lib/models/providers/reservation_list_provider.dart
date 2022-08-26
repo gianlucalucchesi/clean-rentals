@@ -35,10 +35,20 @@ class ReservationListProvider with ChangeNotifier {
         wltp_range_km: 521,
         battery_capacity_kwh: 82,
         start_day_price_euro_excl_vat: 55,
-        carOptions: CarOption(
-          id: '0af53a43-1cfb-4545-b9a2-eb105dc56820',
-          name: 'GPS',
-        ),
+        carOptions: [
+          CarOption(
+            id: '0af53a43-1cfb-4545-b9a2-eb105dc56820',
+            name: 'GPS',
+          ),
+          CarOption(
+            id: 'b120887b-6361-44a0-be67-d3c0d6f3f128',
+            name: 'Adaptive Cruise Control',
+          ),
+          CarOption(
+            id: 'bc394a6c-497c-4ac5-a925-9d01bac63b5b',
+            name: 'Heated seats',
+          ),
+        ],
         image_url: 'assets/images/cars/AudiQ4.png',
       ),
       location: Location(
@@ -61,6 +71,12 @@ class ReservationListProvider with ChangeNotifier {
           name: 'Charge Card',
           description: 'Charge everywhere without limit and without supplement',
           day_price_euro_excl_vat: 20,
+        ),
+        ReservationOption(
+          id: '8faab8e0-bfe3-4faa-9934-650da24d6297',
+          name: 'Additional Driver',
+          description: '',
+          day_price_euro_excl_vat: 12,
         )
       ],
       dateTimeStart: DateTime(2022, 12, 12),
