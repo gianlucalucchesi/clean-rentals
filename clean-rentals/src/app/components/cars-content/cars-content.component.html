@@ -1,3 +1,5 @@
+// FIXME : cars not loading if not authenticated
+//  cars should always be shown but reservation should be blocked by "CanActivate: [AuthGuard]"
 <div *ngIf="(auth.isAuthenticated$ | async) === false; else loading">
   <app-error-content></app-error-content>
 </div>
