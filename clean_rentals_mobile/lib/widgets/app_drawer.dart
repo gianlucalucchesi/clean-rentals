@@ -20,7 +20,16 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
       child: Column(children: [
         AppBar(
-          title: const Text('Clean Rentals'),
+          title: Column(
+            children: const [
+              Text('Clean Rentals'),
+              // TODO : admin panel only if user is admin
+              Text(
+                'Admin Panel',
+                style: TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
           automaticallyImplyLeading: false, // will never add back button
         ),
         if (!isLoggedIn)
