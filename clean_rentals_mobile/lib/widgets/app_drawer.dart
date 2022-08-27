@@ -1,11 +1,11 @@
-import 'package:clean_rentals_mobile/screens/add_car_screen.dart';
-import 'package:clean_rentals_mobile/screens/add_location_screen.dart';
-import 'package:clean_rentals_mobile/screens/login_screen.dart';
-import 'package:clean_rentals_mobile/screens/profile_screen.dart';
-import 'package:clean_rentals_mobile/screens/reservation_details_screen.dart';
-import 'package:clean_rentals_mobile/screens/reservations_overview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/add_car_screen.dart';
+import '../screens/add_location_screen.dart';
+import '../screens/login_screen.dart';
+import '../screens/profile_screen.dart';
+import '../screens/reservations_overview_screen.dart';
 
 import '../models/providers/auth0.dart';
 

@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
       drawer: const AppDrawer(),
       body: Center(
         child: Profile(name, picture),
-      ), // SHOULD BE PROFILE
+      ),
     );
   }
 }

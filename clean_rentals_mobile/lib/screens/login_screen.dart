@@ -7,9 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import '../models/providers/auth0.dart';
-import '../widgets/app_drawer.dart';
 import '../widgets/login.dart';
-import '../widgets/profile.dart';
 
 /// https://auth0.com/blog/get-started-with-flutter-authentication/
 /// https://auth0.com/blog/flutter-authentication-authorization-with-auth0-part-1-adding-authentication-to-an-app/
@@ -66,10 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
       auth0.setIsBusy(true);
       auth0.setErrorMessage('');
 
-      // setState(() {
-      //   errorMessage = '';
-      // });
-
       try {
         final AuthorizationTokenResponse? result =
             await appAuth.authorizeAndExchangeCode(
@@ -91,10 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
           auth0.setName(idToken['name']);
           auth0.setPicture(profile['picture']);
 
-          // setState(() {
-          //   name = idToken['name'];
-          //   picture = profile['picture'];
-          // });
+          // FIXME: navigates to screen twice at first login (cfr. main.dart)
+          Navigator.of(context).pushReplacementNamed('/reservations');
         }
       } catch (e, s) {
         print('login error: $e - stack: $s');
@@ -102,17 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
         auth0.setIsBusy(false);
         auth0.setIsLoggedIn(false);
         auth0.setErrorMessage(e.toString());
-
-        // setState(() {
-        //   errorMessage = e.toString();
-        // });
       }
     }
-
-    // void logoutAction() async {
-    //   await secureStorage.delete(key: 'refresh_token');
-    //   auth0.logout();
-    // }
 
     void initAction() async {
       final storedRefreshToken = await secureStorage.read(key: 'refresh_token');
@@ -137,11 +120,6 @@ class _LoginScreenState extends State<LoginScreen> {
         auth0.setIsLoggedIn(true);
         auth0.setName(idToken['name']);
         auth0.setPicture(profile['picture']);
-
-        // setState(() {
-        //   name = idToken['name'];
-        //   picture = profile['picture'];
-        // });
       } catch (e, s) {
         print('error on refresh token: $e - stack: $s');
         auth0.logout();
