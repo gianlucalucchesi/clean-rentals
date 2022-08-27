@@ -1,5 +1,4 @@
-// FIXME : locations not loading if not authenticated
-//  locations should always be shown
+<!-- FIXME : locations not loading if not authenticated locations should always be shown -->
 <div *ngIf="(auth.isAuthenticated$ | async) === false; else loading">
   <app-error-content></app-error-content>
 </div>
