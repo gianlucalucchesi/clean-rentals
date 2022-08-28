@@ -65,6 +65,9 @@ public class ReservationService {
         if (reservation.getId() == null)
             reservation.setId(UUID.randomUUID());
 
+        reservation.setReturned(false);
+        reservation.setPaid(false);
+
         reservationRepository.saveAndFlush(reservation);
 
         List<Reservation> inDbReservations = reservationRepository.findReservationBetweenDates(
@@ -75,6 +78,45 @@ public class ReservationService {
         }
 
         reservationRepository.flush();
+        return reservation;
+    }
+
+    @Transactional(rollbackFor = NotFoundException.class)
+    public Reservation setReservationAsPaid(String reservationId) throws NotFoundException {
+
+        Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
+
+        if (optionalReservation.isEmpty()) {
+            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setPaid(true);
+
+        reservationRepository.saveAndFlush(reservation);
+
+        return reservation;
+    }
+
+    @Transactional(rollbackFor = NotFoundException.class)
+    public Reservation returnCar(String reservationId, String review) throws NotFoundException, ConflictException {
+
+        Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
+
+        if (optionalReservation.isEmpty()) {
+            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+        }
+
+        if (optionalReservation.get().getReturned()) {
+            throw new ConflictException(String.format("Reservation with id %s already returned", reservationId));
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setReview_text(review);
+        reservation.setReturned(true);
+
+        reservationRepository.saveAndFlush(reservation);
+
         return reservation;
     }
 }

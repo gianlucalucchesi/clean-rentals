@@ -46,4 +46,17 @@ public class ReservationController {
     public Reservation create(@RequestBody Reservation reservation) throws ConflictException {
         return this.reservationService.create(reservation);
     }
+
+    @PatchMapping("paid/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Reservation setReservationAsPaid(@PathVariable String id) throws NotFoundException {
+        return reservationService.setReservationAsPaid(id);
+    }
+
+    @PatchMapping("return/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Reservation addReview(@PathVariable String id, @RequestBody String review) throws NotFoundException, ConflictException {
+        return reservationService.returnCar(id, review);
+    }
+
 }

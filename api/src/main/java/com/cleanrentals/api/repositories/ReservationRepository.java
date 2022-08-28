@@ -14,7 +14,6 @@ import java.util.UUID;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
-    // FIXME: remove optional and work with empty list
     Optional<List<Reservation>> findByClient(Client client);
 
     @Query("SELECT r FROM reservation AS r WHERE ((:dateStart BETWEEN r.dateTimeStart AND r.dateTimeStop) " +

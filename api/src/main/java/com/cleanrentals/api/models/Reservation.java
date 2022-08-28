@@ -14,11 +14,7 @@ import java.util.UUID;
 // This prevents an issue with lazy loading (serialization issue)
 public class Reservation {
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "reservation_reservation_option",
-            joinColumns = {@JoinColumn(name = "reservation_id")},
-            inverseJoinColumns = {@JoinColumn(name = "reservation_option_id")}
-    )
+    @JoinTable(name = "reservation_reservation_option", joinColumns = {@JoinColumn(name = "reservation_id")}, inverseJoinColumns = {@JoinColumn(name = "reservation_option_id")})
     Set<ReservationOption> reservationOptions = new HashSet<>();
     @Id
     @Column(name = "id", nullable = false)
@@ -38,6 +34,12 @@ public class Reservation {
     private Date dateTimeStop;
     @Column(name = "total_price_euro_excl_vat", nullable = false)
     private float total_price_euro_excl_vat;
+    @Column(name = "review_text", nullable = true)
+    private String review_text;
+    @Column(name = "paid", nullable = false)
+    private boolean paid;
+    @Column(name = "returned", nullable = false)
+    private boolean returned;
 
     public UUID getId() {
         return id;
@@ -88,7 +90,7 @@ public class Reservation {
     }
 
     public float getTotal_price_euro_excl_vat() {
-        return total_price_euro_excl_vat;
+        return this.total_price_euro_excl_vat;
     }
 
     public void setTotal_price_euro_excl_vat(float total_price_euro_excl_vat) {
@@ -96,10 +98,34 @@ public class Reservation {
     }
 
     public Set<ReservationOption> getReservationOptions() {
-        return reservationOptions;
+        return this.reservationOptions;
     }
 
     public void setReservationOptions(Set<ReservationOption> reservationOptions) {
         this.reservationOptions = reservationOptions;
+    }
+
+    public String getReview_text() {
+        return this.review_text;
+    }
+
+    public void setReview_text(String review_text) {
+        this.review_text = review_text;
+    }
+
+    public boolean getPaid() {
+        return this.paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public boolean getReturned() {
+        return this.returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 }
