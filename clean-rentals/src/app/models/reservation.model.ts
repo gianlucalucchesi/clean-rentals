@@ -12,4 +12,8 @@ export class Reservation {
   dateTimeStart: Date;
   dateTimeStop?: Date;
   total_price_euro_excl_vat: number;
+  review_text?: string;
+  paid: boolean;
+  returned: boolean;
+
 }
