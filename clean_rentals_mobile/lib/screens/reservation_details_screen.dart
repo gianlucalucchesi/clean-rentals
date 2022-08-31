@@ -324,18 +324,45 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 4,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(minimumSize: const Size(300, 30)),
-              onPressed: () => Navigator.of(context).pushNamed(
-                ReservationReviewScreen.routeName,
-                arguments: reservation.id,
-              ),
-              child: const Icon(Icons.arrow_forward),
+            Row(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(300, 40),
+                            primary: Colors.red),
+                        onPressed: () {}, // FIXME update to cancel reservation
+                        child: const Text("Cancel"),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(300, 40),
+                        ),
+                        onPressed: () => Navigator.of(context).pushNamed(
+                          ReservationReviewScreen.routeName,
+                          arguments: reservation.id,
+                        ),
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
-              height: 50,
+              height: 40,
             ),
           ],
         ),
