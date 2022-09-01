@@ -1,7 +1,6 @@
-import 'package:clean_rentals_mobile/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import '../widgets/app_drawer.dart';
 
 class AddLocationScreen extends StatefulWidget {
   static const routeName = '/add-location';

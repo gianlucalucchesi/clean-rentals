@@ -1,16 +1,16 @@
-import 'package:clean_rentals_mobile/screens/reservation_details_screen.dart';
-import 'package:clean_rentals_mobile/screens/reservation_review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './screens/profile_screen.dart';
-import './screens/add_car_screen.dart';
-import './screens/add_location_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/add_car_screen.dart';
+import 'screens/add_location_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/reservations_overview_screen.dart';
+import 'screens/reservation_details_screen.dart';
+import 'screens/reservation_review_screen.dart';
 
-import './models/providers/auth0.dart';
-import './models/providers/reservation_list_provider.dart';
+import 'models/providers/auth0.dart';
+import 'models/providers/reservation_list_provider.dart';
 
 void main() {
   // https://stackoverflow.com/questions/57405228/provider-in-init-method-of-main-dart

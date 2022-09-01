@@ -1,7 +1,7 @@
-import 'package:clean_rentals_mobile/screens/reservation_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/reservation_details_screen.dart';
 import '../models/reservation.dart';
 
 class ReservationItem extends StatelessWidget {

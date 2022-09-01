@@ -1,7 +1,7 @@
-import 'package:clean_rentals_mobile/widgets/reservation_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/reservation_item.dart';
 import '../models/providers/reservation_list_provider.dart';
 
 class ReservationGrid extends StatelessWidget {

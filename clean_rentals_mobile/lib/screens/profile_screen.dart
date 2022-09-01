@@ -1,8 +1,8 @@
-import 'package:clean_rentals_mobile/widgets/app_drawer.dart';
-import 'package:clean_rentals_mobile/widgets/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/app_drawer.dart';
+import '../widgets/profile.dart';
 import '../models/providers/auth0.dart';
 
 class ProfileScreen extends StatelessWidget {
