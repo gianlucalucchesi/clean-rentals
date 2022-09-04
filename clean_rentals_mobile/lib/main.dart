@@ -11,9 +11,7 @@ import 'models/providers/auth0.dart';
 import 'models/providers/reservation_list_provider.dart';
 
 void main() {
-  // https://stackoverflow.com/questions/57405228/provider-in-init-method-of-main-dart
-  // MultiProviders should have come in CleanRentals app but Auth0 live data needed
-  // in that class so the provider should be initialized at a higher level
+  // MultiProvider should be initialized in runApp()
   runApp(
     MultiProvider(
       providers: [
@@ -24,15 +22,17 @@ void main() {
           create: (context) => Auth0(),
         ),
       ],
-      child: Consumer<Auth0>(builder: (context, auth0, _) {
-        return const CleanRentals(Auth0);
-      }),
+      child: Consumer<Auth0>(
+        builder: (context, auth0, _) {
+          return const CleanRentals(context: Auth0);
+        },
+      ),
     ),
   );
 }
 
 class CleanRentals extends StatelessWidget {
-  const CleanRentals(var context);
+  const CleanRentals({Key? key, var context}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
