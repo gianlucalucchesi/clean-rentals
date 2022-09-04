@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/add_car_screen.dart';
-import '../screens/add_location_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/reservations_overview_screen.dart';
@@ -44,22 +42,6 @@ class AppDrawer extends StatelessWidget {
             title: const Text('All reservations'),
             onTap: () => Navigator.of(context)
                 .pushReplacementNamed(ReservationsOverviewScreen.routeName),
-          ),
-        if (isLoggedIn) const Divider(),
-        if (isLoggedIn)
-          ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text('Add car'),
-            onTap: () => Navigator.of(context)
-                .pushReplacementNamed(AddCarScreen.routeName),
-          ),
-        if (isLoggedIn) const Divider(),
-        if (isLoggedIn)
-          ListTile(
-            leading: const Icon(Icons.add_location_alt),
-            title: const Text('Add location'),
-            onTap: () => Navigator.of(context)
-                .pushReplacementNamed(AddLocationScreen.routeName),
           ),
         if (isLoggedIn) const Divider(),
         if (isLoggedIn)
