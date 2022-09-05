@@ -1,4 +1,6 @@
+import 'package:clean_rentals_mobile/widgets/image_input.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ReservationReviewScreen extends StatelessWidget {
   static const routeName = '/reservation-review';
@@ -17,8 +19,9 @@ class ReservationReviewScreen extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {},
-            child: const Icon(Icons.check_circle_outline_sharp),
-          )
+            child: const Icon(Icons.camera_alt),
+          ),
+          const ImageInput(),
         ],
       ),
     );
