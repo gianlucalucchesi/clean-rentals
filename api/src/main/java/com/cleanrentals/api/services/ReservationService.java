@@ -67,6 +67,7 @@ public class ReservationService {
 
         reservation.setReturned(false);
         reservation.setPaid(false);
+        reservation.setCancelled(false);
 
         reservationRepository.saveAndFlush(reservation);
 

@@ -40,6 +40,8 @@ public class Reservation {
     private boolean paid;
     @Column(name = "returned", nullable = false)
     private boolean returned;
+    @Column(name = "cancelled", nullable = false)
+    private boolean cancelled;
 
     public UUID getId() {
         return id;
@@ -128,4 +130,8 @@ public class Reservation {
     public void setReturned(boolean returned) {
         this.returned = returned;
     }
+
+    public boolean getCancelled() { return this.cancelled; }
+
+    public void setCancelled(boolean cancelled) { this.cancelled = cancelled; }
 }
