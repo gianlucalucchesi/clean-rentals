@@ -140,7 +140,24 @@ class _LoginScreenState extends State<LoginScreen> {
         child: isBusy
             ? const CircularProgressIndicator()
             : !isLoggedIn
-                ? Login(loginAction, errorMessage)
+                ? Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      const SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Image(
+                          image: AssetImage('assets/images/logo.png'),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 80,
+                      ),
+                      Login(loginAction, errorMessage),
+                    ],
+                  )
                 : null,
       ),
     );

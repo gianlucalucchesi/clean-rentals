@@ -11,9 +11,13 @@ class Login extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ElevatedButton(
-          onPressed: () => loginAction(),
-          child: const Text('Login'),
+        SizedBox(
+          width: 250,
+          height: 40,
+          child: ElevatedButton(
+            onPressed: () => loginAction(),
+            child: const Text('Login'),
+          ),
         ),
         //Text(loginError),
       ],
