@@ -91,7 +91,11 @@ CREATE TABLE reservation (
     location_id uuid REFERENCES location(id),
     date_time_start timestamp without time zone NOT NULL,
     date_time_stop timestamp without time zone NOT NULL,
-    total_price_euro_excl_vat double precision NOT NULL
+    total_price_euro_excl_vat double precision NOT NULL,
+    review_text text,
+    paid boolean NOT NULL,
+    returned boolean NOT NULL,
+    cancelled boolean NOT NULL
 );
 
 -- Indices -------------------------------------------------------

@@ -311,11 +311,11 @@ VALUES
 (E'837be53d-d6bd-41ee-89c5-d2e82d6829e2',E'Charge Card',E'Charge everywhere without limit and without supplement',20),
 (E'8faab8e0-bfe3-4faa-9934-650da24d6297',E'Additional Driver',NULL,12);
 
-INSERT INTO "public"."reservation"("id","client_id","car_id","location_id","date_time_start","date_time_stop","total_price_euro_excl_vat")
+INSERT INTO "public"."reservation"("id","client_id","car_id","location_id","date_time_start","date_time_stop","total_price_euro_excl_vat","review_text","paid","returned","cancelled")
 VALUES
-(E'151f04b3-bed5-476f-8e5c-19d241b321e0',E'6806ef20-0493-4bf8-b364-747b82b05102',E'cea78627-d6ea-4a6c-b419-dcc7a3b64d9f',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-31 00:00:00',1068),
-(E'7d90b25b-318f-4cd7-86a6-c4bc85fa58f8',E'6806ef20-0493-4bf8-b364-747b82b05102',E'c0736218-d84d-4b67-ac32-04a671387719',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-29 00:00:00',552),
-(E'b0378333-9ae5-4900-8d55-a4c134fcb3c3',E'6806ef20-0493-4bf8-b364-747b82b05102',E'c4e937e3-252a-4b69-b671-e2b4135eb633',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-30 00:00:00',625);
+(E'151f04b3-bed5-476f-8e5c-19d241b321e0',E'6806ef20-0493-4bf8-b364-747b82b05102',E'cea78627-d6ea-4a6c-b419-dcc7a3b64d9f',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-31 00:00:00',1068,NULL,FALSE,FALSE,FALSE),
+(E'7d90b25b-318f-4cd7-86a6-c4bc85fa58f8',E'6806ef20-0493-4bf8-b364-747b82b05102',E'c0736218-d84d-4b67-ac32-04a671387719',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-29 00:00:00',552,NULL,FALSE,FALSE,FALSE),
+(E'b0378333-9ae5-4900-8d55-a4c134fcb3c3',E'6806ef20-0493-4bf8-b364-747b82b05102',E'c4e937e3-252a-4b69-b671-e2b4135eb633',E'dc672681-9fa2-477d-b5fd-dc7544582975',E'2022-01-26 00:00:00',E'2022-01-30 00:00:00',625,NULL,FALSE,FALSE,FALSE);
 
 INSERT INTO "public"."reservation_reservation_option"("reservation_id","reservation_option_id")
 VALUES
