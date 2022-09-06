@@ -12,7 +12,7 @@ class Login extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(
-          width: 250,
+          width: 200,
           height: 40,
           child: ElevatedButton(
             onPressed: () => loginAction(),
