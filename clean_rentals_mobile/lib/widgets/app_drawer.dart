@@ -24,12 +24,16 @@ class AppDrawer extends StatelessWidget {
               // TODO : admin panel only if user is admin
               Text(
                 'Admin Panel',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black, fontSize: 14),
               ),
             ],
           ),
           automaticallyImplyLeading: false, // will never add back button
         ),
+        if (isLoggedIn)
+          const SizedBox(
+            height: 20,
+          ),
         if (!isLoggedIn)
           ListTile(
               leading: const Icon(Icons.login),
@@ -39,7 +43,10 @@ class AppDrawer extends StatelessWidget {
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.car_rental),
-            title: const Text('All reservations'),
+            title: const Text(
+              'All reservations',
+              style: TextStyle(fontSize: 18),
+            ),
             onTap: () => Navigator.of(context)
                 .pushReplacementNamed(ReservationsOverviewScreen.routeName),
           ),
@@ -47,7 +54,10 @@ class AppDrawer extends StatelessWidget {
         if (isLoggedIn)
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('Profile'),
+            title: const Text(
+              'Profile',
+              style: TextStyle(fontSize: 18),
+            ),
             onTap: () => Navigator.of(context)
                 .pushReplacementNamed(ProfileScreen.routeName),
           ),

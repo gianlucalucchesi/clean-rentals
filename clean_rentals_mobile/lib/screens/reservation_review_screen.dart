@@ -1,6 +1,6 @@
-import 'package:clean_rentals_mobile/widgets/image_input.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
+import '../widgets/image_input.dart';
 
 class ReservationReviewScreen extends StatelessWidget {
   static const routeName = '/reservation-review';
@@ -17,11 +17,23 @@ class ReservationReviewScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: const Icon(Icons.camera_alt),
+          Container(
+            margin: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Findings',
+                  ),
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                ),
+              ],
+            ),
           ),
-          const ImageInput(),
+          const Divider(),
+          const Center(child: ImageInput()),
         ],
       ),
     );

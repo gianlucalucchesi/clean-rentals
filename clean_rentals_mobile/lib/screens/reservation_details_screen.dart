@@ -1,3 +1,4 @@
+import 'package:clean_rentals_mobile/helpers/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +22,9 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
     final reservation =
         Provider.of<ReservationListProvider>(context, listen: false)
             .findById(reservationId);
+    String locationImageUrl = LocationHelper.generateLocationPreviewImage(
+        latitude: reservation.location.latitude,
+        longitude: reservation.location.longitude);
 
     return Scaffold(
       appBar: AppBar(
@@ -316,9 +320,8 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                 child: Container(
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.green)),
-                  child: const Center(
-                    // TODO: add Google Maps with pinned car location
-                    child: Text("Google Maps"),
+                  child: Image.network(
+                    locationImageUrl,
                   ),
                 ),
               ),

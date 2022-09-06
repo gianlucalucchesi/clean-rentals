@@ -1,5 +1,3 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,12 +19,9 @@ class _ImageInputState extends State<ImageInput> {
     final picker = ImagePicker();
     final imageFile = await picker.getImage(
       source: ImageSource.camera,
-      maxWidth: 600,
     );
 
-    setState(() {
-      _storedImage = imageFile as File;
-    });
+    setState(() => _storedImage = imageFile as File);
 
     final appDir = await syspaths.getApplicationDocumentsDirectory();
     final fileName = path.basename(imageFile!.path);
@@ -36,11 +31,12 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
+    return Column(
+      children: [
         Container(
-          width: 150,
-          height: 100,
+          margin: const EdgeInsets.all(20.0),
+          width: double.infinity,
+          height: 230,
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: Colors.grey),
           ),
@@ -56,15 +52,10 @@ class _ImageInputState extends State<ImageInput> {
                   textAlign: TextAlign.center,
                 ),
         ),
-        const SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: TextButton.icon(
-            icon: const Icon(Icons.camera),
-            label: const Text('Take Picture'),
-            onPressed: _takePicture,
-          ),
+        TextButton.icon(
+          icon: const Icon(Icons.camera_alt),
+          label: const Text('Take Picture'),
+          onPressed: _takePicture,
         ),
       ],
     );

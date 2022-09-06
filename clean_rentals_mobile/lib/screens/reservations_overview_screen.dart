@@ -20,6 +20,24 @@ class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Reservations"),
+        actions: <Widget>[
+          PopupMenuButton(
+            onSelected: null,
+            icon: const Icon(
+              Icons.filter_alt,
+            ),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: null,
+                child: Text('Active reservations'),
+              ),
+              const PopupMenuItem(
+                value: null,
+                child: Text('All reservation'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: const ReservationGrid(),
       drawer: const AppDrawer(),
