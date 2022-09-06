@@ -15,26 +15,42 @@ class ReservationReviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Review"),
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Findings',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Findings',
+                    ),
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
                   ),
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const Divider(),
-          const Center(child: ImageInput()),
-        ],
+            const Divider(),
+            const Center(
+              child: ImageInput(),
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Icon(Icons.check_circle_outline_sharp),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
