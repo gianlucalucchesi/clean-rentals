@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../brand.dart';
 import '../car.dart';
@@ -11,9 +14,24 @@ import '../reservation.dart';
 import '../reservation_option.dart';
 
 class ReservationListProvider with ChangeNotifier {
+  static const getReservationsUrl = 'https://localhost:8080/api/v1/reservation';
+
+  List<Reservation> _reservationList2 = [];
+
+  Future<void> fetchReservations() async {
+    final response = await http.get(Uri.parse(getReservationsUrl));
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      // return Reservation.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to fetch reservations');
+    }
+  }
+
   final List<Reservation> _reservationList = [
     Reservation(
-      id: '1',
+      id: '352a9110-a548-4b43-8e29-9d966586b947',
       client: Client(
           id: '6806ef20-0493-4bf8-b364-747b82b05102',
           firstName: 'Gianluca',
@@ -82,9 +100,12 @@ class ReservationListProvider with ChangeNotifier {
       dateTimeStart: DateTime(2022, 12, 12),
       dateTimeStop: DateTime(2022, 16, 12),
       total_price_euro_excl_vat: 1184.12,
+      paid: true,
+      returned: true,
+      cancelled: false,
     ),
     Reservation(
-      id: '2',
+      id: '7bba5a60-51bc-4d43-995b-599412791bb5',
       client: Client(
           id: '6806ef20-0493-4bf8-b364-747b82b05102',
           firstName: 'Gianluca',
@@ -153,9 +174,12 @@ class ReservationListProvider with ChangeNotifier {
       dateTimeStart: DateTime(2022, 12, 12),
       dateTimeStop: DateTime(2022, 16, 12),
       total_price_euro_excl_vat: 920.63,
+      paid: true,
+      returned: false,
+      cancelled: false,
     ),
     Reservation(
-      id: '3',
+      id: 'a4b3dd21-7231-499d-8cc7-baf766920f8e',
       client: Client(
           id: '6806ef20-0493-4bf8-b364-747b82b05102',
           firstName: 'Gianluca',
@@ -224,11 +248,23 @@ class ReservationListProvider with ChangeNotifier {
       dateTimeStart: DateTime(2022, 12, 12),
       dateTimeStop: DateTime(2022, 16, 12),
       total_price_euro_excl_vat: 1087.47,
+      paid: true,
+      returned: false,
+      cancelled: true,
     ),
   ];
 
   List<Reservation> get reservationList {
+    fetchReservations();
     return [..._reservationList];
+  }
+
+  List<Reservation> get activeReservationList {
+    fetchReservations();
+    return [
+      ..._reservationList
+          .where((element) => !element.returned && !element.cancelled)
+    ];
   }
 
   Reservation findById(String id) {

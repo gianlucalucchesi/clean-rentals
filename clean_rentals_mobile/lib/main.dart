@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +13,7 @@ import 'models/providers/auth0.dart';
 import 'models/providers/reservation_list_provider.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   // MultiProvider should be initialized in runApp()
   runApp(
     MultiProvider(
@@ -58,5 +61,19 @@ class CleanRentals extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
     );
+  }
+}
+
+/*
+Fix for HandshakeException in HTTP calls
+https://stackoverflow.com/a/61312927/10470183
+MyHttpOverrides called in main method.
+*/
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

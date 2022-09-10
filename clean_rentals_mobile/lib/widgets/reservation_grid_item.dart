@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../screens/reservation_details_screen.dart';
 import '../models/reservation.dart';
 
-class ReservationItem extends StatelessWidget {
-  const ReservationItem({Key? key}) : super(key: key);
+class ReservationGridItem extends StatelessWidget {
+  const ReservationGridItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
