@@ -47,16 +47,22 @@ public class ReservationController {
         return this.reservationService.create(reservation);
     }
 
-    @PatchMapping("paid/{id}")
+    @PatchMapping("paid/{reservationId}")
     @ResponseStatus(HttpStatus.OK)
-    public Reservation setReservationAsPaid(@PathVariable String id) throws NotFoundException {
-        return reservationService.setReservationAsPaid(id);
+    public Reservation setReservationAsPaid(@PathVariable String reservationId) throws NotFoundException {
+        return this.reservationService.setReservationAsPaid(reservationId);
     }
 
-    @PatchMapping("return/{id}")
+    @PatchMapping("return/{reservationId}")
     @ResponseStatus(HttpStatus.OK)
-    public Reservation addReview(@PathVariable String id, @RequestBody String review) throws NotFoundException, ConflictException {
-        return reservationService.returnCar(id, review);
+    public Reservation addReview(@PathVariable String reservationId, @RequestBody String review) throws NotFoundException, ConflictException {
+        return this.reservationService.returnCar(reservationId, review);
+    }
+
+    @PatchMapping("cancel/{reservationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void cancel(@PathVariable String reservationId) throws NotFoundException, ConflictException {
+        this.reservationService.cancel(reservationId);
     }
 
 }

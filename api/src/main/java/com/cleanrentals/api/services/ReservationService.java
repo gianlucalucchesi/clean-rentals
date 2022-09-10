@@ -99,7 +99,7 @@ public class ReservationService {
         return reservation;
     }
 
-    @Transactional(rollbackFor = NotFoundException.class)
+
     public Reservation returnCar(String reservationId, String review) throws NotFoundException, ConflictException {
 
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
@@ -119,5 +119,23 @@ public class ReservationService {
         reservationRepository.saveAndFlush(reservation);
 
         return reservation;
+    }
+
+    @Transactional(rollbackFor = NotFoundException.class)
+    public void cancel(String reservationId) throws NotFoundException, ConflictException {
+        Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
+
+        if (optionalReservation.isEmpty()) {
+            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+        }
+
+        if (optionalReservation.get().getCancelled()) {
+            throw new ConflictException(String.format("Reservation with id %s already cancelled", reservationId));
+        }
+
+        Reservation reservation = optionalReservation.get();
+        reservation.setCancelled(true);
+
+        reservationRepository.saveAndFlush(reservation);
     }
 }
