@@ -1,8 +1,10 @@
-import 'package:clean_rentals_mobile/helpers/location_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../helpers/location_helper.dart';
+import '../models/reservation.dart';
+import '../screens/reservations_overview_screen.dart';
 import './reservation_review_screen.dart';
 import '../models/providers/reservation_list_provider.dart';
 
@@ -19,9 +21,11 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final reservationId = ModalRoute.of(context)?.settings.arguments as String;
+
     final reservation =
         Provider.of<ReservationListProvider>(context, listen: false)
             .findById(reservationId);
+
     String locationImageUrl = LocationHelper.generateLocationPreviewImage(
         latitude: reservation.location.latitude,
         longitude: reservation.location.longitude);
@@ -74,7 +78,9 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           "Reference: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(reservation.id),
+                        reservation.id.length > 8
+                            ? Text(reservation.id.substring(0, 8))
+                            : Text(reservation.id),
                       ],
                     ),
                   ),
@@ -103,10 +109,8 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           "Return: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(reservation.dateTimeStop != null
-                            ? DateFormat('dd/MM/yyyy hh:mm')
-                                .format(reservation.dateTimeStop!)
-                            : "Not yet returned"),
+                        Text(DateFormat('dd/MM/yyyy hh:mm')
+                            .format(reservation.dateTimeStop)),
                       ],
                     ),
                   ),
@@ -329,47 +333,82 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
             const SizedBox(
               height: 4,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
+            if (!reservation.returned && !reservation.cancelled)
+              Row(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(300, 40),
+                              backgroundColor: Colors.red),
+                          onPressed: () async {
+                            bool succes = await Reservation.cancelReservation(
+                                reservationId);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  _buildPopupDialog(context, succes),
+                            );
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
                             minimumSize: const Size(300, 40),
-                            primary: Colors.red),
-                        onPressed: () {}, // FIXME update to cancel reservation
-                        child: const Text("Cancel"),
+                          ),
+                          onPressed: () => Navigator.of(context).pushNamed(
+                            ReservationReviewScreen.routeName,
+                            arguments: reservation.id,
+                          ),
+                          child: const Icon(Icons.arrow_forward),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 20, 0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(300, 40),
-                        ),
-                        onPressed: () => Navigator.of(context).pushNamed(
-                          ReservationReviewScreen.routeName,
-                          arguments: reservation.id,
-                        ),
-                        child: const Icon(Icons.arrow_forward),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
             const SizedBox(
               height: 40,
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPopupDialog(BuildContext context, bool success) {
+    return AlertDialog(
+      title: const Text('Clean Rentals'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          success
+              ? const Text("Reservation cancelled")
+              : const Text("Could not cancel reservation"),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            success
+                ? Navigator.of(context)
+                    .pushReplacementNamed(ReservationsOverviewScreen.routeName)
+                : Navigator.of(context).pop();
+          },
+          child: success ? const Text('Continue') : const Text("Go back"),
+        ),
+      ],
     );
   }
 }
