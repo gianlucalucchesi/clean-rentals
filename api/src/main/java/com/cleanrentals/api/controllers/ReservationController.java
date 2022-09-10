@@ -53,10 +53,10 @@ public class ReservationController {
         return this.reservationService.setReservationAsPaid(reservationId);
     }
 
-    @PatchMapping("return/{reservationId}")
+    @PatchMapping("finalize/{reservationId}")
     @ResponseStatus(HttpStatus.OK)
     public Reservation addReview(@PathVariable String reservationId, @RequestBody String review) throws NotFoundException, ConflictException {
-        return this.reservationService.returnCar(reservationId, review);
+        return this.reservationService.finalize(reservationId, review);
     }
 
     @PatchMapping("cancel/{reservationId}")

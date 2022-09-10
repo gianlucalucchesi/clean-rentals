@@ -88,28 +88,33 @@ public class ReservationService {
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
 
         if (optionalReservation.isEmpty()) {
-            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+            throw new NotFoundException(String.format("Reservation %s not found", reservationId));
         }
 
         Reservation reservation = optionalReservation.get();
         reservation.setPaid(true);
 
         reservationRepository.saveAndFlush(reservation);
+        System.out.printf("Reservation %s marked as paid", reservationId);
 
         return reservation;
     }
 
 
-    public Reservation returnCar(String reservationId, String review) throws NotFoundException, ConflictException {
+    public Reservation finalize(String reservationId, String review) throws NotFoundException, ConflictException {
 
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
 
         if (optionalReservation.isEmpty()) {
-            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+            throw new NotFoundException(String.format("Reservation %s not found", reservationId));
+        }
+
+        if (optionalReservation.get().getCancelled()) {
+            throw new ConflictException(String.format("Reservation %s was already cancelled", reservationId));
         }
 
         if (optionalReservation.get().getReturned()) {
-            throw new ConflictException(String.format("Reservation with id %s already returned", reservationId));
+            throw new ConflictException(String.format("Reservation %s already returned", reservationId));
         }
 
         Reservation reservation = optionalReservation.get();
@@ -117,6 +122,7 @@ public class ReservationService {
         reservation.setReturned(true);
 
         reservationRepository.saveAndFlush(reservation);
+        System.out.printf("Reservation %s finalized", reservationId);
 
         return reservation;
     }
@@ -126,16 +132,22 @@ public class ReservationService {
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
 
         if (optionalReservation.isEmpty()) {
-            throw new NotFoundException(String.format("Reservation with id %s not found", reservationId));
+            throw new NotFoundException(String.format("Reservation %s not found", reservationId));
         }
 
         if (optionalReservation.get().getCancelled()) {
-            throw new ConflictException(String.format("Reservation with id %s already cancelled", reservationId));
+            throw new ConflictException(String.format("Reservation %s was already cancelled", reservationId));
+        }
+
+        if (optionalReservation.get().getReturned()) {
+            throw new ConflictException(String.format("Reservation %s was already finalized", reservationId));
         }
 
         Reservation reservation = optionalReservation.get();
         reservation.setCancelled(true);
 
         reservationRepository.saveAndFlush(reservation);
+
+        System.out.printf("Reservation %s cancelled", reservationId);
     }
 }
