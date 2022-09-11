@@ -20,7 +20,7 @@ class ReservationsOverviewScreen extends StatefulWidget {
 }
 
 class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
-  bool _showOnlyActive = false;
+  bool _showOnlyActive = true;
   bool _showGridView = true;
 
   @override
