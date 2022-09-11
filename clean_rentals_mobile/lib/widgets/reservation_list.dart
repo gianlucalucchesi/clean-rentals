@@ -17,13 +17,20 @@ class ReservationList extends StatelessWidget {
         ? reservationProvider.activeReservationList
         : reservationProvider.reservationList;
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(10),
-      itemCount: reservationData.length,
-      itemBuilder: (context, i) => ChangeNotifierProvider.value(
-        value: reservationData[i],
-        child: const ReservationListItem(),
-      ),
-    );
+    return reservationData.isNotEmpty
+        ? ListView.builder(
+            padding: const EdgeInsets.all(10),
+            itemCount: reservationData.length,
+            itemBuilder: (context, i) => ChangeNotifierProvider.value(
+              value: reservationData[i],
+              child: const ReservationListItem(),
+            ),
+          )
+        : const Center(
+            child: Text(
+              'No reservations',
+              style: TextStyle(fontSize: 30, color: Colors.blueGrey),
+            ),
+          );
   }
 }
