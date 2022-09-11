@@ -56,12 +56,18 @@ class Reservation with ChangeNotifier {
   }
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
+    var list = json['reservationOptions'] as List;
+    List<ReservationOption> reservationOpions =
+        list.map((i) => ReservationOption.fromJson(i)).toList();
+
     return Reservation(
       id: json['id'],
-      client: json['client'],
-      car: json['car'],
-      location: json['location'],
-      reservationOptions: json['reservationOptions'],
+      client: json['client'] = Client.fromJson(
+        json['client'],
+      ),
+      car: json['car'] = Car.fromJson(json['car']),
+      location: json['location'] = Location.fromJson(json['location']),
+      reservationOptions: reservationOpions,
       dateTimeStart: DateTime.parse(json['dateTimeStart']),
       dateTimeStop: DateTime.parse(json['dateTimeStop']),
       total_price_euro_excl_vat: json['total_price_euro_excl_vat'],
