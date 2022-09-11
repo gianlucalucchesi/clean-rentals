@@ -59,7 +59,6 @@ class CleanRentals extends StatelessWidget {
         ReservationReviewScreen.routeName: (context) =>
             const ReservationReviewScreen(),
       },
-      debugShowCheckedModeBanner: false,
     );
   }
 }
