@@ -211,6 +211,18 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2.5),
+                    child: Row(
+                      children: [
+                        const Text(
+                          "E-mail: ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(reservation.client.emailAddress),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
