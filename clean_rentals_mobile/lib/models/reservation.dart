@@ -16,8 +16,8 @@ class Reservation with ChangeNotifier {
   final Car car;
   final Location location;
   final List<ReservationOption>? reservationOptions;
-  final DateTime dateTimeStart;
-  final DateTime dateTimeStop;
+  final int dateTimeStart;
+  final int dateTimeStop;
   final double total_price_euro_excl_vat;
   final String? review_text;
   final bool paid;
@@ -68,8 +68,8 @@ class Reservation with ChangeNotifier {
       car: json['car'] = Car.fromJson(json['car']),
       location: json['location'] = Location.fromJson(json['location']),
       reservationOptions: reservationOpions,
-      dateTimeStart: DateTime.parse(json['dateTimeStart']),
-      dateTimeStop: DateTime.parse(json['dateTimeStop']),
+      dateTimeStart: json['dateTimeStart'],
+      dateTimeStop: json['dateTimeStop'],
       total_price_euro_excl_vat: json['total_price_euro_excl_vat'],
       review_text: json['review_text'],
       paid: json['paid'],

@@ -8,13 +8,8 @@ class Car {
   final String id;
   final Brand brand;
   final String model;
-  final int seats;
-  final int doors;
-  final int year;
-  final int horsepower;
-  final int wltp_range_km;
-  final int battery_capacity_kwh;
-  final int start_day_price_euro_excl_vat;
+  final int seats, doors, year, horsepower, wltp_range_km;
+  final num battery_capacity_kwh, start_day_price_euro_excl_vat;
   final List<CarOption>? carOptions;
   final String image_url;
 

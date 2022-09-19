@@ -27,8 +27,8 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
             .findById(reservationId);
 
     String locationImageUrl = LocationHelper.generateLocationPreviewImage(
-        latitude: reservation.location.latitude,
-        longitude: reservation.location.longitude);
+        latitude: reservation.location.latitude as double,
+        longitude: reservation.location.longitude as double);
 
     return Scaffold(
       appBar: AppBar(
@@ -94,8 +94,9 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          DateFormat('dd/MM/yyyy hh:mm')
-                              .format(reservation.dateTimeStart),
+                          DateFormat('dd/MM/yyyy hh:mm').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  reservation.dateTimeStart)),
                         ),
                       ],
                     ),
@@ -109,8 +110,11 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           "Return: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(DateFormat('dd/MM/yyyy hh:mm')
-                            .format(reservation.dateTimeStop)),
+                        Text(
+                          DateFormat('dd/MM/yyyy hh:mm').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  reservation.dateTimeStop)),
+                        ),
                       ],
                     ),
                   ),
@@ -195,7 +199,7 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           "First Name: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(reservation.client.firstName),
+                        Text(reservation.client.firstName ?? ''),
                       ],
                     ),
                   ),
@@ -207,7 +211,7 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                           "Last Name: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(reservation.client.lastName),
+                        Text(reservation.client.lastName ?? ''),
                       ],
                     ),
                   ),

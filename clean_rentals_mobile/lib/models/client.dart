@@ -1,16 +1,16 @@
 class Client {
   final String id;
-  final String firstName;
-  final String lastName;
-  final String phoneNumber;
+  final String? firstName;
+  final String? lastName;
+  final String? phoneNumber;
   final String emailAddress;
   final String auth0Id;
 
   Client({
     required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.phoneNumber,
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
     required this.emailAddress,
     required this.auth0Id,
   });

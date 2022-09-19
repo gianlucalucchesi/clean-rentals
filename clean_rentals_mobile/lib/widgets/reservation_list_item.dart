@@ -48,7 +48,7 @@ class ReservationListItem extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '${DateFormat('dd/MM/yyyy').format(reservation.dateTimeStart)} - ${DateFormat('dd/MM/yyyy').format(reservation.dateTimeStop)}',
+                          '${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(reservation.dateTimeStart))} - ${DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(reservation.dateTimeStop))}',
                         ),
                       ),
                       Align(

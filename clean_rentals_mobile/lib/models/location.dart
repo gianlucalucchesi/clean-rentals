@@ -4,8 +4,8 @@ class Location {
   final String id;
   final String name;
   final City city;
-  final double latitude;
-  final double longitude;
+  final num latitude;
+  final num longitude;
 
   Location({
     required this.id,
@@ -20,8 +20,8 @@ class Location {
       id: json['id'],
       name: json['name'],
       city: json['city'] = City.fromJson(json['city']),
-      latitude: json['latitude'],
-      longitude: json['longitude'],
+      latitude: json['latitude'] as num,
+      longitude: json['longitude'] as num,
     );
   }
 }

@@ -3,13 +3,13 @@
 class ReservationOption {
   final String id;
   final String name;
-  final String description;
-  final int day_price_euro_excl_vat;
+  final String? description;
+  final double day_price_euro_excl_vat;
 
   ReservationOption(
       {required this.id,
       required this.name,
-      required this.description,
+      this.description,
       required this.day_price_euro_excl_vat});
 
   factory ReservationOption.fromJson(Map<String, dynamic> json) {
