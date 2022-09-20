@@ -21,7 +21,7 @@ class ReservationsOverviewScreen extends StatefulWidget {
 
 class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
   bool _showOnlyActive = true;
-  bool _showGridView = true;
+  bool _showGridView = false;
 
   @override
   Widget build(BuildContext context) {
