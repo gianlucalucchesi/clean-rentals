@@ -21,6 +21,7 @@ public class ReservationService {
     private ClientService clientService;
 
     public List<Reservation> findAll() {
+        System.out.println("All reservations retrieved");
         return this.reservationRepository.findAll();
     }
 
