@@ -1,7 +1,7 @@
-import 'package:clean_rentals_mobile/models/reservation.dart';
-import 'package:clean_rentals_mobile/screens/reservations_overview_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/reservations_overview_screen.dart';
+import '../services/reservation_service.dart';
 import '../widgets/image_input.dart';
 
 class ReservationReviewScreen extends StatelessWidget {
@@ -49,7 +49,7 @@ class ReservationReviewScreen extends StatelessWidget {
               width: 200,
               child: ElevatedButton(
                 onPressed: () async {
-                  bool succes = await Reservation.finalizeReservation(
+                  bool succes = await ReservationService.finalizeReservation(
                       reservationId, reviewText);
                   showDialog(
                     context: context,

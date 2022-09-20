@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
+import '../services/reservation_service.dart';
 import '../helpers/location_helper.dart';
-import '../models/reservation.dart';
 import '../screens/reservations_overview_screen.dart';
 import './reservation_review_screen.dart';
 import '../models/providers/reservation_list_provider.dart';
@@ -361,8 +361,9 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                               minimumSize: const Size(300, 40),
                               backgroundColor: Colors.red),
                           onPressed: () async {
-                            bool succes = await Reservation.cancelReservation(
-                                reservationId);
+                            bool succes =
+                                await ReservationService.cancelReservation(
+                                    reservationId);
                             showDialog(
                               context: context,
                               builder: (BuildContext context) =>

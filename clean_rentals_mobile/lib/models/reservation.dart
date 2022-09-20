@@ -1,9 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'car.dart';
 import 'client.dart';
@@ -38,22 +34,6 @@ class Reservation with ChangeNotifier {
     required this.returned,
     required this.cancelled,
   });
-
-  static Future<bool> cancelReservation(String reservationId) async {
-    var url = 'https://localhost:8080/api/v1/reservation/cancel/$reservationId';
-    var response = await http.patch(Uri.parse(url), body: json.encode({}));
-
-    return (response.statusCode == 200);
-  }
-
-  static Future<bool> finalizeReservation(
-      String reservationId, String review) async {
-    var url =
-        'https://localhost:8080/api/v1/reservation/finalize/$reservationId';
-    var response = await http.patch(Uri.parse(url), body: review);
-
-    return (response.statusCode == 200);
-  }
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
     var list = json['reservationOptions'] as List;
