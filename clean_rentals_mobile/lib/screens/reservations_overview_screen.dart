@@ -1,4 +1,3 @@
-import 'package:clean_rentals_mobile/models/reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
 
 import 'car.dart';
@@ -14,8 +13,8 @@ class Reservation with ChangeNotifier {
   final List<ReservationOption>? reservationOptions;
   final int dateTimeStart;
   final int dateTimeStop;
-  final double total_price_euro_excl_vat;
-  final String? review_text;
+  final double totalPriceEuroExclVat;
+  final String? reviewText;
   final bool paid;
   final bool returned;
   final bool cancelled;
@@ -28,8 +27,8 @@ class Reservation with ChangeNotifier {
     this.reservationOptions,
     required this.dateTimeStart,
     required this.dateTimeStop,
-    required this.total_price_euro_excl_vat,
-    this.review_text,
+    required this.totalPriceEuroExclVat,
+    this.reviewText,
     required this.paid,
     required this.returned,
     required this.cancelled,
@@ -50,8 +49,8 @@ class Reservation with ChangeNotifier {
       reservationOptions: reservationOpions,
       dateTimeStart: json['dateTimeStart'],
       dateTimeStop: json['dateTimeStop'],
-      total_price_euro_excl_vat: json['total_price_euro_excl_vat'],
-      review_text: json['review_text'],
+      totalPriceEuroExclVat: json['total_price_euro_excl_vat'],
+      reviewText: json['review_text'],
       paid: json['paid'],
       returned: json['returned'],
       cancelled: json['cancelled'],

@@ -24,7 +24,7 @@ class ReservationGridItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             subtitle: Text(
-              '€${reservation.total_price_euro_excl_vat}',
+              '€${reservation.totalPriceEuroExclVat}',
               textAlign: TextAlign.center,
             ),
           ),

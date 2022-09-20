@@ -1,15 +1,12 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:clean_rentals_mobile/models/car_option.dart';
-
+import '../models/car_option.dart';
 import 'brand.dart';
 
 class Car {
   final String id;
   final Brand brand;
   final String model;
-  final int seats, doors, year, horsepower, wltp_range_km;
-  final num battery_capacity_kwh, start_day_price_euro_excl_vat;
+  final int seats, doors, year, horsepower, wltpRangeKm;
+  final num batteryCapacityKwh, startDayPriceEuroExclVat;
   final List<CarOption>? carOptions;
   final String image_url;
 
@@ -21,9 +18,9 @@ class Car {
     required this.doors,
     required this.year,
     required this.horsepower,
-    required this.wltp_range_km,
-    required this.battery_capacity_kwh,
-    required this.start_day_price_euro_excl_vat,
+    required this.wltpRangeKm,
+    required this.batteryCapacityKwh,
+    required this.startDayPriceEuroExclVat,
     this.carOptions,
     required this.image_url,
   });
@@ -41,9 +38,9 @@ class Car {
       doors: json['doors'],
       year: json['year'],
       horsepower: json['horsepower'],
-      wltp_range_km: json['wltp_range_km'],
-      battery_capacity_kwh: json['battery_capacity_kwh'],
-      start_day_price_euro_excl_vat: json['start_day_price_euro_excl_vat'],
+      wltpRangeKm: json['wltp_range_km'],
+      batteryCapacityKwh: json['battery_capacity_kwh'],
+      startDayPriceEuroExclVat: json['start_day_price_euro_excl_vat'],
       carOptions: carOptionsList,
       image_url: json['image_url'],
     );

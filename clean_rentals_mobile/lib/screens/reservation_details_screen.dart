@@ -157,7 +157,7 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '€ ${(reservation.total_price_euro_excl_vat * 1.21).toStringAsFixed(2)}',
+                    '€ ${(reservation.totalPriceEuroExclVat * 1.21).toStringAsFixed(2)}',
                   ),
                 ],
               ),

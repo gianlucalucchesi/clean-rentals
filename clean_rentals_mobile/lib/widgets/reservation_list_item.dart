@@ -54,7 +54,7 @@ class ReservationListItem extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '€ ${(reservation.total_price_euro_excl_vat * 1.21).toStringAsFixed(2)}',
+                          '€ ${(reservation.totalPriceEuroExclVat * 1.21).toStringAsFixed(2)}',
                         ),
                       ),
                       const SizedBox(
