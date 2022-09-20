@@ -1,19 +1,7 @@
-import 'dart:convert';
-
-import 'package:clean_rentals_mobile/services/brand_service.dart';
-import 'package:clean_rentals_mobile/services/reservation_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-import '../brand.dart';
-import '../car.dart';
-import '../car_option.dart';
-import '../city.dart';
-import '../client.dart';
-import '../location.dart';
-import '../country.dart';
+import '../../services/reservation_service.dart';
 import '../reservation.dart';
-import '../reservation_option.dart';
 
 class ReservationListProvider with ChangeNotifier {
   static const getReservationsUrl = 'https://localhost:8080/api/v1/reservation';

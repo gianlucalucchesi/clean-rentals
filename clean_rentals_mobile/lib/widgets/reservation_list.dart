@@ -1,22 +1,20 @@
-import 'package:clean_rentals_mobile/widgets/reservation_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/providers/reservation_list_provider.dart';
+import '../models/reservation.dart';
+import '../widgets/reservation_list_item.dart';
 
 class ReservationList extends StatelessWidget {
   final bool showOnlyActiveReservations;
+  final List<Reservation> reservationData;
 
-  ReservationList({super.key, required this.showOnlyActiveReservations});
+  const ReservationList(
+      {super.key,
+      required this.showOnlyActiveReservations,
+      required this.reservationData});
 
   @override
   Widget build(BuildContext context) {
-    final reservationProvider = Provider.of<ReservationListProvider>(context);
-
-    final reservationData = showOnlyActiveReservations
-        ? reservationProvider.activeReservationList
-        : reservationProvider.reservationList;
-
     return reservationData.isNotEmpty
         ? ListView.builder(
             padding: const EdgeInsets.all(10),
@@ -26,11 +24,19 @@ class ReservationList extends StatelessWidget {
               child: const ReservationListItem(),
             ),
           )
-        : const Center(
-            child: Text(
-              'No reservations',
-              style: TextStyle(fontSize: 30, color: Colors.blueGrey),
-            ),
-          );
+        : ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 600,
+                child: Center(
+                  child: Text(
+                    'No reservations',
+                    style: TextStyle(fontSize: 30, color: Colors.blueGrey),
+                  ),
+                ),
+              );
+            });
   }
 }

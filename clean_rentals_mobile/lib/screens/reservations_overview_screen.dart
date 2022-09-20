@@ -1,5 +1,8 @@
+import 'package:clean_rentals_mobile/models/reservation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/providers/reservation_list_provider.dart';
 import '../widgets/reservation_list.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/reservation_grid.dart';
@@ -25,6 +28,20 @@ class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final reservationProvider = Provider.of<ReservationListProvider>(context);
+
+    var reservationData = _showOnlyActive
+        ? reservationProvider.activeReservationList
+        : reservationProvider.reservationList;
+
+    Future<void> _refresh() async {
+      setState(() {
+        reservationData = _showOnlyActive
+            ? reservationProvider.activeReservationList
+            : reservationProvider.reservationList;
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Reservations"),
@@ -62,10 +79,20 @@ class _ReservationsOverviewScreen extends State<ReservationsOverviewScreen> {
         ],
       ),
       body: _showGridView
-          ? ReservationGrid(
-              showOnlyActiveReservations: _showOnlyActive,
+          ? RefreshIndicator(
+              onRefresh: () => _refresh(),
+              child: ReservationGrid(
+                showOnlyActiveReservations: _showOnlyActive,
+                reservationData: reservationData,
+              ),
             )
-          : ReservationList(showOnlyActiveReservations: _showOnlyActive),
+          : RefreshIndicator(
+              onRefresh: () => _refresh(),
+              child: ReservationList(
+                showOnlyActiveReservations: _showOnlyActive,
+                reservationData: reservationData,
+              ),
+            ),
       drawer: const AppDrawer(),
     );
   }

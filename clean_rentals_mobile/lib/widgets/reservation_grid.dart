@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/reservation.dart';
 import 'reservation_grid_item.dart';
-import '../models/providers/reservation_list_provider.dart';
 
 class ReservationGrid extends StatelessWidget {
   final bool showOnlyActiveReservations;
+  final List<Reservation> reservationData;
 
-  const ReservationGrid({Key? key, required this.showOnlyActiveReservations})
-      : super(key: key);
+  const ReservationGrid({
+    Key? key,
+    required this.showOnlyActiveReservations,
+    required this.reservationData,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final reservationProvider = Provider.of<ReservationListProvider>(context);
-
-    final reservationData = showOnlyActiveReservations
-        ? reservationProvider.activeReservationList
-        : reservationProvider.reservationList;
-
     return reservationData.isNotEmpty
         ? GridView.builder(
             padding: const EdgeInsets.all(10),
@@ -33,11 +31,19 @@ class ReservationGrid extends StatelessWidget {
               mainAxisSpacing: 10, // Spacing between rows
             ),
           )
-        : const Center(
-            child: Text(
-              'No reservations',
-              style: TextStyle(fontSize: 30, color: Colors.blueGrey),
-            ),
-          );
+        : ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 600,
+                child: Center(
+                  child: Text(
+                    'No reservations',
+                    style: TextStyle(fontSize: 30, color: Colors.blueGrey),
+                  ),
+                ),
+              );
+            });
   }
 }
