@@ -39,7 +39,7 @@ public class ReservationService {
         Client client = this.clientService.findById(id);
         Optional<List<Reservation>> optionalReservationList = reservationRepository.findByClient(client);
 
-        if (optionalReservationList.get().isEmpty()) {
+        if (optionalReservationList.isEmpty()) {
             throw new NotFoundException(String.format("No reservations found for client with id %s", id));
         }
 
@@ -96,7 +96,7 @@ public class ReservationService {
         reservation.setPaid(true);
 
         reservationRepository.saveAndFlush(reservation);
-        System.out.printf("Reservation %s marked as paid", reservationId);
+        System.out.printf("Reservation %s marked as paid\n", reservationId);
 
         return reservation;
     }
@@ -123,7 +123,7 @@ public class ReservationService {
         reservation.setReturned(true);
 
         reservationRepository.saveAndFlush(reservation);
-        System.out.printf("Reservation %s finalized", reservationId);
+        System.out.printf("Reservation %s finalized\n", reservationId);
 
         return reservation;
     }
@@ -149,6 +149,6 @@ public class ReservationService {
 
         reservationRepository.saveAndFlush(reservation);
 
-        System.out.printf("Reservation %s cancelled", reservationId);
+        System.out.printf("Reservation %s cancelled\n", reservationId);
     }
 }
