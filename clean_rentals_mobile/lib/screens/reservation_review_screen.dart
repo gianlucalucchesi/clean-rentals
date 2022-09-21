@@ -4,15 +4,28 @@ import '../screens/reservations_overview_screen.dart';
 import '../services/reservation_service.dart';
 import '../widgets/image_input.dart';
 
-class ReservationReviewScreen extends StatelessWidget {
+class ReservationReviewScreen extends StatefulWidget {
   static const routeName = '/reservation-review';
 
   const ReservationReviewScreen({Key? key}) : super(key: key);
 
   @override
+  State<ReservationReviewScreen> createState() =>
+      _ReservationReviewScreenState();
+}
+
+class _ReservationReviewScreenState extends State<ReservationReviewScreen> {
+  final reviewTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    reviewTextController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final reservationId = ModalRoute.of(context)?.settings.arguments as String;
-    var reviewText = 'Hello, world!';
 
     return Scaffold(
       appBar: AppBar(
@@ -26,6 +39,7 @@ class ReservationReviewScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: reviewTextController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Findings',
@@ -50,7 +64,7 @@ class ReservationReviewScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   bool succes = await ReservationService.finalizeReservation(
-                      reservationId, reviewText);
+                      reservationId, reviewTextController.text);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) =>
