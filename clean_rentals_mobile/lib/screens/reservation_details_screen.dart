@@ -1,3 +1,4 @@
+import 'package:clean_rentals_mobile/models/reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -335,8 +336,6 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
             Container(
               padding: const EdgeInsets.all(10.0),
               child: SizedBox(
-                height: 150,
-                width: 300,
                 child: Container(
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.green)),
@@ -394,11 +393,58 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                   ),
                 ],
               ),
-            const SizedBox(
-              height: 40,
-            ),
+            if (!reservation.returned)
+              const SizedBox(
+                height: 60,
+              ),
+            if (reservation.returned) const Divider(),
+            if (reservation.returned)
+              const SizedBox(
+                height: 7.5,
+              ),
+            if (reservation.returned)
+              const Text(
+                "RESERVATION REVIEW",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            if (reservation.returned)
+              const SizedBox(
+                height: 7.5,
+              ),
+            if (reservation.returned) _reviewSection(context, reservation),
+            if (reservation.returned)
+              const SizedBox(
+                height: 60,
+              ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _reviewSection(BuildContext context, Reservation reservation) {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Review",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(reservation.reviewText!),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.green),
+            ),
+          ),
+        ],
       ),
     );
   }
