@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:gallery_saver/gallery_saver.dart';
 
 class ImageInput extends StatefulWidget {
   const ImageInput({Key? key}) : super(key: key);
@@ -15,17 +14,24 @@ class ImageInput extends StatefulWidget {
 
 class _ImageInputState extends State<ImageInput> {
   File? _storedImage;
+  String _savedImagePath = '';
 
   Future _takePicture() async {
     try {
-      final imageFile =
+      final takenPicture =
           await ImagePicker().getImage(source: ImageSource.camera);
-      if (imageFile == null) return;
 
-      final imageTemp = File(imageFile.path);
-      setState(() {
-        _storedImage = imageTemp;
-      });
+      if (takenPicture == null) return;
+
+      var success = await GallerySaver.saveImage(takenPicture.path);
+
+      if (success!) {
+        final image = File(takenPicture.path);
+
+        setState(() {
+          _storedImage = image;
+        });
+      }
     } on PlatformException catch (e) {
       print(e.message);
     }
@@ -37,9 +43,10 @@ class _ImageInputState extends State<ImageInput> {
           await ImagePicker().getImage(source: ImageSource.gallery);
       if (imageFile == null) return;
 
-      final imageTemp = File(imageFile.path);
+      final selectedImage = File(imageFile.path);
+
       setState(() {
-        _storedImage = imageTemp;
+        _storedImage = selectedImage;
       });
     } on PlatformException catch (e) {
       print(e.message);
