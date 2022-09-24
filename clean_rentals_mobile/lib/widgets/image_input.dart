@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
@@ -13,20 +14,36 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  var _storedImage;
+  File? _storedImage;
 
-  Future<void> _takePicture() async {
-    final picker = ImagePicker();
-    final imageFile = await picker.getImage(
-      source: ImageSource.camera,
-    );
+  Future _takePicture() async {
+    try {
+      final imageFile =
+          await ImagePicker().getImage(source: ImageSource.camera);
+      if (imageFile == null) return;
 
-    setState(() => _storedImage = imageFile as File);
+      final imageTemp = File(imageFile.path);
+      setState(() {
+        _storedImage = imageTemp;
+      });
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
+  }
 
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile!.path);
-    final savedImage =
-        await File(imageFile.path).copy('${appDir.path}/$fileName');
+  Future _selectFromGallery() async {
+    try {
+      final imageFile =
+          await ImagePicker().getImage(source: ImageSource.gallery);
+      if (imageFile == null) return;
+
+      final imageTemp = File(imageFile.path);
+      setState(() {
+        _storedImage = imageTemp;
+      });
+    } on PlatformException catch (e) {
+      print(e.message);
+    }
   }
 
   @override
@@ -43,7 +60,7 @@ class _ImageInputState extends State<ImageInput> {
           alignment: Alignment.center,
           child: _storedImage != null
               ? Image.file(
-                  _storedImage,
+                  _storedImage!,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 )
@@ -52,11 +69,22 @@ class _ImageInputState extends State<ImageInput> {
                   textAlign: TextAlign.center,
                 ),
         ),
-        TextButton.icon(
-          icon: const Icon(Icons.camera_alt),
-          label: const Text('Take Picture'),
-          onPressed: _takePicture,
-        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton.icon(
+              icon: const Icon(Icons.camera_alt),
+              label: const Text('Take Picture'),
+              onPressed: _takePicture,
+            ),
+            const Divider(),
+            TextButton.icon(
+              icon: const Icon(Icons.image_sharp),
+              label: const Text('Select from gallery'),
+              onPressed: _selectFromGallery,
+            ),
+          ],
+        )
       ],
     );
   }

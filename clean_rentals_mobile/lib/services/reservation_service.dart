@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import '../models/reservation.dart';
 
 class ReservationService {
-  static const String basePath = 'https://localhost:8080';
-  // static const String basePath = 'https://192.168.0.162:8080';
+  // static const String basePath = 'https://localhost:8080';
+  static const String basePath = 'https://192.168.0.162:8080';
   // static const String basePath = 'https://172.20.10.5:8080';
 
   static Future<List<Reservation>> getReservations() async {

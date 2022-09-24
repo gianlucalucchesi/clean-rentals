@@ -34,50 +34,46 @@ class _ReservationReviewScreenState extends State<ReservationReviewScreen> {
           title: const Text("Review"),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: reviewTextController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Findings',
-                      ),
-                      maxLines: null,
-                      keyboardType: TextInputType.multiline,
-                    ),
-                  ],
+          child: Column(children: [
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              child: Column(children: [
+                TextFormField(
+                  controller: reviewTextController,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Findings',
+                  ),
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
                 ),
+              ]),
+            ),
+            const Divider(),
+            const Center(
+              child: ImageInput(),
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () async {
+                  bool succes = await ReservationService.finalizeReservation(
+                      reservationId, reviewTextController.text);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        _buildPopupDialog(context, succes),
+                  );
+                },
+                child: const Icon(Icons.check_circle_outline_sharp),
               ),
-              const Divider(),
-              const Center(
-                child: ImageInput(),
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    bool succes = await ReservationService.finalizeReservation(
-                        reservationId, reviewTextController.text);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          _buildPopupDialog(context, succes),
-                    );
-                  },
-                  child: const Icon(Icons.check_circle_outline_sharp),
-                ),
-              )
-            ],
-          ),
+            )
+          ]),
         ),
       ),
     );
