@@ -3,6 +3,7 @@ package com.cleanrentals.api.controllers;
 import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Reservation;
+import com.cleanrentals.api.models.ReservationFinalizationDTO;
 import com.cleanrentals.api.services.ReservationService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,8 @@ public class ReservationController {
 
     @PatchMapping("finalize/{reservationId}")
     @ResponseStatus(HttpStatus.OK)
-    public Reservation addReview(@PathVariable String reservationId, @RequestBody String review) throws NotFoundException, ConflictException {
-        return this.reservationService.finalize(reservationId, review);
+    public Reservation addReview(@PathVariable String reservationId, @RequestBody ReservationFinalizationDTO reservationFinalization) throws NotFoundException, ConflictException {
+        return this.reservationService.finalize(reservationId, reservationFinalization);
     }
 
     @PatchMapping("cancel/{reservationId}")

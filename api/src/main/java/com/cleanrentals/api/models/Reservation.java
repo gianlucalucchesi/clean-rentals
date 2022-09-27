@@ -42,6 +42,8 @@ public class Reservation {
     private boolean returned;
     @Column(name = "cancelled", nullable = false)
     private boolean cancelled;
+    @Column(name = "image_path", nullable = true)
+    private String imagePath;
 
     public UUID getId() {
         return id;
@@ -134,4 +136,8 @@ public class Reservation {
     public boolean getCancelled() { return this.cancelled; }
 
     public void setCancelled(boolean cancelled) { this.cancelled = cancelled; }
+
+    public String getImagePath() { return this.imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 }

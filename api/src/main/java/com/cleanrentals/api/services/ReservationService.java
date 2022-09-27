@@ -4,6 +4,7 @@ import com.cleanrentals.api.exceptions.ConflictException;
 import com.cleanrentals.api.exceptions.NotFoundException;
 import com.cleanrentals.api.models.Client;
 import com.cleanrentals.api.models.Reservation;
+import com.cleanrentals.api.models.ReservationFinalizationDTO;
 import com.cleanrentals.api.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,7 @@ public class ReservationService {
     }
 
 
-    public Reservation finalize(String reservationId, String review) throws NotFoundException, ConflictException {
+    public Reservation finalize(String reservationId, ReservationFinalizationDTO reservationFinalization) throws NotFoundException, ConflictException {
 
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
 
@@ -119,7 +120,8 @@ public class ReservationService {
         }
 
         Reservation reservation = optionalReservation.get();
-        reservation.setReview_text(review);
+        reservation.setReview_text(reservationFinalization.getReview());
+        reservation.setImagePath(reservationFinalization.getImagePath());
         reservation.setReturned(true);
 
         reservationRepository.saveAndFlush(reservation);
