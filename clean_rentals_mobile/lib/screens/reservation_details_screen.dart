@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:clean_rentals_mobile/models/reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -438,12 +440,17 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
           const SizedBox(
             height: 10,
           ),
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.green),
-            ),
-          ),
+          reservation.imagePath != null
+              ? Image.file(File(reservation.imagePath!))
+              : Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green),
+                  ),
+                  child: const Center(
+                    child: Text("No photo added"),
+                  ),
+                ),
         ],
       ),
     );

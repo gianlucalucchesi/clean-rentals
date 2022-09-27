@@ -29,7 +29,7 @@ class _ImageInputState extends State<ImageInput> {
 
       if (success!) {
         final imageFile = File(pickedImage.path);
-        widget.setSavedImagePath();
+        widget.setSavedImagePath(pickedImage.path);
 
         setState(() => _storedImage = imageFile);
       }
@@ -45,7 +45,6 @@ class _ImageInputState extends State<ImageInput> {
       if (pickedImage == null) return;
 
       final imageFile = File(pickedImage.path);
-
       widget.setSavedImagePath(pickedImage.path);
 
       setState(() => _storedImage = imageFile);
