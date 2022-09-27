@@ -15,5 +15,7 @@ export class Reservation {
   review_text?: string;
   paid: boolean;
   returned: boolean;
+  cancelled: boolean;
+  imagePath?: string;
 
 }
