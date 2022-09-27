@@ -4,7 +4,7 @@ class Login extends StatelessWidget {
   final loginAction;
   final String loginError;
 
-  const Login(this.loginAction, this.loginError);
+  const Login(this.loginAction, this.loginError, {super.key});
 
   @override
   Widget build(BuildContext context) {

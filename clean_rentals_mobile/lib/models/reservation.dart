@@ -5,6 +5,21 @@ import 'client.dart';
 import 'location.dart';
 import 'reservation_option.dart';
 
+class ReservationFinalizationDTO {
+  final String review;
+  final String imagePath;
+
+  ReservationFinalizationDTO({
+    required this.review,
+    required this.imagePath,
+  });
+
+  Map<String, dynamic> toJson() => {
+        'review': review,
+        'imagePath': imagePath,
+      };
+}
+
 class Reservation with ChangeNotifier {
   final String id;
   final Client client;
@@ -18,6 +33,7 @@ class Reservation with ChangeNotifier {
   final bool paid;
   final bool returned;
   final bool cancelled;
+  final String? imagePath;
 
   Reservation({
     required this.id,
@@ -32,6 +48,7 @@ class Reservation with ChangeNotifier {
     required this.paid,
     required this.returned,
     required this.cancelled,
+    this.imagePath,
   });
 
   factory Reservation.fromJson(Map<String, dynamic> json) {
@@ -54,6 +71,7 @@ class Reservation with ChangeNotifier {
       paid: json['paid'],
       returned: json['returned'],
       cancelled: json['cancelled'],
+      imagePath: json['imagePath'],
     );
   }
 }

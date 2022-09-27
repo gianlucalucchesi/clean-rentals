@@ -33,12 +33,17 @@ class ReservationService {
     return (response.statusCode == 200);
   }
 
-  static Future<bool> finalizeReservation(
-      String reservationId, String review) async {
+  static Future<bool> finalizeReservation(String reservationId,
+      ReservationFinalizationDTO reservationFinalization) async {
     String endpoint = '/api/v1/reservation/finalize/$reservationId';
 
-    var response =
-        await http.patch(Uri.parse('$basePath$endpoint'), body: review);
+    var json = jsonEncode(reservationFinalization.toJson());
+
+    var response = await http.patch(Uri.parse('$basePath$endpoint'),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: json);
 
     return (response.statusCode == 200);
   }

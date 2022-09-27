@@ -1,3 +1,4 @@
+import 'package:clean_rentals_mobile/models/reservation.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/reservations_overview_screen.dart';
@@ -16,11 +17,16 @@ class ReservationReviewScreen extends StatefulWidget {
 
 class _ReservationReviewScreenState extends State<ReservationReviewScreen> {
   final reviewTextController = TextEditingController();
+  String savedImagePath = '';
 
   @override
   void dispose() {
     reviewTextController.dispose();
     super.dispose();
+  }
+
+  void setSavedImagePath(String path) {
+    savedImagePath = path;
   }
 
   @override
@@ -50,8 +56,8 @@ class _ReservationReviewScreenState extends State<ReservationReviewScreen> {
               ]),
             ),
             const Divider(),
-            const Center(
-              child: ImageInput(),
+            Center(
+              child: ImageInput(setSavedImagePath: setSavedImagePath),
             ),
             const Divider(),
             const SizedBox(
@@ -63,7 +69,11 @@ class _ReservationReviewScreenState extends State<ReservationReviewScreen> {
               child: ElevatedButton(
                 onPressed: () async {
                   bool succes = await ReservationService.finalizeReservation(
-                      reservationId, reviewTextController.text);
+                    reservationId,
+                    ReservationFinalizationDTO(
+                        review: reviewTextController.text,
+                        imagePath: savedImagePath),
+                  );
                   showDialog(
                     context: context,
                     builder: (BuildContext context) =>

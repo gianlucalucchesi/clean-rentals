@@ -6,7 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({Key? key}) : super(key: key);
+  final Function setSavedImagePath;
+
+  const ImageInput({Key? key, required this.setSavedImagePath})
+      : super(key: key);
 
   @override
   _ImageInputState createState() => _ImageInputState();
@@ -14,23 +17,21 @@ class ImageInput extends StatefulWidget {
 
 class _ImageInputState extends State<ImageInput> {
   File? _storedImage;
-  String _savedImagePath = '';
 
   Future _takePicture() async {
     try {
-      final takenPicture =
+      final pickedImage =
           await ImagePicker().getImage(source: ImageSource.camera);
 
-      if (takenPicture == null) return;
+      if (pickedImage == null) return;
 
-      var success = await GallerySaver.saveImage(takenPicture.path);
+      var success = await GallerySaver.saveImage(pickedImage.path);
 
       if (success!) {
-        final image = File(takenPicture.path);
+        final imageFile = File(pickedImage.path);
+        widget.setSavedImagePath();
 
-        setState(() {
-          _storedImage = image;
-        });
+        setState(() => _storedImage = imageFile);
       }
     } on PlatformException catch (e) {
       print(e.message);
@@ -39,15 +40,15 @@ class _ImageInputState extends State<ImageInput> {
 
   Future _selectFromGallery() async {
     try {
-      final imageFile =
+      final pickedImage =
           await ImagePicker().getImage(source: ImageSource.gallery);
-      if (imageFile == null) return;
+      if (pickedImage == null) return;
 
-      final selectedImage = File(imageFile.path);
+      final imageFile = File(pickedImage.path);
 
-      setState(() {
-        _storedImage = selectedImage;
-      });
+      widget.setSavedImagePath(pickedImage.path);
+
+      setState(() => _storedImage = imageFile);
     } on PlatformException catch (e) {
       print(e.message);
     }
@@ -72,7 +73,7 @@ class _ImageInputState extends State<ImageInput> {
                   width: double.infinity,
                 )
               : const Text(
-                  'No Image Taken',
+                  'Take or select an image',
                   textAlign: TextAlign.center,
                 ),
         ),

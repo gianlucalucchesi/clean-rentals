@@ -4,8 +4,6 @@ import '../../services/reservation_service.dart';
 import '../reservation.dart';
 
 class ReservationListProvider with ChangeNotifier {
-  static const getReservationsUrl = 'https://localhost:8080/api/v1/reservation';
-
   late List<Reservation> _reservationList = [];
 
   List<Reservation> get reservationList {
