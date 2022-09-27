@@ -27,7 +27,7 @@ CREATE TABLE car (
 
 -- Indices -------------------------------------------------------
 
-CREATE UNIQUE INDEX "Car_pkey" ON car(id uuid_ops);
+CREATE UNIQUE INDEX car_pkey ON car(id uuid_ops);
 
 -- Table Definition ----------------------------------------------
 
@@ -95,7 +95,8 @@ CREATE TABLE reservation (
     review_text text,
     paid boolean NOT NULL,
     returned boolean NOT NULL,
-    cancelled boolean NOT NULL
+    cancelled boolean NOT NULL,
+    image_path text
 );
 
 -- Indices -------------------------------------------------------
@@ -146,4 +147,3 @@ CREATE TABLE car_car_option (
     car_id uuid REFERENCES car(id),
     car_option_id uuid REFERENCES car_option(id)
 );
-
