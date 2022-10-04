@@ -10,7 +10,7 @@ class ReservationListProvider with ChangeNotifier {
     ReservationService.getReservations().then((value) {
       _reservationList = value;
     });
-    return [..._reservationList];
+    return [..._reservationList.where((element) => !element.cancelled)];
   }
 
   List<Reservation> get activeReservationList {
