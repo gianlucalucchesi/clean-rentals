@@ -27,9 +27,9 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
       this.reservations = <Reservation[]>(
         JSON.parse(localStorage.getItem('shopping-cart'))
       );
-      this.shoppingCartService.reservations = this.reservations;
+      this.shoppingCartService.reservationList = this.reservations;
     } else {
-      this.reservations = this.shoppingCartService.reservations;
+      this.reservations = this.shoppingCartService.reservationList;
     }
 
     this.currency = this.currencyService.getCurrency();
@@ -37,7 +37,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.reservationsChanged =
-      this.shoppingCartService.reservationChanged$.subscribe({
+      this.shoppingCartService.reservationListChanged$.subscribe({
         next: (reservations) => (this.reservations = reservations),
       });
 

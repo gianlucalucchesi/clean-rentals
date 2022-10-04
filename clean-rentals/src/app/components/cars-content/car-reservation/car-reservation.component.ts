@@ -193,7 +193,9 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     }
 
     this.reservation.car = this.car;
-    this.shoppingCartService.setReservation(this.reservation);
+    this.shoppingCartService.validateReservation(this.reservation);
+
+    // TODO: only navigate back if reservation is successful (subscribe)
     this.router.navigate(['/cars-overview']);
   }
 

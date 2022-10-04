@@ -5,7 +5,6 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -54,7 +53,7 @@ export class ShoppingCartRecapComponent
     },
     onAuthorize: (data: any, actions: any) => {
       return actions.payment.execute().then((payment: any) => {
-        this.shoppingCartService.validateReservation();
+        this.shoppingCartService.checkoutShoppingCart();
         this.shoppingCartService.changeCheckoutState(true);
 
         setTimeout(() => {
@@ -76,7 +75,7 @@ export class ShoppingCartRecapComponent
         JSON.parse(localStorage.getItem('shopping-cart'))
       );
     } else {
-      this.reservations = this.shoppingCartService.reservations;
+      this.reservations = this.shoppingCartService.reservationList;
     }
 
     this.currency = this.currencyService.getCurrency();
@@ -110,7 +109,7 @@ export class ShoppingCartRecapComponent
 
   ngOnInit(): void {
     this.reservationsChanged =
-      this.shoppingCartService.reservationChanged$.subscribe({
+      this.shoppingCartService.reservationListChanged$.subscribe({
         next: (reservations) => {
           this.reservations = reservations;
           this.getTotals();
