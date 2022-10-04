@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -76,7 +77,11 @@ public class ReservationService {
         List<Reservation> inDbReservations = reservationRepository.findReservationBetweenDates(
                 reservation.getCar(), reservation.getDateTimeStart(), reservation.getDateTimeStop());
 
-        if (inDbReservations.size() > 1) {
+        List<Reservation> activeReservations =
+                inDbReservations.stream().filter(res -> !res.getCancelled()).toList();
+
+        // > 1 because both are recorded but one will be removed with rollback
+        if (inDbReservations.size() > 1 && activeReservations.size() > 1) {
             throw new ConflictException("Double reservation for the same car");
         }
 
