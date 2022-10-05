@@ -50,7 +50,7 @@ export class ReservationContentComponent implements OnInit {
         this.reservations = this.reservations
           .slice()
           .sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart);
-        this.reservations = this.reservations.filter((res) => !res.cancelled);
+        this.reservations = this.reservations.filter((res) => !res.cancelled) && res.paid;
       },
       error: (err) => {
         this.error = err.error.error;
