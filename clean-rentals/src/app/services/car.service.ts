@@ -24,7 +24,11 @@ export class CarService {
   getPaginatedCars$(pageNumber: number, pageSize: number): Observable<any> {
     // (pageNumber - 1) because starts at 0 in API but at 1 in front-end
     return this.http.get(
-      environment.ApiUrl + 'v1/car/pagination/' + (pageNumber - 1) + '/' + pageSize
+      environment.ApiUrl +
+        'v1/car/pagination/' +
+        (pageNumber - 1) +
+        '/' +
+        pageSize
     );
   }
 
@@ -36,5 +40,4 @@ export class CarService {
   getCurrentSelectedCar() {
     return this.car;
   }
-
 }

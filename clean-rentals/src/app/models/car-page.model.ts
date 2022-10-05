@@ -1,4 +1,4 @@
-import { Car } from "./car.model";
+import { Car } from './car.model';
 
 export class CarPage {
   content: Car[];

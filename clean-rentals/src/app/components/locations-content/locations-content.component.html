@@ -4,7 +4,7 @@
 </div>
 
 <ng-template #loading>
-  <div class="container" *ngIf="(locations.length === 0); else loaded">
+  <div class="container" *ngIf="locations.length === 0; else loaded">
     <app-loading></app-loading>
   </div>
 </ng-template>
@@ -13,7 +13,6 @@
   <h1>Locations</h1>
 
   <p class="lead">See all our locations below.</p>
-
 
   <agm-map
     [latitude]="startLocation.lat"

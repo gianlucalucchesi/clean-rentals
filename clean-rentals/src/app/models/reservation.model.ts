@@ -1,7 +1,7 @@
-import { Car } from "./car.model";
-import { Client } from "./client.model";
-import { Location } from "./location.model"
-import { ReservationOption } from "./reservation-option.model";
+import { Car } from './car.model';
+import { Client } from './client.model';
+import { Location } from './location.model';
+import { ReservationOption } from './reservation-option.model';
 
 export class Reservation {
   id: string;
@@ -17,5 +17,4 @@ export class Reservation {
   returned: boolean;
   cancelled: boolean;
   imagePath?: string;
-
 }

@@ -85,8 +85,8 @@ export class ShoppingCartRecapComponent
   ngOnChanges(): void {
     this.amountPayable =
       this.currency == 'EUR'
-        ? (+Math.round((this.totalExclTax * 1.21) * 100) / 100)
-        : (this.getUsdPrice(this.totalExclTax * 1.21));
+        ? +Math.round(this.totalExclTax * 1.21 * 100) / 100
+        : this.getUsdPrice(this.totalExclTax * 1.21);
   }
 
   ngAfterViewChecked(): void {
@@ -130,7 +130,6 @@ export class ShoppingCartRecapComponent
 
   getUsdPrice(amount: number): number {
     let usdAmount = this.currencyService.convertEuroToUsd(amount);
-    return +Math.round(usdAmount * 100) / 100
+    return +Math.round(usdAmount * 100) / 100;
   }
-
 }

@@ -32,20 +32,18 @@
           </div>
         </div>
         <div class="col-md-3" style="text-align: right">
-          <img
-            src="{{ '../../../' + car.image_url }}"
-            width="100%"
-          /><br/>
+          <img src="{{ '../../../' + car.image_url }}" width="100%" /><br />
           As from
           <b
-          >{{
-            currency === 'EUR'
-              ? (car.start_day_price_euro_excl_vat
-                | currency: "EUR":"symbol":"1.0-0")
-              : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
+            >{{
+              currency === "EUR"
+                ? (car.start_day_price_euro_excl_vat
+                  | currency: "EUR":"symbol":"1.0-0")
+                : (getUsdPrice() | currency: "USD":"symbol":"1.0-0")
             }}
             Excl. VAT</b
-          > | day
+          >
+          | day
         </div>
       </div>
     </div>

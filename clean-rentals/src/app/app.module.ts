@@ -82,7 +82,7 @@ import { ErrorContentComponent } from './components/error-content/error-content.
     }),
     FontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: env.google.apiKey
+      apiKey: env.google.apiKey,
     }),
     GoogleChartsModule,
     NgxPaginationModule,

@@ -12,7 +12,7 @@
           width="450"
         />
       </div>
-      <hr/>
+      <hr />
       <form>
         <h3>Reservation information</h3>
         <div class="form-group">
@@ -38,11 +38,12 @@
         <div class="form-group">
           <label><b>Total paid:</b></label>
           {{
-          currency === 'EUR'
-            ? (reservation.total_price_euro_excl_vat * 1.21
-              | currency: "EUR":"symbol")
-            : (getUsdPrice()*1.21 | currency)
-          }} Incl. VAT
+            currency === "EUR"
+              ? (reservation.total_price_euro_excl_vat * 1.21
+                | currency: "EUR":"symbol")
+              : (getUsdPrice() * 1.21 | currency)
+          }}
+          Incl. VAT
         </div>
 
         <h3>Client information</h3>
@@ -67,12 +68,12 @@
           </li>
         </ul>
         <div
-        *ngIf="reservation.car.carOptions.length === 0"
-        class="alert alert-info"
-        role="alert"
-      >
-        Incomplete option list
-      </div>
+          *ngIf="reservation.car.carOptions.length === 0"
+          class="alert alert-info"
+          role="alert"
+        >
+          Incomplete option list
+        </div>
 
         <h3>Location information</h3>
         <div class="form-group">

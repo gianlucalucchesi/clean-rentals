@@ -71,7 +71,9 @@
               >
                 <fa-icon [icon]="faEuroSign" class="mr-1"></fa-icon>
                 |
-                <span style="font-size: small;">1 EUR = {{ rateEUR | number: "1.1-5" }} USD</span>
+                <span style="font-size: small"
+                  >1 EUR = {{ rateEUR | number: "1.1-5" }} USD</span
+                >
               </button>
               <button
                 (click)="onChangeCurrency('USD')"
@@ -81,7 +83,9 @@
               >
                 <fa-icon [icon]="faDollarSign" class="mr-1"></fa-icon>
                 |
-                <span style="font-size: small;">1 USD = {{ rateUSD | number: "1.1-5" }} EUR</span>
+                <span style="font-size: small"
+                  >1 USD = {{ rateUSD | number: "1.1-5" }} EUR</span
+                >
               </button>
             </div>
           </li>
@@ -91,10 +95,8 @@
         <!-- Shopping Cart -->
         <ul class="navbar-nav mr-left mr-3">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/shopping-cart"
-            >
-              <fa-icon [icon]="faShoppingCart"></fa-icon
-              >
+            <a class="nav-link" routerLink="/shopping-cart">
+              <fa-icon [icon]="faShoppingCart"></fa-icon>
             </a>
           </li>
         </ul>
@@ -150,8 +152,7 @@
                 routerLink="/manage-reservations"
               >
                 <fa-icon [icon]="faCarAlt" class="mr-3"></fa-icon>
-                Manage
-                reservations
+                Manage reservations
               </a>
               <a
                 class="dropdown-item dropdown-profile"
@@ -159,8 +160,7 @@
                 target="_blank"
               >
                 <fa-icon [icon]="faServer" class="mr-3"></fa-icon>
-                API
-                documentation
+                API documentation
               </a>
               <button
                 (click)="logout()"
@@ -222,7 +222,7 @@
           <li>
             <fa-icon [icon]="faServer" class="mr-3"></fa-icon>
             <a href="http://localhost:8080/swagger-ui/" target="_blank"
-            >API doc</a
+              >API doc</a
             >
           </li>
 

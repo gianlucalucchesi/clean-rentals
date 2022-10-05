@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Reservation } from '../models/reservation.model';
@@ -37,26 +41,37 @@ export class ShoppingCartService {
     let removeReservationSuccess = true;
 
     this.http
-    .patch(environment.ApiUrl + 'v1/reservation/cancel/' + reservation.id, null)
-    .subscribe({
-      next: () => {
-        const index = this.reservationList.findIndex(x => x.id === reservation.id);
-        this.reservationList.splice(index, 1);
-        localStorage.setItem('shopping-cart', JSON.stringify(this.reservationList));
-        this.reservationListChanged$.next(this.reservationList);
-      },
-      error: () => removeReservationSuccess = false,
-    });
+      .patch(
+        environment.ApiUrl + 'v1/reservation/cancel/' + reservation.id,
+        null
+      )
+      .subscribe({
+        next: () => {
+          const index = this.reservationList.findIndex(
+            (x) => x.id === reservation.id
+          );
+          this.reservationList.splice(index, 1);
+          localStorage.setItem(
+            'shopping-cart',
+            JSON.stringify(this.reservationList)
+          );
+          this.reservationListChanged$.next(this.reservationList);
+        },
+        error: () => (removeReservationSuccess = false),
+      });
   }
 
   checkoutShoppingCart() {
     //stackoverflow.com/a/42185519/10470183
     for (let reservation of this.reservationList) {
       this.http
-        .patch(environment.ApiUrl + 'v1/reservation/paid/' + reservation.id, null)
+        .patch(
+          environment.ApiUrl + 'v1/reservation/paid/' + reservation.id,
+          null
+        )
         .subscribe({
           next: () => null,
-          error: () => this.checkoutFailedChanged(true)
+          error: () => this.checkoutFailedChanged(true),
         });
     }
 
@@ -73,11 +88,11 @@ export class ShoppingCartService {
       reservation.client = client;
 
       this.http
-      .post(environment.ApiUrl + 'v1/reservation', reservation)
-      .subscribe({
-        next: () => this.setReservation(reservation),
-        error: () => this.changeReservationState(true)
-      });
+        .post(environment.ApiUrl + 'v1/reservation', reservation)
+        .subscribe({
+          next: () => this.setReservation(reservation),
+          error: () => this.changeReservationState(true),
+        });
     });
   }
 
@@ -95,5 +110,4 @@ export class ShoppingCartService {
     this.reservationFailed = value;
     this.reservationFailedChanged$.next(this.reservationFailed);
   }
-
 }

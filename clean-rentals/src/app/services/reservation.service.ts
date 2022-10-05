@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Reservation } from '../models/reservation.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReservationService {
   private currentReservationId: string;
@@ -17,7 +17,12 @@ export class ReservationService {
   constructor(private http: HttpClient) {}
 
   getClientReservations$(id: string): Observable<any> {
-    return this.http.get(environment.ApiUrl + 'v1/reservation/private/client/' + id + '/reservations')
+    return this.http.get(
+      environment.ApiUrl +
+        'v1/reservation/private/client/' +
+        id +
+        '/reservations'
+    );
   }
 
   getReservationItem$(id: string): Observable<any> {
@@ -41,5 +46,4 @@ export class ReservationService {
     this.reserveMode = reserveMode;
     this.reserveModeChanged$.next(this.reserveMode);
   }
-
 }

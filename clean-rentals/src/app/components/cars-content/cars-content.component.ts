@@ -26,7 +26,7 @@ export class CarsContentComponent implements OnInit, OnDestroy {
     private currencyService: CurrencyService,
     private router: Router,
     private route: ActivatedRoute,
-    public auth: AuthService,
+    public auth: AuthService
   ) {
     this.currency = this.currencyService.getCurrency();
   }

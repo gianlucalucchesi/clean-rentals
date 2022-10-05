@@ -51,9 +51,9 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
       });
 
     this.checkoutFailedChanged =
-    this.shoppingCartService.checkoutFailedChanged$.subscribe({
-      next: (checkoutFailed) => (this.checkoutFailed = checkoutFailed)
-    })
+      this.shoppingCartService.checkoutFailedChanged$.subscribe({
+        next: (checkoutFailed) => (this.checkoutFailed = checkoutFailed),
+      });
   }
 
   ngOnDestroy(): void {

@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
         .subscribe({
           next: (client) => {
             this.client = client;
-          }
+          },
         });
     });
   }

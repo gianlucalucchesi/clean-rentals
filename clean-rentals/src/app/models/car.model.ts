@@ -1,5 +1,5 @@
-import { Brand } from "./brand.model";
-import { CarOption } from "./car-option.model";
+import { Brand } from './brand.model';
+import { CarOption } from './car-option.model';
 
 export class Car {
   id: string;

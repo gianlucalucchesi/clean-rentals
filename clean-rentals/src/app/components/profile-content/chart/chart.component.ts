@@ -84,8 +84,11 @@ export class ChartComponent implements OnInit, OnChanges {
         }
 
         // Concatenation as workaround for showing value next to label in chart
-        if(brand.length > 11) {
-          brandData.push(brand.substring(0, 8) + '...' + ' (' + count + ')', count)
+        if (brand.length > 11) {
+          brandData.push(
+            brand.substring(0, 8) + '...' + ' (' + count + ')',
+            count
+          );
         } else {
           brandData.push(brand + ' (' + count + ')', count);
         }
