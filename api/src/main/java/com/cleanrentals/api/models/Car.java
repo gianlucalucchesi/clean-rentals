@@ -9,22 +9,19 @@ import java.util.UUID;
 
 @Entity(name = "car")
 @Table(name = "car")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 // This prevents an issue with lazy loading (serialization issue)
 public class Car {
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "car_car_option",
-            joinColumns = {@JoinColumn(name = "car_id")},
-            inverseJoinColumns = {@JoinColumn(name = "car_option_id")}
-    )
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "car_car_option", joinColumns = { @JoinColumn(name = "car_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "car_option_id") })
     Set<CarOption> carOptions = new HashSet<>();
     @Id
     @Column(name = "id", nullable = false)
     private UUID id;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "brand_id", nullable = false)
-//    @JsonIgnore
+    // @JsonIgnore
     private Brand brand;
     @Column(name = "model", nullable = false)
     private String model;

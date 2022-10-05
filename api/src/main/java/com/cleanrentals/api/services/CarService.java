@@ -47,7 +47,6 @@ public class CarService {
         return this.carRepository.findByModel(model);
     }
 
-
     public List<Car> findByModelAndBrand(String model, String brandName) throws NotFoundException {
         Brand brand = this.brandService.findByName(brandName);
         return this.carRepository.findByModelAndBrand(model, brand);
@@ -57,7 +56,8 @@ public class CarService {
         List<Car> carList = findByModelAndBrand(car.getModel(), car.getBrand().getName());
 
         if (carList.size() > 0)
-            throw new ConflictException(String.format("%s %s already exists", car.getBrand().getName(), car.getModel()));
+            throw new ConflictException(
+                    String.format("%s %s already exists", car.getBrand().getName(), car.getModel()));
 
         car.setId(UUID.randomUUID());
         return this.carRepository.saveAndFlush(car);

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity(name = "car_option")
 @Table(name = "car_option")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 // This prevents an issue with lazy loading (serialization issue)
 public class CarOption {
     @Id

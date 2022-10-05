@@ -74,7 +74,8 @@ public class CarController {
 
     @GetMapping("/brand/{brand}/model/{model}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Car> findByModelAndBrand(@PathVariable String brand, @PathVariable String model) throws NotFoundException {
+    public List<Car> findByModelAndBrand(@PathVariable String brand, @PathVariable String model)
+            throws NotFoundException {
         return this.carService.findByModelAndBrand(model, brand);
     }
 

@@ -80,8 +80,7 @@ public class ReservationService {
         List<Reservation> inDbReservations = reservationRepository.findReservationBetweenDates(
                 reservation.getCar(), reservation.getDateTimeStart(), reservation.getDateTimeStop());
 
-        List<Reservation> activeReservations =
-                inDbReservations.stream().filter(res -> !res.getCancelled()).toList();
+        List<Reservation> activeReservations = inDbReservations.stream().filter(res -> !res.getCancelled()).toList();
 
         // > 1 because both are recorded but one will be removed with rollback
         if (inDbReservations.size() > 1 && activeReservations.size() > 1) {
@@ -111,7 +110,8 @@ public class ReservationService {
         return reservation;
     }
 
-    public Reservation finalize(String reservationId, ReservationFinalizationDTO reservationFinalization) throws NotFoundException, ConflictException {
+    public Reservation finalize(String reservationId, ReservationFinalizationDTO reservationFinalization)
+            throws NotFoundException, ConflictException {
 
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
 

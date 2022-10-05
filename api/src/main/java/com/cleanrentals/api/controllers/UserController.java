@@ -48,7 +48,8 @@ public class UserController {
         String accessToken = Auth0Token.ClaimAccessToken();
         String domain = System.getenv("AUTH0_DOMAIN");
 
-        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding error in Postman
+        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding
+        // error in Postman
         // TODO: remove hardcoded part if not an issue in front-end
         HttpResponse<String> response = Unirest.get(domain + "/api/v2/users/auth0|" + user_id)
                 .header("authorization", "Bearer " + accessToken)
@@ -70,7 +71,8 @@ public class UserController {
         String accessToken = Auth0Token.ClaimAccessToken();
         String domain = System.getenv("AUTH0_DOMAIN");
 
-        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding error in Postman
+        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding
+        // error in Postman
         // TODO: remove hardcoded part if not an issue with front-end
         HttpResponse<String> response = Unirest.get(domain + "/api/v2/users/auth0|" + user_id + "/permissions")
                 .header("authorization", "Bearer " + accessToken)
@@ -91,7 +93,8 @@ public class UserController {
         String accessToken = Auth0Token.ClaimAccessToken();
         String domain = System.getenv("AUTH0_DOMAIN");
 
-        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding error in Postman
+        // Had to hardcode "auth0|" from actual auth0 user_id because of pipe encoding
+        // error in Postman
         // TODO: remove hardcoded part if not an issue with front-end
         HttpResponse<String> response = Unirest.get(domain + "/api/v2/users/auth0|" + user_id + "/roles")
                 .header("authorization", "Bearer " + accessToken)
@@ -100,8 +103,12 @@ public class UserController {
         return response.getBody();
     }
 
-    // TODO: Remove role from specific auth0 user https://auth0.com/docs/users/remove-roles-from-users
-    // TODO: Assign role to specific auth0 user https://auth0.com/docs/users/assign-roles-to-users
-    // TODO: Update auth0 user info https://auth0.com/docs/users/metadata/manage-metadata-api
-    // TODO: Delete auth0 user by id https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
+    // TODO: Remove role from specific auth0 user
+    // https://auth0.com/docs/users/remove-roles-from-users
+    // TODO: Assign role to specific auth0 user
+    // https://auth0.com/docs/users/assign-roles-to-users
+    // TODO: Update auth0 user info
+    // https://auth0.com/docs/users/metadata/manage-metadata-api
+    // TODO: Delete auth0 user by id
+    // https://auth0.com/docs/api/management/v2#!/Users/delete_users_by_id
 }

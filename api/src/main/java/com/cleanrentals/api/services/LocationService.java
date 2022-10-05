@@ -30,7 +30,6 @@ public class LocationService {
         return optionalLocation.get();
     }
 
-
     public Location create(Location location) throws ConflictException {
         Optional<Location> optionalLocation = locationRepository.findByName(location.getName());
 

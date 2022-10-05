@@ -30,7 +30,6 @@ public class CountryService {
         return optionalCountry.get();
     }
 
-
     public Country create(Country country) throws ConflictException {
         Optional<Country> optionalExistingCountry = countryRepository.findByName(country.getName());
 
@@ -42,7 +41,6 @@ public class CountryService {
 
         return countryRepository.saveAndFlush(country);
     }
-
 
     public Country update(Country country) throws NotFoundException {
         Optional<Country> optionalExistingCountry = countryRepository.findById(country.getId());

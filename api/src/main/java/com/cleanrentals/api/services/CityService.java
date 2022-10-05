@@ -56,7 +56,8 @@ public class CityService {
         Optional<City> optionalExistingCity = cityRepository.findById(city.getId());
 
         if (optionalExistingCity.isEmpty()) {
-            throw new NotFoundException(String.format("City %s in %s does not exist", city.getName(), city.getCountry().getName()));
+            throw new NotFoundException(
+                    String.format("City %s in %s does not exist", city.getName(), city.getCountry().getName()));
         }
 
         BeanUtils.copyProperties(city, optionalExistingCity.get(), "id");
