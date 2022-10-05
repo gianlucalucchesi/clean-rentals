@@ -34,6 +34,7 @@ public class ReservationService {
             throw new NotFoundException(String.format("Reservation with id %s not found", id));
         }
 
+        System.out.printf("Reservation %s retrieved\n", id);
         return optionalReservation.get();
     }
 
@@ -45,6 +46,7 @@ public class ReservationService {
             throw new NotFoundException(String.format("No reservations found for client with id %s", id));
         }
 
+        System.out.printf("Reservations for client %s retrieved\n", id);
         return optionalReservationList.get();
     }
 
@@ -86,6 +88,7 @@ public class ReservationService {
         }
 
         reservationRepository.flush();
+        System.out.printf("Reservation %s created\n", reservation.getId());
         return reservation;
     }
 
