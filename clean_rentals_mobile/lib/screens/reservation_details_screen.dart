@@ -162,6 +162,15 @@ class _ReservationDetailScreen extends State<ReservationDetailScreen> {
                   Text(
                     '€ ${(reservation.totalPriceEuroExclVat * 1.21).toStringAsFixed(2)}',
                   ),
+                  reservation.paid
+                      ? const Text(
+                          " Payment validated",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        )
+                      : const Text(" Missing payment",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.red))
                 ],
               ),
             ),
