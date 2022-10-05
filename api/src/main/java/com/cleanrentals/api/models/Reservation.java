@@ -10,13 +10,13 @@ import java.util.UUID;
 
 @Entity(name = "reservation")
 @Table(name = "reservation")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 // This prevents an issue with lazy loading (serialization issue)
 public class Reservation {
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "reservation_reservation_option", joinColumns = {
-            @JoinColumn(name = "reservation_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "reservation_option_id") })
+            @JoinColumn(name = "reservation_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "reservation_option_id")})
     Set<ReservationOption> reservationOptions = new HashSet<>();
     @Id
     @Column(name = "id", nullable = false)

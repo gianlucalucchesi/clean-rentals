@@ -57,7 +57,7 @@ public class ReservationController {
     @PatchMapping("finalize/{reservationId}")
     @ResponseStatus(HttpStatus.OK)
     public Reservation finalize(@PathVariable String reservationId,
-            @RequestBody ReservationFinalizationDTO reservationFinalization)
+                                @RequestBody ReservationFinalizationDTO reservationFinalization)
             throws NotFoundException, ConflictException {
         return this.reservationService.finalize(reservationId, reservationFinalization);
     }
