@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @Service
 public class ReservationService {
+
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
@@ -110,7 +111,6 @@ public class ReservationService {
         return reservation;
     }
 
-
     public Reservation finalize(String reservationId, ReservationFinalizationDTO reservationFinalization) throws NotFoundException, ConflictException {
 
         Optional<Reservation> optionalReservation = this.reservationRepository.findById(UUID.fromString(reservationId));
@@ -161,4 +161,5 @@ public class ReservationService {
 
         System.out.printf("Reservation %s cancelled\n", reservationId);
     }
+
 }
