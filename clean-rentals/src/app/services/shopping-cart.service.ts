@@ -39,14 +39,14 @@ export class ShoppingCartService {
     this.http
     .patch(environment.ApiUrl + 'v1/reservation/cancel/' + reservation.id, null)
     .subscribe({
-      next: () => {},
+      next: () => {
+        const index = this.reservationList.findIndex(x => x.id === reservation.id);
+        this.reservationList.splice(index, 1);
+        localStorage.setItem('shopping-cart', JSON.stringify(this.reservationList));
+        this.reservationListChanged$.next(this.reservationList);
+      },
       error: () => removeReservationSuccess = false,
     });
-
-    const index = this.reservationList.findIndex(x => x.id === reservation.id);
-    this.reservationList.splice(index, 1);
-    localStorage.setItem('shopping-cart', JSON.stringify(this.reservationList));
-    this.reservationListChanged$.next(this.reservationList);
   }
 
   checkoutShoppingCart() {
@@ -56,7 +56,7 @@ export class ShoppingCartService {
         .patch(environment.ApiUrl + 'v1/reservation/paid/' + reservation.id, null)
         .subscribe({
           next: () => null,
-          error: (err) => this.checkoutFailedChanged(true)
+          error: () => this.checkoutFailedChanged(true)
         });
     }
 
