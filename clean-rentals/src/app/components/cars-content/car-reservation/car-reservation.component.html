@@ -1,4 +1,4 @@
-<div *ngIf="car" id="reservation">
+<div *ngIf="currentCar" id="reservation">
   <h2>Reservation</h2>
 
   <div class="row">
@@ -90,6 +90,10 @@
         </span>
       </ng-template>
     </div>
+  </div>
+
+  <div *ngIf="reservationFailed" class="alert alert-danger" role="alert">
+    Reservation failed. Someone else booked that car in the meantime. Sorry !
   </div>
 
   <div>

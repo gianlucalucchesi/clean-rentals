@@ -15,7 +15,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
   currencyChanged: Subscription;
   @Output() currency: string;
   checkoutSuccess = false;
-  checkoutStatusChanged: Subscription;
+  checkoutSuccessChanged: Subscription;
   checkoutFailed = false;
   checkoutFailedChanged: Subscription;
 
@@ -45,7 +45,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
       next: (currency) => (this.currency = currency),
     });
 
-    this.checkoutStatusChanged =
+    this.checkoutSuccessChanged =
       this.shoppingCartService.checkoutStatusChanged$.subscribe({
         next: (checkoutSuccess) => (this.checkoutSuccess = checkoutSuccess),
       });
@@ -59,7 +59,7 @@ export class ShoppingCartContentComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.reservationsChanged.unsubscribe();
     this.currencyChanged.unsubscribe();
-    this.checkoutStatusChanged.unsubscribe();
+    this.checkoutSuccessChanged.unsubscribe();
     this.checkoutFailedChanged.unsubscribe();
   }
 }

@@ -49,8 +49,8 @@ export class ReservationContentComponent implements OnInit {
         // Most recent on top
         this.reservations = this.reservations
           .slice()
-          .sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart);
-        this.reservations = this.reservations.filter((res) => !res.cancelled) && res.paid;
+          .sort((a: any, b: any) => b.dateTimeStart - a.dateTimeStart)
+          .filter((res) => res.paid && !res.cancelled);
       },
       error: (err) => {
         this.error = err.error.error;

@@ -64,6 +64,7 @@ export class ChartComponent implements OnInit, OnChanges {
   handleReservations(reservations: Observable<Reservation>) {
     let json = JSON.stringify(reservations);
     this.reservations = JSON.parse(json);
+    this.reservations = this.reservations.filter((res) => res.paid && !res.cancelled);
     let brands: string[] = [];
 
     if (this.reservations) {

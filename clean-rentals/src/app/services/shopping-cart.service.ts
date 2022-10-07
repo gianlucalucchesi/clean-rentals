@@ -1,7 +1,5 @@
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -28,6 +26,8 @@ export class ShoppingCartService {
   checkoutFailedChanged$ = new Subject<boolean>();
   reservationFailed = false;
   reservationFailedChanged$ = new Subject<boolean>();
+  reservationSuccess = false;
+  reservationSuccessChanged$ = new Subject<boolean>();
 
   constructor(private http: HttpClient, private clientService: ClientService) {}
 
@@ -82,7 +82,7 @@ export class ShoppingCartService {
     this.checkoutStatusChanged$.next(this.checkoutSuccess);
   }
 
-  validateReservation(reservation: Reservation) {
+  validateReservation (reservation: Reservation) {
     this.clientService.getClient().then((client: Client) => {
       reservation.id = uuid.v4();
       reservation.client = client;
@@ -90,8 +90,13 @@ export class ShoppingCartService {
       this.http
         .post(environment.ApiUrl + 'v1/reservation', reservation)
         .subscribe({
-          next: () => this.setReservation(reservation),
-          error: () => this.changeReservationState(true),
+          next: () => {
+            this.setReservation(reservation);
+            this.changeReservationSuccess(true);
+          },
+          error: () => {
+            this.changeReservationFailed(true);
+          },
         });
     });
   }
@@ -102,12 +107,21 @@ export class ShoppingCartService {
   }
 
   checkoutFailedChanged(value: boolean) {
-    this.checkoutFailed = true; // FIXME: shouldn't param be 'value'?
+    this.checkoutFailed = value;
     this.checkoutFailedChanged$.next(this.checkoutFailed);
   }
 
-  changeReservationState(value: boolean) {
+  changeReservationFailed(value: boolean) {
     this.reservationFailed = value;
+    this.reservationSuccess = !value;
+    this.reservationFailedChanged$.next(this.reservationFailed);
+    this.reservationSuccessChanged$.next(this.reservationSuccess);
+  }
+
+  changeReservationSuccess(value: boolean) {
+    this.reservationSuccess = value;
+    this.reservationFailed = !value;
+    this.reservationSuccessChanged$.next(this.reservationSuccess);
     this.reservationFailedChanged$.next(this.reservationFailed);
   }
 }

@@ -19,12 +19,16 @@ import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
   styleUrls: ['./car-reservation.component.css'],
 })
 export class CarReservationComponent implements OnInit, OnDestroy {
-  car: Car;
+  currentCar: Car;
   currentCarSubscription: Subscription;
   reservation: Reservation;
   reservationOptions: ReservationOption[];
   currency: string;
   currencySubscription: Subscription;
+  reservationFailedSubscription: Subscription;
+  reservationFailed: Boolean = false;
+  reservationSuccessSubscription: Subscription;
+  reservationSuccess: Boolean = false;
   reservationForm: FormGroup;
   locations: Location[] = [];
 
@@ -54,7 +58,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       location: new FormControl(null),
     });
 
-    this.car = this.carService.getCurrentSelectedCar();
+    this.currentCar = this.carService.getCurrentSelectedCar();
     this.fromDate = calendar.getToday();
     this.currency = currencyService.getCurrency();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 7);
@@ -63,15 +67,36 @@ export class CarReservationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentCarSubscription = this.carService.currentSelectedCar$.subscribe(
       {
-        next: (currentCar) => (this.car = currentCar),
+        next: (currentCar) => (this.currentCar = currentCar),
       }
     );
 
     this.currencySubscription = this.currencyService.currencyChanged$.subscribe(
       {
-        next: (currency) => (this.currency = currency),
+        next: (currency) => {
+          this.currency = currency;
+          console.log('currency changed')
+        },
       }
     );
+
+    this.reservationFailedSubscription =
+    this.shoppingCartService.reservationFailedChanged$.subscribe({
+      next: (reservationFailed) => {
+        this.reservationFailed = reservationFailed;
+        this.navigate();
+        console.log('reservationFailed changed')
+      },
+    });
+
+    this.reservationSuccessSubscription =
+    this.shoppingCartService.reservationFailedChanged$.subscribe({
+      next: (reservationSuccess) => {
+        this.reservationSuccess = reservationSuccess;
+        this.navigate();
+        console.log('reservationSuccess changed')
+      },
+    });
 
     this.reserveService
       .getReservationOptions$()
@@ -93,6 +118,8 @@ export class CarReservationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.currentCarSubscription.unsubscribe();
     this.currencySubscription.unsubscribe();
+    this.reservationFailedSubscription.unsubscribe();
+    this.reservationSuccessSubscription.unsubscribe();
   }
 
   onCheckboxChange(event: any, option: ReservationOption) {
@@ -175,7 +202,7 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       }
 
       let totalOptionsPrice = optionsPrice * days;
-      let carPrice = this.car.start_day_price_euro_excl_vat * days;
+      let carPrice = this.currentCar.start_day_price_euro_excl_vat * days;
 
       this.reservation.total_price_euro_excl_vat = carPrice + totalOptionsPrice;
     }
@@ -192,11 +219,13 @@ export class CarReservationComponent implements OnInit, OnDestroy {
       this.reservation.location = this.locations[0];
     }
 
-    this.reservation.car = this.car;
+    this.reservation.car = this.currentCar;
     this.shoppingCartService.validateReservation(this.reservation);
+  }
 
-    // TODO: only navigate back if reservation is successful (subscribe)
+  navigate() {
     this.router.navigate(['/cars-overview']);
+    // this.shoppingCartService.changeReservationSuccess(false);
   }
 
   getUsdPrice(euroPrice: number): number {
