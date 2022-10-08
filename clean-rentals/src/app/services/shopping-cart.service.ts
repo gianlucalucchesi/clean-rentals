@@ -1,6 +1,4 @@
-import {
-  HttpClient,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Reservation } from '../models/reservation.model';
@@ -8,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { ClientService } from './client.service';
 import { Client } from '../models/client.model';
 import * as uuid from 'uuid';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -29,12 +28,17 @@ export class ShoppingCartService {
   reservationSuccess = false;
   reservationSuccessChanged$ = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private clientService: ClientService) {}
+  constructor(
+    private http: HttpClient,
+    private clientService: ClientService,
+    private router: Router
+  ) {}
 
   setReservation(reservation: Reservation) {
     this.reservationList.push(reservation);
     localStorage.setItem('shopping-cart', JSON.stringify(this.reservationList));
     this.reservationListChanged$.next(this.reservationList);
+    this.router.navigate(['/cars-overview']);
   }
 
   removeReservation(reservation: Reservation) {
@@ -82,7 +86,7 @@ export class ShoppingCartService {
     this.checkoutStatusChanged$.next(this.checkoutSuccess);
   }
 
-  validateReservation (reservation: Reservation) {
+  validateReservation(reservation: Reservation) {
     this.clientService.getClient().then((client: Client) => {
       reservation.id = uuid.v4();
       reservation.client = client;

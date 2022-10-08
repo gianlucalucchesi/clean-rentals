@@ -84,7 +84,6 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     this.shoppingCartService.reservationFailedChanged$.subscribe({
       next: (reservationFailed) => {
         this.reservationFailed = reservationFailed;
-        this.navigate();
         console.log('reservationFailed changed')
       },
     });
@@ -93,7 +92,6 @@ export class CarReservationComponent implements OnInit, OnDestroy {
     this.shoppingCartService.reservationFailedChanged$.subscribe({
       next: (reservationSuccess) => {
         this.reservationSuccess = reservationSuccess;
-        this.navigate();
         console.log('reservationSuccess changed')
       },
     });
@@ -221,11 +219,6 @@ export class CarReservationComponent implements OnInit, OnDestroy {
 
     this.reservation.car = this.currentCar;
     this.shoppingCartService.validateReservation(this.reservation);
-  }
-
-  navigate() {
-    this.router.navigate(['/cars-overview']);
-    // this.shoppingCartService.changeReservationSuccess(false);
   }
 
   getUsdPrice(euroPrice: number): number {
