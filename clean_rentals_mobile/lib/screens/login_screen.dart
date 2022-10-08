@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        return json.decode(utf8.decode(response.bodyBytes));
       } else {
         throw Exception('Failed to get user details');
       }

@@ -11,7 +11,7 @@ class BrandService {
     final response = await http.get(Uri.parse(geBrandsUrl));
 
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       List<Brand> brands =
           List<Brand>.from(jsonResponse.map((model) => Brand.fromJson(model)));
       return brands;

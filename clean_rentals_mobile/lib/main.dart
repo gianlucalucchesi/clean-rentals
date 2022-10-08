@@ -59,6 +59,10 @@ class CleanRentals extends StatelessWidget {
         ReservationReviewScreen.routeName: (context) =>
             ReservationReviewScreen(),
       },
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('fr', ''),
+      ],
     );
   }
 }

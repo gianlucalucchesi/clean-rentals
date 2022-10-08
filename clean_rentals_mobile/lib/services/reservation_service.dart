@@ -12,10 +12,14 @@ class ReservationService {
   static Future<List<Reservation>> getReservations() async {
     String endpoint = '/api/v1/reservation';
 
-    final response = await http.get(Uri.parse('$basePath$endpoint'));
+    final response = await http.get(
+      Uri.parse('$basePath$endpoint'),
+      headers: {'Content-Type': 'application/json'},
+    );
 
     if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
+      // https://stackoverflow.com/a/51370010/10470183
+      final jsonResponse = json.decode(utf8.decode(response.bodyBytes));
       List<Reservation> reservations = List<Reservation>.from(
           jsonResponse.map((model) => Reservation.fromJson(model)));
       return reservations;
