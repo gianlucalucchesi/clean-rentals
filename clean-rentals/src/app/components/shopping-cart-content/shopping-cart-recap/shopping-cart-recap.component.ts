@@ -122,6 +122,7 @@ export class ShoppingCartRecapComponent
   }
 
   getTotals() {
+    this.totalExclTax = 0; // reset totals before total is calculated again
     for (let reservation of this.reservations) {
       this.totalExclTax += reservation.total_price_euro_excl_vat;
     }

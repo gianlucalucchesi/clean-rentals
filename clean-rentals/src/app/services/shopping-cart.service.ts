@@ -61,7 +61,11 @@ export class ShoppingCartService {
           );
           this.reservationListChanged$.next(this.reservationList);
         },
-        error: () => (removeReservationSuccess = false),
+        error: () => {
+          this.reservationListChanged$.next(this.reservationList);
+          removeReservationSuccess = false;
+        }
+          ,
       });
   }
 
